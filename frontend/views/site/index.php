@@ -5,7 +5,7 @@
 $this->title = 'Si Klinik';
 ?>
 <div class="site-index">
-    <div class="body" style="padding-top:80px;">
+    <div class="body" style="padding-top:60px;">
         <div class="jumbotron">
             <h1>Congratulations!</h1>
 
