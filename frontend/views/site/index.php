@@ -5,7 +5,15 @@
 $this->title = 'Si Klinik';
 ?>
 <div class="site-index">
-    <div class="body" style="padding-top:100px;">
+    <div class="body" style="padding-top:80px;">
+    <div class="col-md-12 text-right">
+        <div class="row">
+            <a href="">LOGIN</a>
+            <a href="">DAFTAR</a>
+        </div>
+    </div>
+    <br>
+    <br>
     <div class="jumbotron" style="background-color:#FFFFFF;box-shadow: 10px 10px 133px -21px rgba(158,153,158,0.45);">
         <div class="row" style="padding-left:80px;">
             <h1 class="display-4" style="color:#35ad9f;"><b>SiKlinik !</b></h1>
