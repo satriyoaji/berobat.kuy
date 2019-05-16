@@ -67,6 +67,9 @@ class UsersController extends Controller
         $model = new Users();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $pass = $model->password;
+            $model->password= sha1($pass);
+             $model->save();
             return $this->redirect(['view', 'id' => $model->userId]);
         }
 
