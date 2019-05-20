@@ -74,13 +74,12 @@ MyAsset::register($this);
         <?= Html::a('Sign in', ['site/login'], ['class' => 'btn btn-success']) ?>
         
       <?php } else { ?>
-        <?= Html::a('Profile', ['users/create'], ['class' => 'btn btn-success']) ?>
-        <?php Html::beginForm(['/site/logout'], 'post')
+        <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
                 ['class' => 'btn btn-link logout']
             )
-            . Html::endForm();
         ?>
       <?php } ?>
     </p>
