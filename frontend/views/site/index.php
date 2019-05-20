@@ -1,6 +1,7 @@
 <?php
-
 /* @var $this yii\web\View */
+use yii\helpers\Html; 
+use yii\helpers\Url;
 
 $this->title = 'Si Klinik';
 ?>
@@ -8,8 +9,8 @@ $this->title = 'Si Klinik';
     <div class="body" style="padding-top:80px;">
     <div class="col-md-12 text-right">
         <div class="row">
-            <a href="">LOGIN</a>
-            <a href="">DAFTAR</a>
+            <a href="">LOGIN</a>//
+            <a href="">DAFTAR</a>//
         </div>
     </div>
     <br>
@@ -69,7 +70,7 @@ $this->title = 'Si Klinik';
                                 <div class="gambar" style="padding-top:20px;" align="center">
                                     <img src="../../assets/pills.png" alt="" width="100" height="100">
                                 </div>
-                                <h5 class="card-title text-center">Beli Obat</h5>
+                                <h3><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title text-center'])?></h3>
                             </div>
                         </div>
                         </a>

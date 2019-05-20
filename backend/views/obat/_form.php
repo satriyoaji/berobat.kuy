@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'obatGolongan')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'obatFoto')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'obatFoto')->fileInput() ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -8,7 +8,7 @@ use backend\models\ObatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\web\UploadedFile; 
 /**
  * ObatController implements the CRUD actions for Obat model.
  */
@@ -34,7 +34,8 @@ class ObatController extends Controller
      * @return mixed
      */
     public function actionIndex()
-    {
+    {   
+
         $searchModel = new ObatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -67,6 +68,12 @@ class ObatController extends Controller
         $model = new Obat();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            //upload file
+            $model->obatFoto = UploadedFile::getInstance($model, 'obatFoto');
+            $model->obatFoto->saveAs('gambar/' .$model->obatFoto->baseName. '.' .$model->obatFoto->extension);
+            //save to database
+            $model->obatFoto = $model->obatFoto->baseName. '.' .$model->obatFoto->extension;
+            $model->save();
             return $this->redirect(['view', 'id' => $model->obatID]);
         }
 
@@ -87,6 +94,12 @@ class ObatController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+             //upload file
+             $model->obatFoto = UploadedFile::getInstance($model, 'obatFoto');
+             $model->obatFoto->saveAs('gambar/' .$model->obatFoto->baseName. '.' .$model->obatFoto->extension);
+             //save to database
+             $model->obatFoto = $model->obatFoto->baseName. '.' .$model->obatFoto->extension;
+             $model->save();
             return $this->redirect(['view', 'id' => $model->obatID]);
         }
 
