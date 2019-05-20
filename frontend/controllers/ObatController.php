@@ -44,12 +44,24 @@ class ObatController extends Controller
     {
         $searchModel = new ObatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        $provider = new ActiveDataProvider([
-            'query'=>Obat::find(),
-            'Pagination'=>[
-             'pageSize'=>6,
-            ],
-         ]);
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $provider = new ActiveDataProvider([
+                'query'=>Obat::find()
+                 ->where(['obatGolongan'=>$id]),
+                'Pagination'=>[
+                'pageSize'=>6,
+                ],
+            ]);
+        }
+        else{
+            $provider = new ActiveDataProvider([
+                'query'=>Obat::find(),
+                'Pagination'=>[
+                'pageSize'=>6,
+                ],
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
