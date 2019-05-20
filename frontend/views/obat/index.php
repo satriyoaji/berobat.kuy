@@ -24,9 +24,8 @@ use yii\widgets\ActiveForm;
   <div class="col-lg-3">
     <br>
     <div class="list-group">
-      <?= Html::a("Obat Ringan",['obat/index'],['class' =>'list-group-item']) ?>
-      <a href="#" class="list-group-item">Obat Mata</a>
-      <a href="#" class="list-group-item">Obat Ringan</a>
+      <?= Html::a("Obat Ringan",['obat/index','id'=>'Obat Ringan'],['class' =>'list-group-item']) ?>
+      <?= Html::a("Obat Keras",['obat/index','id'=>'Obat Keras'],['class' =>'list-group-item']) ?>
     </div>
 
   </div>
