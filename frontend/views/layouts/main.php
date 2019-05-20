@@ -45,7 +45,39 @@ MyAsset::register($this);
     <span class="navbar-toggler-icon"></span>
   </button>
   <a class="navbar-brand" href="#"><img src="../../assets/logo.png" alt="" class="img-responsive" width="200" height="55"></a>
-
+  
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#"> <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#"></a>
+      </li>
+      <li class="nav-item dropdown">
+       
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#"></a>
+          <a class="dropdown-item" href="#"></a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#"></a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#"></a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+    <p>
+      <?php if(isset($_SESSION['id'])){ ?>
+        <?= Html::a('Profile', ['users/create'], ['class' => 'btn btn-success']) ?>
+      <?php } else { ?>
+        <?= Html::a('Create Users', ['users/create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Sign in', ['site/login'], ['class' => 'btn btn-success']) ?>
+      <?php } ?>
+    </p>
+    </form>
+  </div>
 </nav>
 
 

@@ -9,13 +9,6 @@ $this->title = 'Si Klinik';
     <div class="body" style="padding-top:40px;">
     <div class="col-md-12 text-right">
         <div class="row">
-
-            <?php if(isset($_SESSION['id'])){ ?>
-                <a href="http://localhost/siklinik/frontend/web/index.php?r=site%2Flogin">PROFILE</a>   
-            <?php } else { ?>  
-                <a href="http://localhost/siklinik/frontend/web/index.php?r=site%2Flogin">LOGIN</a>
-                <a href="http://localhost/siklinik/frontend/web/index.php?r=users%2Fcreate">DAFTAR</a>
-            <?php } ?>
         </div>
     </div>
     <br>
