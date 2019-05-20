@@ -1,15 +1,21 @@
 <?php
-
 /* @var $this yii\web\View */
+use yii\helpers\Html; 
+use yii\helpers\Url;
 
 $this->title = 'Si Klinik';
 ?>
 <div class="site-index">
-    <div class="body" style="padding-top:80px;">
+    <div class="body" style="padding-top:40px;">
     <div class="col-md-12 text-right">
         <div class="row">
+<<<<<<< HEAD
             <a href="http://localhost/siklinik/frontend/web/index.php?r=site%2Flogin">LOGIN</a>
             <a href="http://localhost/siklinik/frontend/web/index.php?r=users%2Fcreate">DAFTAR</a>
+=======
+            <a href="">LOGIN</a>//
+            <a href="">DAFTAR</a>//
+>>>>>>> 3adcfcc7acc58c8ef9c6cb7c206b314c6a44cbca
         </div>
     </div>
     <br>
@@ -69,7 +75,7 @@ $this->title = 'Si Klinik';
                                 <div class="gambar" style="padding-top:20px;" align="center">
                                     <img src="../../assets/pills.png" alt="" width="100" height="100">
                                 </div>
-                                <h5 class="card-title text-center">Beli Obat</h5>
+                                <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
                             </div>
                         </div>
                         </a>

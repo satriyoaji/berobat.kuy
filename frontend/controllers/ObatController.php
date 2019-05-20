@@ -8,6 +8,13 @@ use frontend\models\ObatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Configurable; 
+use yii\web\Linkable;
+use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\Helpers\ArrayHelper;
+use yii\data\SqlDataProvider;
 
 /**
  * ObatController implements the CRUD actions for Obat model.
@@ -37,10 +44,16 @@ class ObatController extends Controller
     {
         $searchModel = new ObatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $provider = new ActiveDataProvider([
+            'query'=>Obat::find(),
+            'Pagination'=>[
+             'pageSize'=>6,
+            ],
+         ]);
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'provider' => $provider,
         ]);
     }
 
@@ -65,7 +78,7 @@ class ObatController extends Controller
     public function actionCreate()
     {
         $model = new Obat();
-
+       
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->obatID]);
         }

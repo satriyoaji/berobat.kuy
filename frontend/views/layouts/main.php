@@ -26,7 +26,7 @@ MyAsset::register($this);
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
 </head>
-<body>
+<body style="background: #ffffff;">
 <?php $this->beginBody() ?>
 
 <div class="wrap">
