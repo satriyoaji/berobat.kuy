@@ -69,11 +69,18 @@ MyAsset::register($this);
     </ul>
     <form class="form-inline my-2 my-lg-0">
     <p>
-      <?php if(isset($_SESSION['id'])){ ?>
-        <?= Html::a('Profile', ['users/create'], ['class' => 'btn btn-success']) ?>
-      <?php } else { ?>
+      <?php if (Yii::$app->user->isGuest){ ?>
         <?= Html::a('Create Users', ['users/create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Sign in', ['site/login'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('Sign in', ['/site/login'], ['class' => 'btn btn-success']) ?>
+      <?php } else { ?>
+        <?= Html::a('Profile', ['users/view','id' => Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::beginForm(['/site/Logout'], 'post')
+            . Html::submitButton(
+                'Logout (' . Yii::$app->user->identity->username . ')',
+                ['class' => 'btn btn-link logout']
+            )
+            . Html::endForm()
+        ?>
       <?php } ?>
     </p>
     </form>
