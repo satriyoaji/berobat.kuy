@@ -9,7 +9,11 @@ $this->title = 'Si Klinik';
     <div class="body" style="padding-top:40px;">
     <div class="col-md-12 text-right">
         <div class="row">
+<<<<<<< HEAD
             <a href="http://localhost/siklinik/frontend/web/index.php?r=site%2Flogin">LOGIN</a>
+=======
+            <a href="">LOGIN</a>
+>>>>>>> e74fcebdc5e85f709002f25d9c2634d8e82dcd36
             <a href="http://localhost/siklinik/frontend/web/index.php?r=users%2Fcreate">DAFTAR</a>
         </div>
     </div>
