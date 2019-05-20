@@ -29,11 +29,11 @@ $this->params['breadcrumbs'][] = $this->title;
             'userId',
             'username',
             'userNama',
-            'password',
             'userEmail:email',
+            'userPekerjaan0.pekerjaanNama'
             //'userTelephone',
             //'userAlamat',
-            //'userPekerjaan',
+            ,
             //'userFoto',
             //'userTanggalLahir',
             //'userJenisKelamin',
