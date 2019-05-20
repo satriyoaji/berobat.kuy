@@ -2,10 +2,15 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use frontend\models\Pekerjaan;
 
 /* @var $this yii\web\View */
-/* @var $model backend\models\Users */
+/* @var $model frontend\models\Users */
 /* @var $form yii\widgets\ActiveForm */
+$categories=Pekerjaan::find()->all();
+
+$listData=ArrayHelper::map($categories,'pekerjaanID','pekerjaanNama');
 ?>
 
 <div class="users-form">
@@ -24,9 +29,11 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'userAlamat')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'userPekerjaan')->textInput() ?>
+    <?= $form->field($model, 'userPekerjaan')->dropDownList(
+		 $listData,
+        ['pekerjaanID'=>'pekerjaanNama']) ?>
 
-    <?= $form->field($model, 'userFoto')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'userFoto')->fileInput() ?>
 
     <?= $form->field($model, 'userTanggalLahir')->textInput(['maxlength' => true]) ?>
 

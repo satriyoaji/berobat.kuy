@@ -8,8 +8,8 @@ $this->title = 'Si Klinik';
     <div class="body" style="padding-top:80px;">
     <div class="col-md-12 text-right">
         <div class="row">
-            <a href="">LOGIN</a>
-            <a href="">DAFTAR</a>
+            <a href="http://localhost/siklinik/frontend/web/index.php?r=site%2Flogin">LOGIN</a>
+            <a href="http://localhost/siklinik/frontend/web/index.php?r=users%2Fcreate">DAFTAR</a>
         </div>
     </div>
     <br>

@@ -46,18 +46,18 @@ class LoginForm extends Model
             
             $user = $this->getUser();
             $query = (new Query())
+                    ->select('*')
                     ->from('users')
                     ->where('username = :username', [':username' => $this->username]);
             foreach ($query->each() as $rows) {
-                $id=$rows['id'];
-            }
-            //$user = $this->getUser();
-                if (!$user || !$user->validatePassword($this->password, $astaga) ) {
-                        $this->addError($attribute, 'Username and Password did not match');
-                }
-                else{
+                if($this->password === sha1($rows['password']) ){
+                    $id=$rows['userId'];
                     $_SESSION['id']=$id;
                 }
+                
+            }
+            //$user = $this->getUser();
+                
         }
     }
 

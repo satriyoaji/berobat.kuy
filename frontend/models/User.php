@@ -29,8 +29,8 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['username', 'userPassword'], 'required'],
-            [['username', 'userPassword'], 'string', 'max' => 100]            
+            [['username', 'password'], 'required'],
+            [['username', 'password'], 'string', 'max' => 100]            
         ];
     }
 
@@ -39,7 +39,7 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'id' => 'id',
             'username' => 'Username',
-            'userPassword' => 'Password',
+            'password' => 'Password',
         ];
     } 
     /**
@@ -75,8 +75,8 @@ class User extends ActiveRecord implements IdentityInterface
     {
         //throw new \yii\base\NotSupportedException();
     }
-    public function validatePassword($userPassword, $roles_id)
+    public function validatePassword($password)
     {
-        return $this->userPassword === sha1($userPassword);
+        return $this->password === sha1($password);
     }
 }
