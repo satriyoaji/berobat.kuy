@@ -70,7 +70,7 @@ $this->title = 'Si Klinik';
                                 <div class="gambar" style="padding-top:20px;" align="center">
                                     <img src="../../assets/pills.png" alt="" width="100" height="100">
                                 </div>
-                                <h3><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title text-center'])?></h3>
+                                <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
                             </div>
                         </div>
                         </a>
@@ -96,6 +96,6 @@ $this->title = 'Si Klinik';
                 <!-- <img src="../../assets/check.png" alt=""> -->
             </div>
         </div>
-
+        
     </div>
 </div>

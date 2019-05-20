@@ -18,7 +18,7 @@ class UsersSearch extends Users
     {
         return [
             [['userId', 'userPekerjaan'], 'integer'],
-            [['username', 'userNama', 'userPassword', 'userEmail', 'userTelephone', 'userAlamat', 'userFoto', 'userTanggalLahir', 'userJenisKelamin'], 'safe'],
+            [['username', 'userNama', 'password', 'userEmail', 'userTelephone', 'userAlamat', 'userFoto', 'userTanggalLahir', 'userJenisKelamin'], 'safe'],
         ];
     }
 
@@ -64,7 +64,7 @@ class UsersSearch extends Users
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'userNama', $this->userNama])
-            ->andFilterWhere(['like', 'userPassword', $this->userPassword])
+            ->andFilterWhere(['like', 'password', $this->password])
             ->andFilterWhere(['like', 'userEmail', $this->userEmail])
             ->andFilterWhere(['like', 'userTelephone', $this->userTelephone])
             ->andFilterWhere(['like', 'userAlamat', $this->userAlamat])

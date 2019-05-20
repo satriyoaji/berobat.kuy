@@ -10,7 +10,7 @@ use Yii;
  * @property int $userId
  * @property string $username
  * @property string $userNama
- * @property string $userPassword
+ * @property string $password
  * @property string $userEmail
  * @property string $userTelephone
  * @property string $userAlamat
@@ -43,7 +43,8 @@ class Users extends \yii\db\ActiveRecord
     {
         return [
             [['userPekerjaan'], 'integer'],
-            [['username', 'userNama', 'userPassword', 'userEmail', 'userTelephone', 'userAlamat'], 'string', 'max' => 30],
+            [['username', 'userNama', 'userEmail', 'userTelephone', 'userAlamat'], 'string', 'max' => 30],
+            [['password'], 'string', 'max' => 100],
             [['userFoto'], 'string', 'max' => 50],
             [['userTanggalLahir'], 'string', 'max' => 20],
             [['userJenisKelamin'], 'string', 'max' => 15],
@@ -60,7 +61,7 @@ class Users extends \yii\db\ActiveRecord
             'userId' => 'User ID',
             'username' => 'Username',
             'userNama' => 'User Nama',
-            'userPassword' => 'User Password',
+            'password' => 'Password',
             'userEmail' => 'User Email',
             'userTelephone' => 'User Telephone',
             'userAlamat' => 'User Alamat',

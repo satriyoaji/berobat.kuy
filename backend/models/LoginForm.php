@@ -1,8 +1,9 @@
 <?php
-namespace common\models;
+namespace backend\models;
 
 use Yii;
 use yii\base\Model;
+use yii\db\Query;
 
 /**
  * Login form
@@ -31,15 +32,6 @@ class LoginForm extends Model
         ];
     }
 
-    public function attributeLabels()
-    {
-        return [
-            'id' => 'id',
-            'username' => 'Username',
-            'password' => 'Password',
-        ];
-    }
-
     /**
      * Validates the password.
      * This method serves as the inline validation for password.
@@ -49,11 +41,23 @@ class LoginForm extends Model
      */
     public function validatePassword($attribute, $params)
     {
+        $astaga=0;
         if (!$this->hasErrors()) {
+            
             $user = $this->getUser();
-            if (!$user || !$user->validatePassword($this->password)) {
-                $this->addError($attribute, 'Incorrect username or password.');
+            $query = (new Query())
+                    ->select('*')
+                    ->from('users')
+                    ->where('username = :username', [':username' => $this->username]);
+            foreach ($query->each() as $rows) {
+                if($this->password === sha1($rows['password']) ){
+                    $id=$rows['userId'];
+                    $_SESSION['id']=$id;
+                }
+                
             }
+            //$user = $this->getUser();
+                
         }
     }
 

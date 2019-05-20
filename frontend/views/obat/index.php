@@ -13,8 +13,7 @@ use yii\widgets\ActiveForm;
 /* @var $searchModel frontend\models\ObatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = '';
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="obat-index">
 <div id="carousel-example-multi" class="carousel slide carousel-multi-item v-2" data-ride="carousel">
@@ -23,8 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="row">
 
   <div class="col-lg-3">
-
-    <h1 class="my-4">Siklinik</h1>
+    <br>
     <div class="list-group">
       <a href="#" class="list-group-item">Suplemen</a>
       <a href="#" class="list-group-item">Obat Mata</a>
@@ -44,13 +42,13 @@ $this->params['breadcrumbs'][] = $this->title;
       </ol>
       <div class="carousel-inner" role="listbox">
         <div class="carousel-item active">
-          <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="First slide">
+          <img class="d-block img-fluid" src="../../assets/promo1.jpg" alt="First slide">
         </div>
         <div class="carousel-item">
-          <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Second slide">
+          <img class="d-block img-fluid" src="../../assets/promo2.jpg" alt="Second slide">
         </div>
         <div class="carousel-item">
-          <img class="d-block img-fluid" src="http://placehold.it/900x350" alt="Third slide">
+          <img class="d-block img-fluid" src="../../assets/promo3.jpg" alt="Third slide">
         </div>
       </div>
       <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -73,12 +71,9 @@ $this->params['breadcrumbs'][] = $this->title;
           <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
           <div class="card-body">
             <h4 class="card-title">
-              <h5><?php echo $rows['obatNama'];?></h5>
+              <h5><b><?php echo $rows['obatNama'];?></b></h5>
               <h5> RP. <?php echo $rows['obatHarga'];?></h5>
               <center><?= Html::a('Beli', ['obat/create'], ['class' => 'btn btn-success']) ?><center>
-          </div>
-          <div class="card-footer">
-            <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
           </div>
         </div>
       </div>
