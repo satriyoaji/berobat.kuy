@@ -6,7 +6,7 @@ use yii\helpers\Url;
 $this->title = 'Si Klinik';
 ?>
 <div class="site-index">
-    <div class="body" style="padding-top:80px;">
+    <div class="body" style="padding-top:40px;">
     <div class="col-md-12 text-right">
         <div class="row">
             <a href="">LOGIN</a>//
