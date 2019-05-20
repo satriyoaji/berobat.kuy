@@ -51,8 +51,7 @@ class LoginForm extends Model
                     ->where('username = :username', [':username' => $this->username]);
             foreach ($query->each() as $rows) {
                 if($this->password === sha1($rows['password']) ){
-                    $id=$rows['userId'];
-                    $_SESSION['id']=$id;
+                    $_SESSION['id']=$rows['userId'];
                 }
                 
             }
