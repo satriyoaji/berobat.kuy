@@ -4,22 +4,28 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use backend\models\Users;
 use yii\helpers\ArrayHelper;
+use yii\db\ActiveQuery;
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\JadwalDokter */
 /* @var $form yii\widgets\ActiveForm */
 $query = (new Query())
+    ->select('userID','userNama')
     ->from('Users')
-    ->where(['userPekerjaan'=>'2']);
+    ->where(['userPekerjaan'=='2']);
 
-$listData=query::map($categories,'id','name');
+$listData=ArrayHelper::map($query,'userID','userNama');
 ?>
 
 <div class="jadwal-dokter-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'dokterID')->textInput() ?>
+    <?= $form->field($model, 'dokterID')->dropDownList(
+		 $listData,
+        ['userID'=>'userNama']) ?>
 
     <?= $form->field($model, 'jadwalWaktu')->textInput(['maxlength' => true]) ?>
 
