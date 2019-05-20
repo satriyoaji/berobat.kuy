@@ -20,15 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'userEmail')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'userTelephone')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'userAlamat')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'userPekerjaan')->textInput() ?>
-
-    <?= $form->field($model, 'userFoto')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'userTanggalLahir')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'userPekerjaan')->textInput(['readonly' => true, 'value' => 1]) ?>
 
     <?= $form->field($model, 'userJenisKelamin')->textInput(['maxlength' => true]) ?>
 
