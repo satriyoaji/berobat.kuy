@@ -77,7 +77,7 @@ use yii\widgets\ActiveForm;
           <div class="card-body">
             <h4 class="card-title">
               <center><h5><b><?php echo $rows['obatNama'];?></b></h5>
-              <h5> RP. <?php echo $rows['obatHarga'];?></h5>
+              <h5> RP1. <?php echo $rows['obatHarga'];?></h5>
               <?php
               $obatID = $rows['obatID'];
               $_SESSION['obatID'] = $obatID
@@ -101,8 +101,7 @@ use yii\widgets\ActiveForm;
                         <h3 class="cost"><span class="glyphicon glyphicon-usd"></span>Rp.<?php echo $rows['obatHarga'];?></h3>
                         <div class="row">
                         </div>  
-                        <div class="space-ten"></div>
-                        
+                        <div class="space-ten"></div>            
                     </div>
                 </div>
             </div>

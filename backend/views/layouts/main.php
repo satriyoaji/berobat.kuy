@@ -37,12 +37,9 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
-<<<<<<< HEAD
-=======
         ['label' => 'Jenis Pekerjaan', 'url' => ['/pekerjaan/index']],
         ['label' => 'User', 'url' => ['/users/index']],
         ['label' => 'Jadwal Dokter', 'url' => ['/jadwal-dokter/index']],
->>>>>>> 592fa7bb07f0282bb538ab39b908910f1e89eb5a
         ['label' => 'Obat', 'url' => ['/obat/index']],
     ];
     if (Yii::$app->user->isGuest) {
