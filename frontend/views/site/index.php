@@ -7,12 +7,6 @@ $this->title = 'Si Klinik';
 ?>
 <div class="site-index">
     <div class="body" style="padding-top:40px;">
-    <div class="col-md-12 text-right">
-        <div class="row">
-            <a href="http://localhost/siklinik/frontend/web/index.php?r=site%2Flogin">LOGIN</a>
-            <a href="http://localhost/siklinik/frontend/web/index.php?r=users%2Fcreate">DAFTAR</a>
-        </div>
-    </div>
     <br>
     <br>
     <div class="jumbotron" style="background-color:#FFFFFF;box-shadow: 10px 10px 133px -21px rgba(158,153,158,0.45);">
