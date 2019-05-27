@@ -12,10 +12,11 @@ use Yii;
  * @property string $jadwalWaktu
  * @property int $jadwalKuota
  * @property string $jadwalRuangan
+ * @property string $jadwalTanggal
  *
  * @property Users $dokter
  */
-class JadwalDokter extends \yii\db\ActiveRecord
+class Jadwaldokter extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -34,6 +35,7 @@ class JadwalDokter extends \yii\db\ActiveRecord
             [['dokterID', 'jadwalKuota'], 'integer'],
             [['jadwalWaktu'], 'string', 'max' => 30],
             [['jadwalRuangan'], 'string', 'max' => 15],
+            [['jadwalTanggal'], 'string', 'max' => 100],
             [['dokterID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['dokterID' => 'userId']],
         ];
     }
@@ -49,6 +51,7 @@ class JadwalDokter extends \yii\db\ActiveRecord
             'jadwalWaktu' => 'Jadwal Waktu',
             'jadwalKuota' => 'Jadwal Kuota',
             'jadwalRuangan' => 'Jadwal Ruangan',
+            'jadwalTanggal' => 'Jadwal Tanggal',
         ];
     }
 

@@ -7,16 +7,14 @@ use yii\helpers\ArrayHelper;
 use yii\db\ActiveQuery;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
+//use yii\widgets\ActiveField::widget();
 
 /* @var $this yii\web\View */
 /* @var $model backend\models\JadwalDokter */
 /* @var $form yii\widgets\ActiveForm */
-$query = (new Query())
-    ->select('userID','userNama')
-    ->from('Users')
-    ->where(['userPekerjaan'=='2']);
 
-$listData=ArrayHelper::map($query,'userID','userNama');
+$categories=Users::find('userPekerjaan'== '2')->all();
+$listData=ArrayHelper::map($categories,'userId','userNama');
 ?>
 
 <div class="jadwal-dokter-form">
@@ -25,13 +23,18 @@ $listData=ArrayHelper::map($query,'userID','userNama');
 
     <?= $form->field($model, 'dokterID')->dropDownList(
 		 $listData,
-        ['userID'=>'userNama']) ?>
+        ['userId'=>'userNama']) ?>
 
     <?= $form->field($model, 'jadwalWaktu')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'jadwalKuota')->textInput() ?>
 
     <?= $form->field($model, 'jadwalRuangan')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'jadwalTanggal')->widget(\yii\jui\DatePicker::class, [
+    //'language' => 'ru',
+    //'dateFormat' => 'yyyy-MM-dd',
+]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

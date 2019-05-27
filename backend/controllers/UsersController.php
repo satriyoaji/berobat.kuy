@@ -71,10 +71,7 @@ class UsersController extends Controller
             $model->password= sha1($pass);
             $model->save();
             //upload file
-            $model->userFoto = UploadedFile::getInstance($model, 'userFoto');
-            $model->userFoto->saveAs('gambar/' .$model->userFoto->baseName. '.' .$model->userFoto->extension);
-            //save to database
-            $model->userFoto = $model->obatFoto->baseName. '.' .$model->userFoto->extension;
+            $model->userFoto = "585e4bf3cb11b227491c339a.png";
             $model->save();
             return $this->redirect(['view', 'id' => $model->userId]);
         }
