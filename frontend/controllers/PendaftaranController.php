@@ -65,8 +65,14 @@ class PendaftaranController extends Controller
     public function actionCreate()
     {
         $model = new Pendaftaran();
+        $id = $_GET['id'];
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post()) ) {
+            $model->pasienID = Yii::$app->user->id;
+            $model->jadwalID = $id;
+            $model->pendaftaranTanggal = date('d-m-Y');
+            $model->pendaftaranStatus = "Belum Periksa";
+            $model->save();
             return $this->redirect(['view', 'id' => $model->pendaftaranID]);
         }
 

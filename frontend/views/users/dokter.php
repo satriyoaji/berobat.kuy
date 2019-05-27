@@ -46,7 +46,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 <tr>
                     <td><?php echo $user['userNama'];?></td>
                     <td><?php echo $pekerjaan['pekerjaanNama'];?></td>
-                    <td><?= Html::a('Lihat Jadwal', ['jadwaldokter/index','idDokter'=>$user['userid']], ['class' => 'btn btn-success']) ?></td>
+                    <td><?= Html::a('Lihat Jadwal', ['jadwaldokter/index','idDokter'=>$user['userId']], ['class' => 'btn btn-success']) ?></td>
                 </tr>
             <?php 
             } ?>    

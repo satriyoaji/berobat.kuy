@@ -7,6 +7,7 @@ use yii\helpers\ArrayHelper;
 use yii\db\ActiveQuery;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
+//use yii\jui\DatePicker;
 //use yii\widgets\ActiveField::widget();
 
 /* @var $this yii\web\View */
@@ -31,15 +32,11 @@ $listData=ArrayHelper::map($categories,'userId','userNama');
 
     <?= $form->field($model, 'jadwalRuangan')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'jadwalTanggal')->widget(\yii\jui\DatePicker::class, [
-    //'language' => 'ru',
-    //'dateFormat' => 'yyyy-MM-dd',
-]) ?>
+    <?= $form->field($model,'jadwalTanggal')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 
-    <?php ActiveForm::end(); ?>
+    <?php ActiveForm::end(); 
 
-</div>

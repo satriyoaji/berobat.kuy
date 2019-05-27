@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'pendaftaranID',
             'pasienID',
-            'dokterID',
+            'pendaftaranID',
             'pendaftaranTanggal',
             'pendaftaranStatus',
 
