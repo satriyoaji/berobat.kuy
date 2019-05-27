@@ -75,6 +75,7 @@ MyAsset::register($this);
         
       <?php } else { ?>
         <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-success','data'=>['method'=>'post']] ) ?>
         <?= Html::beginForm(['/site/logout'], 'post')
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',

@@ -21,6 +21,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= Html::a('Dokter Kulit', ['users/dokter','category'=>'7'], ['class' => 'btn btn-success']) ?>
     <table class="table table-condensed">
         <tbody>
+            <tr>
+                <td> Nama Dokter </td>
+                <td> Spesialis </td>
+            </tr>
             <?php
             if(isset($_GET['category'])){
                 $id = $_GET['category'];
