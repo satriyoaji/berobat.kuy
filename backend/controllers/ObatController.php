@@ -4,11 +4,14 @@ namespace backend\controllers;
 
 use Yii;
 use backend\models\Obat;
+use frontend\models\Resep;
 use backend\models\ObatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\UploadedFile; 
+use yii\db\Query;
+
 /**
  * ObatController implements the CRUD actions for Obat model.
  */
@@ -81,6 +84,17 @@ class ObatController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function actionResep($id){
+        $model = new Resep;
+        $model['resepTanggal'] ="22-11-20018";
+        $model['apotekerID']="";
+        $model['pendaftaranID']=$id;
+        $model['resepStatus']="";
+        $model['resepTotalHarga']=0;
+        $model->save();
+        return $this->redirect(['create']);
+   }
 
     /**
      * Updates an existing Obat model.

@@ -12,6 +12,7 @@ use Yii;
  * @property int $obatHarga
  * @property string $obatGolongan
  * @property string $obatFoto
+ * @property string $obatDeskripsi
  *
  * @property Detailresep[] $detailreseps
  */
@@ -35,6 +36,7 @@ class Obat extends \yii\db\ActiveRecord
             [['obatNama'], 'string', 'max' => 30],
             [['obatGolongan'], 'string', 'max' => 15],
             [['obatFoto'], 'string', 'max' => 50],
+            [['obatDeskripsi'], 'string', 'max' => 100],
         ];
     }
 
@@ -49,6 +51,7 @@ class Obat extends \yii\db\ActiveRecord
             'obatHarga' => 'Obat Harga',
             'obatGolongan' => 'Obat Golongan',
             'obatFoto' => 'Obat Foto',
+            'obatDeskripsi' => 'Obat Deskripsi',
         ];
     }
 
