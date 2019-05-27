@@ -12,8 +12,10 @@ use Yii;
  * @property string $jadwalWaktu
  * @property int $jadwalKuota
  * @property string $jadwalRuangan
+ * @property string $jadwalTanggal
  *
  * @property Users $dokter
+ * @property Pendaftaran[] $pendaftarans
  */
 class Jadwaldokter extends \yii\db\ActiveRecord
 {
@@ -34,6 +36,7 @@ class Jadwaldokter extends \yii\db\ActiveRecord
             [['dokterID', 'jadwalKuota'], 'integer'],
             [['jadwalWaktu'], 'string', 'max' => 30],
             [['jadwalRuangan'], 'string', 'max' => 15],
+            [['jadwalTanggal'], 'string', 'max' => 100],
             [['dokterID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['dokterID' => 'userId']],
         ];
     }
@@ -49,6 +52,7 @@ class Jadwaldokter extends \yii\db\ActiveRecord
             'jadwalWaktu' => 'Jadwal Waktu',
             'jadwalKuota' => 'Jadwal Kuota',
             'jadwalRuangan' => 'Jadwal Ruangan',
+            'jadwalTanggal' => 'Jadwal Tanggal',
         ];
     }
 
@@ -58,5 +62,13 @@ class Jadwaldokter extends \yii\db\ActiveRecord
     public function getDokter()
     {
         return $this->hasOne(Users::className(), ['userId' => 'dokterID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPendaftarans()
+    {
+        return $this->hasMany(Pendaftaran::className(), ['jadwalID' => 'jadwalID']);
     }
 }

@@ -9,13 +9,13 @@ use Yii;
  *
  * @property int $pendaftaranID
  * @property int $pasienID
- * @property int $dokterID
+ * @property int $jadwalID
  * @property string $pendaftaranTanggal
  * @property string $pendaftaranStatus
  *
  * @property Pemeriksaan[] $pemeriksaans
  * @property Users $pasien
- * @property Users $dokter
+ * @property Jadwaldokter $jadwal
  * @property Resep[] $reseps
  */
 class Pendaftaran extends \yii\db\ActiveRecord
@@ -34,11 +34,11 @@ class Pendaftaran extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pasienID', 'dokterID'], 'integer'],
+            [['pasienID', 'jadwalID'], 'integer'],
             [['pendaftaranTanggal'], 'string', 'max' => 20],
             [['pendaftaranStatus'], 'string', 'max' => 15],
             [['pasienID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['pasienID' => 'userId']],
-            [['dokterID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['dokterID' => 'userId']],
+            [['jadwalID'], 'exist', 'skipOnError' => true, 'targetClass' => Jadwaldokter::className(), 'targetAttribute' => ['jadwalID' => 'jadwalID']],
         ];
     }
 
@@ -50,7 +50,7 @@ class Pendaftaran extends \yii\db\ActiveRecord
         return [
             'pendaftaranID' => 'Pendaftaran ID',
             'pasienID' => 'Pasien ID',
-            'dokterID' => 'Dokter ID',
+            'jadwalID' => 'Jadwal ID',
             'pendaftaranTanggal' => 'Pendaftaran Tanggal',
             'pendaftaranStatus' => 'Pendaftaran Status',
         ];
@@ -75,9 +75,9 @@ class Pendaftaran extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDokter()
+    public function getJadwal()
     {
-        return $this->hasOne(Users::className(), ['userId' => 'dokterID']);
+        return $this->hasOne(Jadwaldokter::className(), ['jadwalID' => 'jadwalID']);
     }
 
     /**

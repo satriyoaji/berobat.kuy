@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 06 Bulan Mei 2019 pada 08.36
--- Versi server: 10.1.35-MariaDB
--- Versi PHP: 7.2.9
+-- Generation Time: May 27, 2019 at 04:40 AM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `detailresep`
+-- Table structure for table `detailresep`
 --
 
 CREATE TABLE `detailresep` (
@@ -40,7 +40,7 @@ CREATE TABLE `detailresep` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jadwaldokter`
+-- Table structure for table `jadwaldokter`
 --
 
 CREATE TABLE `jadwaldokter` (
@@ -48,13 +48,24 @@ CREATE TABLE `jadwaldokter` (
   `dokterID` int(15) DEFAULT NULL,
   `jadwalWaktu` varchar(30) DEFAULT NULL,
   `jadwalKuota` int(45) DEFAULT NULL,
-  `jadwalRuangan` varchar(15) DEFAULT NULL
+  `jadwalRuangan` varchar(15) DEFAULT NULL,
+  `jadwalTanggal` varchar(100) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `jadwaldokter`
+--
+
+INSERT INTO `jadwaldokter` (`jadwalID`, `dokterID`, `jadwalWaktu`, `jadwalKuota`, `jadwalRuangan`, `jadwalTanggal`) VALUES
+(3, 15, '12.00 - 15.00', 4, 'C303', NULL),
+(4, 16, '12.00 - 15.00', 6, 'C45', NULL),
+(5, 17, '14.00 - 16.00', 6, 'C55', NULL),
+(6, 16, '08.00 - 11.00', 3, 'C45', NULL);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `jenisperiksa`
+-- Table structure for table `jenisperiksa`
 --
 
 CREATE TABLE `jenisperiksa` (
@@ -65,7 +76,27 @@ CREATE TABLE `jenisperiksa` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `nota`
+-- Table structure for table `migration`
+--
+
+CREATE TABLE `migration` (
+  `version` varchar(180) NOT NULL,
+  `apply_time` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `migration`
+--
+
+INSERT INTO `migration` (`version`, `apply_time`) VALUES
+('m000000_000000_base', 1557127716),
+('m130524_201442_init', 1557127721),
+('m190124_110200_add_verification_token_column_to_user_table', 1557127721);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `nota`
 --
 
 CREATE TABLE `nota` (
@@ -80,7 +111,7 @@ CREATE TABLE `nota` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `obat`
+-- Table structure for table `obat`
 --
 
 CREATE TABLE `obat` (
@@ -94,7 +125,7 @@ CREATE TABLE `obat` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pekerjaan`
+-- Table structure for table `pekerjaan`
 --
 
 CREATE TABLE `pekerjaan` (
@@ -102,10 +133,23 @@ CREATE TABLE `pekerjaan` (
   `pekerjaanNama` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `pekerjaan`
+--
+
+INSERT INTO `pekerjaan` (`pekerjaanID`, `pekerjaanNama`) VALUES
+(1, 'Customer'),
+(2, 'Dokter'),
+(3, 'Apoteker'),
+(4, 'Kasir'),
+(5, 'Dokter Mata'),
+(6, 'Dokter Jantung'),
+(7, 'Dokter Kulit');
+
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pemeriksaan`
+-- Table structure for table `pemeriksaan`
 --
 
 CREATE TABLE `pemeriksaan` (
@@ -118,7 +162,7 @@ CREATE TABLE `pemeriksaan` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `pendaftaran`
+-- Table structure for table `pendaftaran`
 --
 
 CREATE TABLE `pendaftaran` (
@@ -132,7 +176,7 @@ CREATE TABLE `pendaftaran` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `resep`
+-- Table structure for table `resep`
 --
 
 CREATE TABLE `resep` (
@@ -147,14 +191,33 @@ CREATE TABLE `resep` (
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `users`
+-- Table structure for table `user`
+--
+
+CREATE TABLE `user` (
+  `id` int(11) NOT NULL,
+  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '10',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  `verification_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
   `userId` int(15) NOT NULL,
   `username` varchar(30) DEFAULT NULL,
   `userNama` varchar(30) DEFAULT NULL,
-  `userPassword` varchar(30) DEFAULT NULL,
+  `password` varchar(100) DEFAULT NULL,
   `userEmail` varchar(30) DEFAULT NULL,
   `userTelephone` varchar(30) DEFAULT NULL,
   `userAlamat` varchar(30) DEFAULT NULL,
@@ -165,11 +228,25 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userId`, `username`, `userNama`, `password`, `userEmail`, `userTelephone`, `userAlamat`, `userPekerjaan`, `userFoto`, `userTanggalLahir`, `userJenisKelamin`) VALUES
+(10, 'dokter', 'dokter', '9d2878abdd504d16fe6262f17c80dae5cec34440', '', '', '', 2, '', '', 'Laki-laki'),
+(11, 'apoterker', 'apoteker', '8e30c3e6d50e5d7c02e7eaffa5954b04d4a3afaf', '', '', '', 3, '', '', 'Laki-laki'),
+(12, 'hai', 'hai', '8d813378c294d9c43ea7cbe34e05c65cfa43b630', '', '', '', 1, '', '', ''),
+(13, 'hai', 'hai', '8d813378c294d9c43ea7cbe34e05c65cfa43b630', '', '', '', 1, '', '', ''),
+(14, 'Dokter1', 'dokter mata', '9d2878abdd504d16fe6262f17c80dae5cec34440', '', '', '', 5, '', '', ''),
+(15, 'Dokter1', 'dokter mata', '9d2878abdd504d16fe6262f17c80dae5cec34440', '', '', '', 5, '585e4bf3cb11b227491c339a.png', '', ''),
+(16, 'Dokter2', 'Dokter Jantung', '9d2878abdd504d16fe6262f17c80dae5cec34440', '', NULL, NULL, 6, '585e4bf3cb11b227491c339a.png', NULL, 'Laki-laki'),
+(17, 'dokter3', 'Dokter Kulit', '9d2878abdd504d16fe6262f17c80dae5cec34440', '', NULL, NULL, 7, '585e4bf3cb11b227491c339a.png', NULL, 'Perempuan');
+
+--
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `detailresep`
+-- Indexes for table `detailresep`
 --
 ALTER TABLE `detailresep`
   ADD PRIMARY KEY (`detailResepID`),
@@ -177,20 +254,26 @@ ALTER TABLE `detailresep`
   ADD KEY `resepID` (`resepID`);
 
 --
--- Indeks untuk tabel `jadwaldokter`
+-- Indexes for table `jadwaldokter`
 --
 ALTER TABLE `jadwaldokter`
   ADD PRIMARY KEY (`jadwalID`),
   ADD KEY `jadwalDokterID` (`dokterID`);
 
 --
--- Indeks untuk tabel `jenisperiksa`
+-- Indexes for table `jenisperiksa`
 --
 ALTER TABLE `jenisperiksa`
   ADD PRIMARY KEY (`jenisPeriksaID`);
 
 --
--- Indeks untuk tabel `nota`
+-- Indexes for table `migration`
+--
+ALTER TABLE `migration`
+  ADD PRIMARY KEY (`version`);
+
+--
+-- Indexes for table `nota`
 --
 ALTER TABLE `nota`
   ADD PRIMARY KEY (`notaID`),
@@ -199,19 +282,19 @@ ALTER TABLE `nota`
   ADD KEY `kasirID` (`kasirID`);
 
 --
--- Indeks untuk tabel `obat`
+-- Indexes for table `obat`
 --
 ALTER TABLE `obat`
   ADD PRIMARY KEY (`obatID`);
 
 --
--- Indeks untuk tabel `pekerjaan`
+-- Indexes for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
   ADD PRIMARY KEY (`pekerjaanID`);
 
 --
--- Indeks untuk tabel `pemeriksaan`
+-- Indexes for table `pemeriksaan`
 --
 ALTER TABLE `pemeriksaan`
   ADD PRIMARY KEY (`pemeriksaanID`),
@@ -219,7 +302,7 @@ ALTER TABLE `pemeriksaan`
   ADD KEY `pendaftranID` (`pendaftranID`);
 
 --
--- Indeks untuk tabel `pendaftaran`
+-- Indexes for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
   ADD PRIMARY KEY (`pendaftaranID`),
@@ -227,7 +310,7 @@ ALTER TABLE `pendaftaran`
   ADD KEY `pendaftaranDokterID` (`dokterID`);
 
 --
--- Indeks untuk tabel `resep`
+-- Indexes for table `resep`
 --
 ALTER TABLE `resep`
   ADD PRIMARY KEY (`resepID`),
@@ -235,95 +318,110 @@ ALTER TABLE `resep`
   ADD KEY `pendaftaranID` (`pendaftaranID`);
 
 --
--- Indeks untuk tabel `users`
+-- Indexes for table `user`
+--
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `password_reset_token` (`password_reset_token`);
+
+--
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`userId`),
   ADD KEY `userPekerjaan` (`userPekerjaan`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `detailresep`
+-- AUTO_INCREMENT for table `detailresep`
 --
 ALTER TABLE `detailresep`
   MODIFY `detailResepID` int(15) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `jadwaldokter`
+-- AUTO_INCREMENT for table `jadwaldokter`
 --
 ALTER TABLE `jadwaldokter`
-  MODIFY `jadwalID` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `jadwalID` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `jenisperiksa`
+-- AUTO_INCREMENT for table `jenisperiksa`
 --
 ALTER TABLE `jenisperiksa`
   MODIFY `jenisPeriksaID` int(15) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `nota`
+-- AUTO_INCREMENT for table `nota`
 --
 ALTER TABLE `nota`
   MODIFY `notaID` int(15) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `obat`
+-- AUTO_INCREMENT for table `obat`
 --
 ALTER TABLE `obat`
   MODIFY `obatID` int(15) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `pekerjaan`
+-- AUTO_INCREMENT for table `pekerjaan`
 --
 ALTER TABLE `pekerjaan`
-  MODIFY `pekerjaanID` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `pekerjaanID` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
--- AUTO_INCREMENT untuk tabel `pemeriksaan`
+-- AUTO_INCREMENT for table `pemeriksaan`
 --
 ALTER TABLE `pemeriksaan`
   MODIFY `pemeriksaanID` int(15) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `pendaftaran`
+-- AUTO_INCREMENT for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
   MODIFY `pendaftaranID` int(15) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `resep`
+-- AUTO_INCREMENT for table `resep`
 --
 ALTER TABLE `resep`
   MODIFY `resepID` int(15) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `users`
+-- AUTO_INCREMENT for table `user`
+--
+ALTER TABLE `user`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userId` int(15) NOT NULL AUTO_INCREMENT;
+  MODIFY `userId` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `detailresep`
+-- Constraints for table `detailresep`
 --
 ALTER TABLE `detailresep`
   ADD CONSTRAINT `detailresep_ibfk_1` FOREIGN KEY (`resepID`) REFERENCES `resep` (`resepID`),
   ADD CONSTRAINT `detailresep_ibfk_2` FOREIGN KEY (`obatID`) REFERENCES `obat` (`obatID`);
 
 --
--- Ketidakleluasaan untuk tabel `jadwaldokter`
+-- Constraints for table `jadwaldokter`
 --
 ALTER TABLE `jadwaldokter`
   ADD CONSTRAINT `jadwaldokter_ibfk_1` FOREIGN KEY (`dokterID`) REFERENCES `users` (`userId`);
 
 --
--- Ketidakleluasaan untuk tabel `nota`
+-- Constraints for table `nota`
 --
 ALTER TABLE `nota`
   ADD CONSTRAINT `nota_ibfk_1` FOREIGN KEY (`kasirID`) REFERENCES `users` (`userId`),
@@ -331,28 +429,28 @@ ALTER TABLE `nota`
   ADD CONSTRAINT `nota_ibfk_3` FOREIGN KEY (`pemeriksaanID`) REFERENCES `pemeriksaan` (`pemeriksaanID`);
 
 --
--- Ketidakleluasaan untuk tabel `pemeriksaan`
+-- Constraints for table `pemeriksaan`
 --
 ALTER TABLE `pemeriksaan`
   ADD CONSTRAINT `pemeriksaan_ibfk_1` FOREIGN KEY (`jenisPeriksaID`) REFERENCES `jenisperiksa` (`jenisPeriksaID`),
   ADD CONSTRAINT `pemeriksaan_ibfk_2` FOREIGN KEY (`pendaftranID`) REFERENCES `pendaftaran` (`pendaftaranID`);
 
 --
--- Ketidakleluasaan untuk tabel `pendaftaran`
+-- Constraints for table `pendaftaran`
 --
 ALTER TABLE `pendaftaran`
   ADD CONSTRAINT `pendaftaran_ibfk_1` FOREIGN KEY (`pasienID`) REFERENCES `users` (`userId`),
   ADD CONSTRAINT `pendaftaran_ibfk_2` FOREIGN KEY (`dokterID`) REFERENCES `users` (`userId`);
 
 --
--- Ketidakleluasaan untuk tabel `resep`
+-- Constraints for table `resep`
 --
 ALTER TABLE `resep`
   ADD CONSTRAINT `resep_ibfk_2` FOREIGN KEY (`pendaftaranID`) REFERENCES `pendaftaran` (`pendaftaranID`),
   ADD CONSTRAINT `resep_ibfk_3` FOREIGN KEY (`apotekerID`) REFERENCES `users` (`userId`);
 
 --
--- Ketidakleluasaan untuk tabel `users`
+-- Constraints for table `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`userPekerjaan`) REFERENCES `pekerjaan` (`pekerjaanID`);
