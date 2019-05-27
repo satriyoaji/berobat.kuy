@@ -44,6 +44,17 @@ class UsersController extends Controller
         ]);
     }
 
+    public function actionDokter()
+    {
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('dokter', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Users model.
      * @param integer $id

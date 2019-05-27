@@ -37,6 +37,7 @@ AppAsset::register($this);
     ]);
     $menuItems = [
         ['label' => 'Home', 'url' => ['/site/index']],
+        ['label' => 'Jenis Pekerjaan', 'url' => ['/pekerjaan/index']],
         ['label' => 'User', 'url' => ['/users/index']],
         ['label' => 'Jadwal Dokter', 'url' => ['/jadwal-dokter/index']],
         ['label' => 'Obat', 'url' => ['/obat/index']],

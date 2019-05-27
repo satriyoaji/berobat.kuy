@@ -56,9 +56,7 @@ $this->title = 'Si Klinik';
                                 <div class="gambar" style="padding-top:20px;" align="center">
                                     <img src="../../assets/doctor.png" alt="" width="100" height="100">
                                 </div>
-                                <div class="card-body">
-                                    <h5 class="card-title text-center">Check Up</h5>
-                                </div>
+                                <h3 class="card-title text-center"><?= Html::a('Check Up', ['users/dokter'], ['class' => 'card-title'])?></h3>
                             </div>
                             </a>
                         </div>

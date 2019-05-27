@@ -8,6 +8,9 @@ use frontend\models\JadwaldokterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\ActiveQuery;
+use yii\data\ActiveDataProvider;
+
 
 /**
  * JadwaldokterController implements the CRUD actions for Jadwaldokter model.
@@ -39,6 +42,7 @@ class JadwaldokterController extends Controller
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);

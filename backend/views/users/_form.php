@@ -25,19 +25,13 @@ $listData=ArrayHelper::map($categories,'pekerjaanID','pekerjaanNama');
 
     <?= $form->field($model, 'userEmail')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'userTelephone')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'userAlamat')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'userPekerjaan')->dropDownList(
 		 $listData,
         ['pekerjaanID'=>'pekerjaanNama']) ?>
 
-    <?= $form->field($model, 'userFoto')->fileInput() ?>
-
-    <?= $form->field($model, 'userTanggalLahir')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'userJenisKelamin')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'userJenisKelamin')->dropDownList(
+            ['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']
+    ); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
