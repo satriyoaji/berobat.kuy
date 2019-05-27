@@ -12,9 +12,12 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ObatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-
-
 ?>
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="http://localhost/siklinik/frontend/assets/css/bootstrap.css">
+</head>
 <div class="obat-index">
 <div id="carousel-example-multi" class="carousel slide carousel-multi-item v-2" data-ride="carousel">
 <div class="container">
@@ -62,7 +65,10 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
      <?php  
-        $post=$provider->getModels();
+         $pendaftaranID = 0;
+         $resepID=0;
+         $obatID=0;
+         $post=$provider->getModels();
         foreach ($post as $rows) {
       ?>
       <div class="col-lg-4 col-md-6 mb-4">
@@ -70,23 +76,49 @@ use yii\widgets\ActiveForm;
           <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
           <div class="card-body">
             <h4 class="card-title">
-              <h5><b><?php echo $rows['obatNama'];?></b></h5>
-              <h5> RP. <?php echo $rows['obatHarga'];?></h5>
-              <center><?= Html::a('Beli', ['obat/create'], ['class' => 'btn btn-success']) ?><center>
+              <center><h5><b><?php echo $rows['obatNama'];?></b></h5>
+              <h5> RP1. <?php echo $rows['obatHarga'];?></h5>
+              <?php
+              $obatID = $rows['obatID'];
+              $_SESSION['obatID'] = $obatID
+              ?>
+              <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button>
+              <p> <?= Html::a('buatOrder', ['detailresep/create'], ['class' => 'btn btn-success']) ?></p>
           </div>
         </div>
       </div>
+      <div class="modal fade product_view" id="product_view">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6 product_img">
+                    <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
+                    </div>
+                    <div class="col-md-6 product_content">
+                        <h3 class="modal-title"><?php echo $rows['obatNama'];?></h3><br>
+                        <h3><?php echo $rows['obatDeskripsi'];?></h3>
+                        <h3 class="cost"><span class="glyphicon glyphicon-usd"></span>Rp.<?php echo $rows['obatHarga'];?></h3>
+                        <div class="row">
+                        </div>  
+                        <div class="space-ten"></div>            
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> 
       <?php } ?>
     </div>
     <!-- /.row -->
     <center><?php echo LinkPager::widget(['pagination' => $provider->pagination,]); ?> </center>
   </div>
-  
   <!-- /.col-lg-9 -->
-    
+ 
 </div>
 <!-- /.row -->
 
 </div>
 <!-- /.container -->
 </div>
+</html>

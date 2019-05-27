@@ -65,7 +65,8 @@ class DetailResepController extends Controller
     public function actionCreate()
     {
         $model = new DetailResep();
-
+        $model['obatID'] = $obatID;
+        $model->save();
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->detailResepID]);
         }
@@ -74,6 +75,18 @@ class DetailResepController extends Controller
             'model' => $model,
         ]);
     }
+
+    public function buatResep ($id){
+         $model = new resep();
+         $model['resepTanggal'] ="22-11-20018";
+         $model['apotekerID']="";
+         $model['pendaftaranID']=$id;
+         $model['resepStatus']="";
+         $model['resepTotalHarga']=0;
+         $model->save();
+         return $this->redirect(['index']);
+    }
+
 
     /**
      * Updates an existing DetailResep model.
