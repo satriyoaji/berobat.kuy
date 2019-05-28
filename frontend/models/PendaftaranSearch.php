@@ -17,7 +17,7 @@ class PendaftaranSearch extends Pendaftaran
     public function rules()
     {
         return [
-            [['pendaftaranID', 'pasienID', 'dokterID'], 'integer'],
+            [['pendaftaranID', 'pasienID', 'jadwalID'], 'integer'],
             [['pendaftaranTanggal', 'pendaftaranStatus'], 'safe'],
         ];
     }
@@ -60,7 +60,7 @@ class PendaftaranSearch extends Pendaftaran
         $query->andFilterWhere([
             'pendaftaranID' => $this->pendaftaranID,
             'pasienID' => $this->pasienID,
-            'dokterID' => $this->dokterID,
+            'jadwalID' => $this->jadwalID,
         ]);
 
         $query->andFilterWhere(['like', 'pendaftaranTanggal', $this->pendaftaranTanggal])

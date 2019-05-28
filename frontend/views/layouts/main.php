@@ -74,14 +74,17 @@ MyAsset::register($this);
         <?= Html::a('Sign in', ['site/login'], ['class' => 'btn btn-success']) ?>
         
       <?php } else { ?>
+        <?= Html::a('List Periksa', ['pendaftaran/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
         <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-success','data'=>['method'=>'post']] ) ?>
-        <?= Html::beginForm(['/site/logout'], 'post')
+        <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-link logout','data'=>['method'=>'post']] ) ?>
+        <div = hidden>
+        <?= Html::beginForm(['/site/logout'])
             . Html::submitButton(
                 'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout']
+                ['class' => 'btn btn-link logout','data'=>['method'=>'post']]
             )
         ?>
+        </div>
       <?php } ?>
     </p>
     </form>

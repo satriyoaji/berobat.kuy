@@ -32,19 +32,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 ->from('jadwaldokter')
                 ->where(['dokterid'=>$id]);
             foreach($dataUser->each() as $jadwal){
-            ?>  
-                <tr>
-                    <td><?php echo $jadwal['jadwalTanggal'];?></td>
-                    <td><?php echo $jadwal['jadwalKuota'];?></td>
-                    <td><?php echo $jadwal['jadwalRuangan'];?></td>
-                    <td><?php echo $jadwal['jadwalWaktu'];?></td>
-                    <?php if (Yii::$app->user->isGuest){ ?>
-                        <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
-                    <?php } else { ?>
-                        <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
+                $dataPendaftaran = (new Query())
+                    ->select('count(*)')
+                    ->from('pendaftaran')
+                    ->where(['jadwalID'=>$jadwal['jadwalID']]);
+                foreach($dataPendaftaran->each() as $pendaftaran){
+                    $sisa = $jadwal['jadwalKuota']-$pendaftaran['count(*)'];
+                    if($sisa == 0){ ?>
+
+                    <?php 
+                    } else { ?>
+                        <tr>
+                            <td><?php echo $jadwal['jadwalTanggal'];?></td>
+                            <td><?php echo $sisa;?></td>
+                            <td><?php echo $jadwal['jadwalRuangan'];?></td>
+                            <td><?php echo $jadwal['jadwalWaktu'];?></td>
+                            <?php if (Yii::$app->user->isGuest){ ?>
+                                <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
+                            <?php } else { ?>
+                                <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
+                            <?php } ?>
+                        </tr> 
                     <?php } ?>
-                </tr>
-            <?php } ?>    
+            <?php } 
+        } ?>    
         </tbody>
     </table>
 

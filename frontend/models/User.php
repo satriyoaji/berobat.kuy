@@ -29,6 +29,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
+            [['userPekerjaan'], 'integer'],
             [['username', 'password'], 'required'],
             [['username', 'password'], 'string', 'max' => 100]            
         ];
@@ -40,6 +41,7 @@ class User extends ActiveRecord implements IdentityInterface
             'id' => 'id',
             'username' => 'Username',
             'password' => 'Password',
+            'userPekerjaan' => 'User Pekerjaan',
         ];
     } 
     /**
@@ -70,6 +72,12 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return $this->id;
     }
+
+    public function getuserPekerjaan()
+    {
+        
+        return $this->userPekerjaan;
+    }
    
     public function validateAuthKey($authKey)
     {
@@ -78,5 +86,10 @@ class User extends ActiveRecord implements IdentityInterface
     public function validatePassword($password)
     {
         return $this->password === sha1($password);
+    }
+
+    public function getUserPekerjaan0()
+    {
+        return $this->hasOne(Pekerjaan::className(), ['pekerjaanID' => 'userPekerjaan']);
     }
 }

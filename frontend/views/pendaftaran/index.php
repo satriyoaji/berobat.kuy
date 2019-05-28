@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\db\Query;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\PendaftaranSearch */
@@ -9,32 +10,47 @@ use yii\grid\GridView;
 
 $this->title = 'Pendaftarans';
 $this->params['breadcrumbs'][] = $this->title;
+$id = Yii::$app->user->id;
 ?>
 <div class="pendaftaran-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Pendaftaran', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+    <table class="table table-condensed">
+        <tbody>
+            <tr>
+                <td> No </td>
+                <td> Nama Dokter </td>
+                <td> Tanggal Periksa </td>
+                <td> Status Pemeriksaan </td>
+            </tr>
+            <?php
+            $i = 1;
+            $pendaftaranQuery = (new Query())
+                ->from('pendaftaran')
+                ->where(['pasienID'=>$id]);
+            foreach($pendaftaranQuery->each() as $pendaftaran){
+                $jadwalQuery = (new Query())
+                    ->from('jadwalDokter')
+                    ->where(['jadwalID'=>$pendaftaran['jadwalID']]);
+                foreach($jadwalQuery->each() as $jadwal){
+                    $userQuery = (new Query())
+                        ->from('users')
+                        ->where(['userId'=>$jadwal['dokterID']]);
+                    foreach($userQuery->each() as $user){ ?>
+                        <tr>
+                            <td><?php echo $i; $i++;?></td>
+                            <td><?php echo $_SESSION['userType'];?></td>
+                            <td><?php echo $pendaftaran['pendaftaranTanggal'];?></td>
+                            <td><?php echo $pendaftaran['pendaftaranStatus'];?></td>
+                        </tr>
+                <?php }
+                }
+            } ?>
+        </tbody>
+    </table>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'pendaftaranID',
-            'pasienID',
-            'pendaftaranID',
-            'pendaftaranTanggal',
-            'pendaftaranStatus',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    
 
 
 </div>
