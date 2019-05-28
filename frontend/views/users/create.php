@@ -6,8 +6,7 @@ use yii\helpers\Html;
 /* @var $model frontend\models\Users */
 
 $this->title = 'Daftar SiKlinik';
-$this->params['breadcrumbs'][] = ['label' => 'Users', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+
 ?>
 <div class="users-create">
 

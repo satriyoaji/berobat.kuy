@@ -8,24 +8,48 @@ use yii\db\Query;
 /* @var $searchModel frontend\models\UsersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Jadwal Dokter';
 ?>
 <div class="users-index">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-    <?= Html::a('Semua', ['users/dokter'], ['class' => 'btn btn-success']) ?>
-    <?= Html::a('Dokter Mata', ['users/dokter','category'=>'5'], ['class' => 'btn btn-success']) ?>
-    <?= Html::a('Dokter Jantung', ['users/dokter','category'=>'6'], ['class' => 'btn btn-success']) ?>
-    <?= Html::a('Dokter Kulit', ['users/dokter','category'=>'7'], ['class' => 'btn btn-success']) ?>
-    <table class="table table-condensed">
-        <tbody>
-            <tr>
-                <td> Nama Dokter </td>
-                <td> Spesialis </td>
-            </tr>
-            <?php
+    <br>
+    <h1>List Dokter</h1>
+    <hr>
+    <br>
+    <div class="row">
+        <div class="col-md-3">
+            <h4>Kategori</h4>
+            <hr>
+            <ul class="list-group">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <?= Html::a('Semua', ['users/dokter'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
+                <span class="badge badge-primary badge-pill">14</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <?= Html::a('Dokter Mata', ['users/dokter','category'=>'5'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
+                <span class="badge badge-primary badge-pill">2</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <?= Html::a('Dokter Jantung', ['users/dokter','category'=>'6'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <?= Html::a('Dokter Kulit', ['users/dokter','category'=>'7'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
+                <span class="badge badge-primary badge-pill">1</span>
+            </li>
+            </ul>
+        </div>
+        <div class="col-md-9">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">Nama</th>
+                <th scope="col">Spesialis</th>
+                <th scope="col">Lihat Jadwal</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <?php
             if(isset($_GET['category'])){
                 $id = $_GET['category'];
                 $dataUser = (new Query())
@@ -47,13 +71,27 @@ $this->params['breadcrumbs'][] = $this->title;
                 foreach($jenisPekerjaan->each() as $pekerjaan)
                 ?>
                 
-                <tr>
-                    <td><?php echo $user['userNama'];?></td>
-                    <td><?php echo $pekerjaan['pekerjaanNama'];?></td>
-                    <td><?= Html::a('Lihat Jadwal', ['jadwaldokter/index','idDokter'=>$user['userId']], ['class' => 'btn btn-success']) ?></td>
+                <td><?php echo $user['userNama'];?></td>
+                <td><?php echo $pekerjaan['pekerjaanNama'];?></td>
+                <td><?= Html::a('Lihat Jadwal', ['jadwaldokter/index','idDokter'=>$user['userId']], ['class' => 'btn btn-success']) ?></td>
                 </tr>
-            <?php 
-            } ?>    
+                <?php 
+            } ?> 
+            </tbody>
+            </table>
+        </div>
+    </div>
+    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    
+    
+    
+    <table class="table table-condensed">
+        <tbody>
+            <tr>
+                <td> Nama Dokter </td>
+                <td> Spesialis </td>
+            </tr>
+               
         </tbody>
     </table> 
 
