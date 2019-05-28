@@ -82,18 +82,10 @@ $this->title = 'Jadwal Dokter';
         </div>
     </div>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <br>
+    <br>
+    <br>
     
-    
-    
-    <table class="table table-condensed">
-        <tbody>
-            <tr>
-                <td> Nama Dokter </td>
-                <td> Spesialis </td>
-            </tr>
-               
-        </tbody>
-    </table> 
 
 
 </div>
