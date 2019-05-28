@@ -38,7 +38,11 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td><?php echo $jadwal['jadwalKuota'];?></td>
                     <td><?php echo $jadwal['jadwalRuangan'];?></td>
                     <td><?php echo $jadwal['jadwalWaktu'];?></td>
-                    <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
+                    <?php if (Yii::$app->user->isGuest){ ?>
+                        <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
+                    <?php } else { ?>
+                        <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
+                    <?php } ?>
                 </tr>
             <?php } ?>    
         </tbody>
