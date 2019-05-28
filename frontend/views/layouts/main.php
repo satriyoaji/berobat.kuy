@@ -74,18 +74,30 @@ MyAsset::register($this);
         <?= Html::a('Sign in', ['site/login'], ['class' => 'btn btn-success']) ?>
         
       <?php } else { ?>
-        <?= Html::a('List Periksa', ['pendaftaran/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-link logout','data'=>['method'=>'post']] ) ?>
-        <div = hidden>
-        <?= Html::beginForm(['/site/logout'])
-            . Html::submitButton(
-                'Logout (' . Yii::$app->user->identity->username . ')',
-                ['class' => 'btn btn-link logout','data'=>['method'=>'post']]
-            )
-        ?>
+        <div class="dropdown">
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+        <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
+        <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <img src="../../assets/FOTO USER/download.png" alt="Avatar" style="border-radius: 50%; width: 50px;border-style: ridge;">
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
+          <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-success','data'=>['method'=>'post']] ) ?>
+          <div = hidden>
+          <?= Html::beginForm(['/site/logout'], 'post')
+              . Html::submitButton(
+                  'Logout (' . Yii::$app->user->identity->username . ')',
+                  ['class' => 'btn btn-link logout']
+              )
+          ?>
+          </div>
+        <?php } ?>
+          </div>
         </div>
-      <?php } ?>
+        <?= Html::a('', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
+        <br>
     </p>
     </form>
   </div>
@@ -112,6 +124,7 @@ MyAsset::register($this);
 <?php $this->endBody() ?>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
+
 <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
 <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
 </body>
