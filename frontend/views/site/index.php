@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 $this->title = 'Si Klinik';
+
 ?>
 <div class="site-index">
     <div class="body" style="padding-top:40px;">
@@ -51,7 +52,11 @@ $this->title = 'Si Klinik';
                                 <div class="gambar" style="padding-top:20px;" align="center">
                                     <img src="../../assets/doctor.png" alt="" width="100" height="100">
                                 </div>
+                               <?php if (Yii::$app->user->isGuest) {?>    
+                                <h3 class="card-title text-center"><?= Html::a('Check Up', ['site/login'], ['class' => 'card-title'])?></h3>
+                               <?php } else {?>
                                 <h3 class="card-title text-center"><?= Html::a('Check Up', ['users/dokter'], ['class' => 'card-title'])?></h3>
+                               <?php }?>
                             </div>
                             </a>
                         </div>
@@ -62,7 +67,11 @@ $this->title = 'Si Klinik';
                                 <div class="gambar" style="padding-top:20px;" align="center">
                                     <img src="../../assets/pills.png" alt="" width="100" height="100">
                                 </div>
-                                <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
+                                <?php if (Yii::$app->user->isGuest) {?>    
+                                  <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['site/login'], ['class' => 'card-title'])?></h3>
+                                <?php } else {?>
+                                  <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
+                                <?php } ?>
                             </div>
                         </div>
                         </a>

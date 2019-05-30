@@ -8,7 +8,7 @@ use frontend\models\DetailresepSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\db\Query;
 /**
  * DetailresepController implements the CRUD actions for Detailresep model.
  */
@@ -65,12 +65,11 @@ class DetailresepController extends Controller
     public function actionCreate()
     {
         $model = new Detailresep();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->detailResepID]);
         }
-
-        return $this->render('create', [
+        return $this->render('create',[
             'model' => $model,
         ]);
     }

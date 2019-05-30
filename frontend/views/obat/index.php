@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use frontend\models\Obat;
+use frontend\models\Pendaftaran;
 use yii\db\Query;
 use yii\web\Linkable;
 use yii\data\Pagination;
@@ -12,6 +13,21 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ObatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+$pendaftaranID =0;
+$pendaftaranQuery=(new Query())
+  ->select('pendaftaranID')
+  ->from('pendaftaran')
+  ->where('pasienID = :pasienID', [':pasienID' => Yii::$app->user->getId()]);
+  foreach($pendaftaranQuery->each() as $row2){
+    $pendaftaranID=$row2['pendaftaranID'];
+  }
+  $resepQuery=(new Query())
+  ->select('resepID')
+  ->from('resep')
+  ->where('pendaftaranID = :pendaftaranID', [':pendaftaranID' => $pendaftaranID]);
+  foreach($resepQuery->each() as $row3){
+    $resepID=$row3['resepID'];
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -65,8 +81,6 @@ use yii\widgets\ActiveForm;
 
     <div class="row">
      <?php  
-         $pendaftaranID = 0;
-         $resepID=0;
          $obatID=0;
          $post=$provider->getModels();
         foreach ($post as $rows) {
@@ -77,13 +91,19 @@ use yii\widgets\ActiveForm;
           <div class="card-body">
             <h4 class="card-title">
               <center><h5><b><?php echo $rows['obatNama'];?></b></h5>
-              <h5> RP1. <?php echo $rows['obatHarga'];?></h5>
-              <?php
-              $obatID = $rows['obatID'];
-              $_SESSION['obatID'] = $obatID
-              ?>
+              <h5> RP. <?php echo $rows['obatHarga'];?></h5>
               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button>
-              <p> <?= Html::a('buatOrder', ['detailresep/create'], ['class' => 'btn btn-success']) ?></p>
+              <?php if ($pendaftaranID==0){ ?>
+                <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
+                'confirm' => ' maaf anda belum melakukan pendaftaran?',
+                'method' => 'post',],]) ?></p>
+              <?php } else if(!isset($resepID)){?>
+                <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
+                'confirm' => ' maaf anda belum melakukan pemeriksaan?',
+                'method' => 'post',],]) ?></p>
+              <?php } else { ?>
+                <p> <?= Html::a('buatOrder', ['detailresep/create','idObat'=>$rows['obatID'],'idResep'=>$resepID], ['class' => 'btn btn-success']) ?></p>
+              <?php }  ?>
           </div>
         </div>
       </div>
