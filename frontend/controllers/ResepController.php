@@ -65,7 +65,7 @@ class ResepController extends Controller
     public function actionCreate()
     {
         $model = new Resep();
-
+        $model->resepTanggal=Yii::$app->formatter->asDate('now', 'dd-MM-yyyy');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->resepID]);
         }

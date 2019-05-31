@@ -85,17 +85,7 @@ class ObatController extends Controller
         ]);
     }
 
-    public function actionResep($id){
-        $model = new Resep;
-        $model['resepTanggal'] ="22-11-20018";
-        $model['apotekerID']="";
-        $model['pendaftaranID']=$id;
-        $model['resepStatus']="";
-        $model['resepTotalHarga']=0;
-        $model->save();
-        return $this->redirect(['create']);
-   }
-
+   
     /**
      * Updates an existing Obat model.
      * If update is successful, the browser will be redirected to the 'view' page.

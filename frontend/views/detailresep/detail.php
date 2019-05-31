@@ -5,6 +5,7 @@ use yii\db\Query;
 use backend\models\Obat;
 use backend\models\Resep;
 use backend\models\Pendaftaran;
+   $resepID =$_GET['resepID'];
    $obatId = $_GET['idObat'];
    $query4 = Obat::find();
    $query4->andFilterWhere(['like','obatID',$obatId]);
@@ -12,20 +13,7 @@ use backend\models\Pendaftaran;
      $obatID = $rows['obatID'];
      $obatharga = $rows['obatHarga'];
      }
-     $pendaftaranQuery=(new Query())
-     ->select('pendaftaranID')
-     ->from('pendaftaran')
-     ->where('pasienID = :pasienID', [':pasienID' => Yii::$app->user->getId()]);
-    foreach($pendaftaranQuery->each() as $row2){
-        $pendaftaranID=$row2['pendaftaranID'];
-    }
-     $resepQuery=(new Query())
-      ->select('resepID')
-      ->from('resep')
-      ->where('pendaftaranID = :pendaftaranID', [':pendaftaranID' => $pendaftaranID]);
-     foreach($resepQuery->each() as $row3){
-         $resepID=$row3['resepID'];
-     }
+     
 ?>
   <?php $form = ActiveForm::begin(); ?>
  <div class="row">
