@@ -23,22 +23,22 @@ use yii\db\Query;
   }                     
 ?>
 <div>
-    <br><h3>Resep</h3>
-    <h7> ID Resep : <?php echo $resepID;?></h7><br>
-    <h7> Date : <?php echo $resepTanggal;?></h7><br>
-    <h7> Name : <?php echo Yii::$app->user->identity->username ?></h7>
+  <br><h3>Resep</h3>
+  <h7> ID Resep : <?php echo $resepID;?></h7><br>
+  <h7> Date : <?php echo $resepTanggal;?></h7><br>
+  <h7> Name : <?php echo Yii::$app->user->identity->username ?></h7>
 </div>
 <div class="detailresep-index">
-    <table class="table">
-      <thead class="thead-dark">
-        <tr>
-        <th scope="col">No</th>
-        <th scope="col">Nama Obat</th>
-        <th scope="col">Jumlah</th>
-        <th scope="col">Harga</th>
-        </tr>
-      </thead>
-     <tbody>
+  <table class="table">
+  <thead class="thead-dark">
+  <tr>
+   <th scope="col">No</th>
+   <th scope="col">Nama Obat</th>
+   <th scope="col">Jumlah</th>
+   <th scope="col">Harga</th>
+  </tr>
+  </thead>
+    <tbody>
      <?php 
         $post=$provider->getModels();
         foreach ($post as $row1) { 

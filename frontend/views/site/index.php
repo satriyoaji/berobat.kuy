@@ -2,7 +2,7 @@
 /* @var $this yii\web\View */
 use yii\helpers\Html; 
 use yii\helpers\Url;
-
+use yii\db\Query;
 $this->title = 'Si Klinik';
 
 ?>
@@ -52,6 +52,7 @@ $this->title = 'Si Klinik';
                                 <div class="gambar" style="padding-top:20px;" align="center">
                                     <img src="../../assets/doctor.png" alt="" width="100" height="100">
                                 </div>
+                                
                                <?php if (Yii::$app->user->isGuest) {?>    
                                 <h3 class="card-title text-center"><?= Html::a('Check Up', ['site/login'], ['class' => 'card-title'])?></h3>
                                <?php } else {?>
@@ -69,8 +70,10 @@ $this->title = 'Si Klinik';
                                 </div>
                                 <?php if (Yii::$app->user->isGuest) {?>    
                                   <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['site/login'], ['class' => 'card-title'])?></h3>
-                                <?php } else {?>
-                                  <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
+                                <?php } else if(Yii::$app->user->identity->username == 'apoteker'){?>
+                                  <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['resep/index'], ['class' => 'card-title'])?></h3>
+                                <?php } else{ ?>
+                                    <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
                                 <?php } ?>
                             </div>
                         </div>

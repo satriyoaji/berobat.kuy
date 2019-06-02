@@ -12,7 +12,7 @@ use backend\models\Pendaftaran;
    foreach($query4->each() as $rows){ 
      $obatID = $rows['obatID'];
      $obatharga = $rows['obatHarga'];
-     }
+  }
      
 ?>
   <?php $form = ActiveForm::begin(); ?>

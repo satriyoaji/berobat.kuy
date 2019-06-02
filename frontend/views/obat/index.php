@@ -30,6 +30,7 @@ $pendaftaranQuery=(new Query())
     $resepID=$row3['resepID'];
   }
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -38,9 +39,7 @@ $pendaftaranQuery=(new Query())
 <div class="obat-index">
 <div id="carousel-example-multi" class="carousel slide carousel-multi-item v-2" data-ride="carousel">
 <div class="container">
-
 <div class="row">
-
   <div class="col-lg-3">
     <br>
     <div class="list-group">
@@ -136,7 +135,8 @@ $pendaftaranQuery=(new Query())
         </div>
     </div>
 </div> 
-      <?php } ?>
+
+  <?php } ?>
     </div>
     <!-- /.row -->
     <center><?php echo LinkPager::widget(['pagination' => $provider->pagination,]); ?> </center>
@@ -149,4 +149,5 @@ $pendaftaranQuery=(new Query())
 </div>
 <!-- /.container -->
 </div>
+
 </html>
