@@ -76,7 +76,21 @@ $this->title = 'Jadwal Dokter';
                     <td><?php echo $jadwal['jadwalRuangan'];?></td>
                     <td><?php echo $jadwal['jadwalWaktu'];?></td>
                     <td><?php echo $sisa;?></td>
-                    <?php if (Yii::$app->user->isGuest){ ?>
+                    <?php $verifikasiPendaftaran = (new Query())
+                        ->select('count(*)')
+                        ->from('pendaftaran')
+                        ->where(['jadwalID'=>$jadwal['jadwalID'],
+                                 'pasienID'=>Yii::$app->user->id]);
+                    foreach($verifikasiPendaftaran->each() as $data){
+                        $verifikasi = $data['count(*)']; 
+                    }?>
+                        
+                    <?php
+                    if($verifikasi>0){ ?>
+                        <td><?= Html::a('Booking', ['jadwaldokter/index','idDokter'=>$id], ['class' => 'btn btn-success','data' => [
+                            'confirm' => ' maaf anda sudah terdaftar pada jadwal yang sama',
+                            'method' => 'post',],]) ?></td>
+                    <?php } else if (Yii::$app->user->isGuest){ ?>
                         <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
                     <?php } else { ?>
                         <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>

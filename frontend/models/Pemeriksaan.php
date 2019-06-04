@@ -34,7 +34,6 @@ class Pemeriksaan extends \yii\db\ActiveRecord
         return [
             [['pendaftranID', 'jenisPeriksaID'], 'integer'],
             [['pemeriksaanHasil'], 'string', 'max' => 50],
-            [['jenisPeriksaID'], 'unique'],
             [['jenisPeriksaID'], 'exist', 'skipOnError' => true, 'targetClass' => Jenisperiksa::className(), 'targetAttribute' => ['jenisPeriksaID' => 'jenisPeriksaID']],
             [['pendaftranID'], 'exist', 'skipOnError' => true, 'targetClass' => Pendaftaran::className(), 'targetAttribute' => ['pendaftranID' => 'pendaftaranID']],
         ];

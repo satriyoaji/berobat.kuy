@@ -66,6 +66,22 @@ class UsersController extends Controller
         ]);
     }
 
+    /* 
+        gawe shaf nek kate nyambungno file anyar garek kopas sing bagian index 
+        actionIndex diganti action nama file e
+        yang di render diganti index jadi nama file e
+    */
+    public function actionApoteker()
+    {
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('apoteker', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Users model.
      * @param integer $id

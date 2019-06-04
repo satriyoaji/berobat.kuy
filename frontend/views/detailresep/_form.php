@@ -7,31 +7,17 @@ use yii\db\Query;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Detailresep */
 /* @var $form yii\widgets\ActiveForm */
+$id = $_GET['id'];
 ?>
 
 <div class="detailresep-form">
 
-    <?php if(isset($_SESSION['resep'])){
-
-
-    }else{
-        Yii::$app->db->createCommand()->insert('resep', [
-            'pendaftaranID' => $_SESSION['pendaftaranID'],
-            'resepStatus' => 'Belum Dibuat',
-            'resepTanggal' => $date = date('d-m-Y'),
-            'resepTotalHarga' => 0,
-        ])->execute();
-
-        $resepQuery = (new Query())
-            ->from('resep');
-        foreach($resepQuery->each() as $resep){
-            $_SESSION['resep']=$resep['resepID'];
-        }
-
-    }?>
+    
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'obatID')->textInput() ?>
+    <div = hidden>
+    <?= $form->field($model, 'obatID')->textInput(['value'=>$id]) ?>
+    </div>
 
     <?= $form->field($model, 'detailResepDosis')->textInput(['maxlength' => true]) ?>
 

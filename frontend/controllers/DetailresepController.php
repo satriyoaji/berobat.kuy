@@ -92,7 +92,7 @@ class DetailresepController extends Controller
         $model = new Detailresep();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->detailResepID]);
+            return $this->redirect(['pemeriksaan/update','id'=>$_SESSION['pemeriksaan']]);
         }
         return $this->render('create',[
             'model' => $model,

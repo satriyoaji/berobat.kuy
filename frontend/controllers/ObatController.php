@@ -69,6 +69,18 @@ class ObatController extends Controller
         ]);
     }
 
+    public function actionListobat()
+    {   
+
+        $searchModel = new ObatSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('listobat', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Obat model.
      * @param integer $id

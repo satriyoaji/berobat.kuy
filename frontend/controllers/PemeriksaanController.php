@@ -65,9 +65,11 @@ class PemeriksaanController extends Controller
     public function actionCreate()
     {
         $model = new Pemeriksaan();
-
+        if(isset($_SESSION['pendaftaranID'])){
+            Yii::$app->db->createCommand()->update('pendaftaran', ['pendaftaranStatus' => 'Sudah Diperiksa'], ['pendaftaranID' => $_SESSION['pendaftaranID']])->execute();
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['detailresep/create']);
+            return $this->redirect(['obat/listobat']);
         }
 
         return $this->render('create', [
@@ -87,7 +89,7 @@ class PemeriksaanController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pemeriksaanID]);
+            return $this->redirect(['obat/listobat']);
         }
 
         return $this->render('update', [
