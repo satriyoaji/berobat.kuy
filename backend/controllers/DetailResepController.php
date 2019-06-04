@@ -3,11 +3,13 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\DetailResep;
-use backend\models\DetailResepSearch;
+use frontend\models\DetailResep;
+use frontend\models\DetailResepSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use backend\models\Resep;
+use yii\db\Query;
 
 /**
  * DetailResepController implements the CRUD actions for DetailResep model.
@@ -64,9 +66,21 @@ class DetailResepController extends Controller
      */
     public function actionCreate()
     {
+        $pendaftranID = get_SESSION['pendaftranID'];
+        $resepQuery = Resep::find();
+        $resepQuery -> andFilterWhere(['like','pendaftaranID',$pendaftranID]);
+        foreach($resepQuery->each() as $row3){
+            if(!isset($row3['resepID'])){
+                $model2 = new Resep();
+                $model2->pendaftaranID= $pendaftranID;
+                $model2->save();
+                return $this->render('create', [
+                    'model2' => $model2,
+                ]);
+            }  
+       }
         $model = new DetailResep();
-        $model['obatID'] = $obatID;
-        $model->save();
+      
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->detailResepID]);
         }
@@ -75,19 +89,6 @@ class DetailResepController extends Controller
             'model' => $model,
         ]);
     }
-
-    public function buatResep ($id){
-         $model = new resep();
-         $model['resepTanggal'] ="22-11-20018";
-         $model['apotekerID']="";
-         $model['pendaftaranID']=$id;
-         $model['resepStatus']="";
-         $model['resepTotalHarga']=0;
-         $model->save();
-         return $this->redirect(['index']);
-    }
-
-
     /**
      * Updates an existing DetailResep model.
      * If update is successful, the browser will be redirected to the 'view' page.

@@ -8,7 +8,14 @@ use frontend\models\DetailresepSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\base\Configurable; 
+use yii\web\Linkable;
+use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\Helpers\ArrayHelper;
+use yii\data\SqlDataProvider;
+use yii\db\Query;
 /**
  * DetailresepController implements the CRUD actions for Detailresep model.
  */
@@ -37,10 +44,28 @@ class DetailresepController extends Controller
     {
         $searchModel = new DetailresepSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $provider = new ActiveDataProvider([
+                'query'=>Detailresep::find()
+                 ->where(['resepID'=>$id]),
+                'Pagination'=>[
+                'pageSize'=>6,
+                ],
+            ]);
+        }
+        else{
+            $provider = new ActiveDataProvider([
+                'query'=>Detailresep::find(),
+                'Pagination'=>[
+                'pageSize'=>6,
+                ],
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'provider'=> $provider,
         ]);
     }
 
@@ -65,12 +90,11 @@ class DetailresepController extends Controller
     public function actionCreate()
     {
         $model = new Detailresep();
-
+        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->detailResepID]);
         }
-
-        return $this->render('create', [
+        return $this->render('create',[
             'model' => $model,
         ]);
     }

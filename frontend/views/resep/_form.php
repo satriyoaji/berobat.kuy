@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'resepTanggal')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'apotekerID')->textInput() ?>
 
     <?= $form->field($model, 'pendaftaranID')->textInput() ?>

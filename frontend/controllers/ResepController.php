@@ -8,6 +8,13 @@ use frontend\models\ResepSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\base\Configurable; 
+use yii\web\Linkable;
+use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\Helpers\ArrayHelper;
+use yii\data\SqlDataProvider;
 
 /**
  * ResepController implements the CRUD actions for Resep model.
@@ -36,11 +43,18 @@ class ResepController extends Controller
     public function actionIndex()
     {
         $searchModel = new ResepSearch();
+        $provider = new ActiveDataProvider([
+            'query'=>Resep::find(),
+            'Pagination'=>[
+            'pageSize'=>6,
+            ],
+        ]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'provider' => $provider,
         ]);
     }
 
@@ -65,7 +79,7 @@ class ResepController extends Controller
     public function actionCreate()
     {
         $model = new Resep();
-
+        $model->resepTanggal=Yii::$app->formatter->asDate('now', 'dd-MM-yyyy');
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->resepID]);
         }
