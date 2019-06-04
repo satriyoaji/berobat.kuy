@@ -55,6 +55,17 @@ class UsersController extends Controller
         ]);
     }
 
+    public function actionPasien()
+    {
+        $searchModel = new UsersSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('pasien', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Users model.
      * @param integer $id
@@ -78,7 +89,11 @@ class UsersController extends Controller
         $model = new Users();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->userId]);
+            $model->password= sha1($model->password);
+            $model->userPekerjaan = 1;
+            $model->save();
+
+            return $this->redirect(['site/login']);
         }
 
         return $this->render('create', [

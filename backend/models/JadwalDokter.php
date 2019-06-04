@@ -5,18 +5,17 @@ namespace backend\models;
 use Yii;
 
 /**
- * This is the model class for table "pendaftaran".
+ * This is the model class for table "jadwaldokter".
  *
- * @property int $pendaftaranID
- * @property int $pasienID
  * @property int $jadwalID
- * @property string $pendaftaranTanggal
- * @property string $pendaftaranStatus
+ * @property int $dokterID
+ * @property string $jadwalWaktu
+ * @property int $jadwalKuota
+ * @property string $jadwalRuangan
+ * @property string $jadwalTanggal
  *
- * @property Pemeriksaan[] $pemeriksaans
- * @property Users $pasien
- * @property Jadwaldokter $jadwal
- * @property Resep[] $reseps
+ * @property Users $dokter
+ * @property Pendaftaran[] $pendaftarans
  */
 class Jadwaldokter extends \yii\db\ActiveRecord
 {
@@ -25,7 +24,7 @@ class Jadwaldokter extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'pendaftaran';
+        return 'jadwaldokter';
     }
 
     /**
@@ -34,11 +33,11 @@ class Jadwaldokter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['pasienID', 'jadwalID'], 'integer'],
-            [['pendaftaranTanggal'], 'string', 'max' => 20],
-            [['pendaftaranStatus'], 'string', 'max' => 15],
-            [['pasienID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['pasienID' => 'userId']],
-            [['jadwalID'], 'exist', 'skipOnError' => true, 'targetClass' => Jadwaldokter::className(), 'targetAttribute' => ['jadwalID' => 'jadwalID']],
+            [['dokterID', 'jadwalKuota'], 'integer'],
+            [['jadwalWaktu'], 'string', 'max' => 30],
+            [['jadwalRuangan'], 'string', 'max' => 15],
+            [['jadwalTanggal'], 'string', 'max' => 100],
+            [['dokterID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['dokterID' => 'userId']],
         ];
     }
 
@@ -48,43 +47,28 @@ class Jadwaldokter extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'pendaftaranID' => 'Pendaftaran ID',
-            'pasienID' => 'Pasien ID',
             'jadwalID' => 'Jadwal ID',
-            'pendaftaranTanggal' => 'Pendaftaran Tanggal',
-            'pendaftaranStatus' => 'Pendaftaran Status',
+            'dokterID' => 'Dokter ID',
+            'jadwalWaktu' => 'Jadwal Waktu',
+            'jadwalKuota' => 'Jadwal Kuota',
+            'jadwalRuangan' => 'Jadwal Ruangan',
+            'jadwalTanggal' => 'Jadwal Tanggal',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPemeriksaans()
+    public function getDokter()
     {
-        return $this->hasMany(Pemeriksaan::className(), ['pendaftranID' => 'pendaftaranID']);
+        return $this->hasOne(Users::className(), ['userId' => 'dokterID']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPasien()
+    public function getPendaftarans()
     {
-        return $this->hasOne(Users::className(), ['userId' => 'pasienID']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getJadwal()
-    {
-        return $this->hasOne(Jadwaldokter::className(), ['jadwalID' => 'jadwalID']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getReseps()
-    {
-        return $this->hasMany(Resep::className(), ['pendaftaranID' => 'pendaftaranID']);
+        return $this->hasMany(Pendaftaran::className(), ['jadwalID' => 'jadwalID']);
     }
 }

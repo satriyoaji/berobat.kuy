@@ -67,7 +67,7 @@ class PemeriksaanController extends Controller
         $model = new Pemeriksaan();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pemeriksaanID]);
+            return $this->redirect(['detailresep/create']);
         }
 
         return $this->render('create', [

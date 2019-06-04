@@ -15,8 +15,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
      
-    <?= $this->render('detail', [
-        'model' => $model,
-    ]) ?>
+     <?php if(isset($_SESSION['pendaftaranID'])){?>
+        <?= $this->render('_form', [
+            'model' => $model,
+        ]) ?>
+    <?php } else {?>
+        <?= $this->render('detail', [
+            'model' => $model,
+        ]) ?>
+    <?php } ?>
 </div>
 

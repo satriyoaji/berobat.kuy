@@ -12,13 +12,13 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'username')->textInput(['maxlength' => true]) ?>
-
     <?= $form->field($model, 'userNama')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'password')->passwordInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'userAlamat')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'userEmail')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'userTanggalLahir')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'userTelephone')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'userJenisKelamin')->dropDownList(
             ['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']

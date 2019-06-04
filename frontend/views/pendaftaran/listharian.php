@@ -11,11 +11,18 @@ use yii\db\Query;
 $this->title = 'Pendaftarans';
 $this->params['breadcrumbs'][] = $this->title;
 $id = Yii::$app->user->id;
+if(isset($_GET['id'])){
+    $date = date('d-m-Y', time() + (24 * 60 * 60));
+} else {
+    $date = date('d-m-Y');
+}
+echo "Tanggal Periksa $date";
 ?>
 <div class="pendaftaran-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <td><?= Html::a('Hari ini', ['pendaftaran/listharian'], ['class' => 'btn btn-success']) ?></td>
+    <td><?= Html::a('Besok', ['pendaftaran/listharian','id'=>1], ['class' => 'btn btn-success']) ?></td>
     <table class="table table-condensed">
         <tbody>
             <tr>
@@ -26,23 +33,25 @@ $id = Yii::$app->user->id;
             </tr>
             <?php
             $i = 1;
-            $pendaftaranQuery = (new Query())
-                ->from('pendaftaran')
-                ->where(['pasienID'=>$id]);
-            foreach($pendaftaranQuery->each() as $pendaftaran){
-                $jadwalQuery = (new Query())
-                    ->from('jadwalDokter')
-                    ->where(['jadwalID'=>$pendaftaran['jadwalID']]);
-                foreach($jadwalQuery->each() as $jadwal){
+            $jadwalQuery = (new Query())
+                ->from('jadwalDokter')
+                ->where(['dokterID'=>$id, 
+                         'jadwalTanggal' =>$date]);
+            foreach($jadwalQuery->each() as $jadwal){
+                $pendaftaranQuery = (new Query())
+                    ->from('pendaftaran')
+                    ->where(['jadwalID'=>$jadwal['jadwalID']]);
+                foreach($pendaftaranQuery->each() as $pendaftaran){
                     $userQuery = (new Query())
                         ->from('users')
-                        ->where(['userId'=>$jadwal['dokterID']]);
+                        ->where(['userId'=>$pendaftaran['pasienID']]);
                     foreach($userQuery->each() as $user){ ?>
                         <tr>
                             <td><?php echo $i; $i++;?></td>
                             <td><?php echo $user['userNama'];?></td>
-                            <td><?php echo $pendaftaran['pendaftaranTanggal'];?></td>
+                            <td><?php echo $jadwal['jadwalWaktu'];?></td>
                             <td><?php echo $pendaftaran['pendaftaranStatus'];?></td>
+                            <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success']) ?></td>
                         </tr>
                 <?php }
                 }

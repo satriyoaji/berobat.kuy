@@ -22,19 +22,47 @@ $this->title = 'Jadwal Dokter';
             <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <?= Html::a('Semua', ['users/dokter'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
-                <span class="badge badge-primary badge-pill">14</span>
+                <?php
+                $jumlahUser = (new Query())
+                    ->select('count(*)')
+                    ->from('users')
+                    ->where('userPekerjaan >=5 ');
+                foreach($jumlahUser->each() as $user)
+                ?>
+                <span class="badge badge-primary badge-pill"><?php echo $user['count(*)']; ?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <?= Html::a('Dokter Mata', ['users/dokter','category'=>'5'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
-                <span class="badge badge-primary badge-pill">2</span>
+                <?php
+                $jumlahUser = (new Query())
+                    ->select('count(*)')
+                    ->from('users')
+                    ->where('userPekerjaan =5 ');
+                foreach($jumlahUser->each() as $user)
+                ?>
+                <span class="badge badge-primary badge-pill"><?php echo $user['count(*)']; ?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
             <?= Html::a('Dokter Jantung', ['users/dokter','category'=>'6'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
-                <span class="badge badge-primary badge-pill">1</span>
+            <?php
+                $jumlahUser = (new Query())
+                    ->select('count(*)')
+                    ->from('users')
+                    ->where('userPekerjaan = 6 ');
+                foreach($jumlahUser->each() as $user)
+                ?>
+                <span class="badge badge-primary badge-pill"><?php echo $user['count(*)']; ?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
             <?= Html::a('Dokter Kulit', ['users/dokter','category'=>'7'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
-                <span class="badge badge-primary badge-pill">1</span>
+            <?php
+                $jumlahUser = (new Query())
+                    ->select('count(*)')
+                    ->from('users')
+                    ->where('userPekerjaan =7 ');
+                foreach($jumlahUser->each() as $user)
+                ?>
+                <span class="badge badge-primary badge-pill"><?php echo $user['count(*)']; ?></span>
             </li>
             </ul>
         </div>
