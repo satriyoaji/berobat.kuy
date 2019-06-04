@@ -11,12 +11,16 @@ $userQuery = (new Query())
 foreach($userQuery->each() as $user){ 
     $_SESSION['userCategory'] = $user['userPekerjaan'];
 }
+
+if(!isset($_SESSION['userCategory'])){
+    $_SESSION['userCategory']=0;
+}
 ?>
 <div class="site-index">
     <div class="body" style="padding-top:40px;">
     <br>
     <br>
-    <?php if(isset($_SESSION['userCategory'])){
+    <?php 
             if($_SESSION['userCategory'] >=5){ 
     // buat tampilan Dokter?>
     
@@ -58,7 +62,7 @@ foreach($userQuery->each() as $user){
                         </div>
                     </div>
     
-    <?php }} else { ?>
+    <?php } else { ?>
         <div class="jumbotron" style="background-color:#FFFFFF;box-shadow: 10px 10px 133px -21px rgba(158,153,158,0.45);">
             <div class="row" style="padding-left:80px;">
                 <h1 class="display-4" style="color:#35ad9f;"><b>SiKlinik !</b></h1>
@@ -101,7 +105,11 @@ foreach($userQuery->each() as $user){
                                     <div class="gambar" style="padding-top:20px;" align="center">
                                         <img src="../../assets/doctor.png" alt="" width="100" height="100">
                                     </div>
-                                    <h3 class="card-title text-center"><?= Html::a('Check Up', ['users/dokter'], ['class' => 'card-title'])?></h3>
+                                    <?php if (Yii::$app->user->isGuest) {?>    
+                                        <h3 class="card-title text-center"><?= Html::a('Check Up', ['site/login'], ['class' => 'card-title'])?></h3>
+                                    <?php } else {?>
+                                        <h3 class="card-title text-center"><?= Html::a('Check Up', ['users/dokter'], ['class' => 'card-title'])?></h3>
+                                    <?php }?>
                                 </div>
                                 </a>
                             </div>
@@ -112,33 +120,16 @@ foreach($userQuery->each() as $user){
                                     <div class="gambar" style="padding-top:20px;" align="center">
                                         <img src="../../assets/pills.png" alt="" width="100" height="100">
                                     </div>
-                                    <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
+                                    <?php if (Yii::$app->user->isGuest) {?>    
+                                        <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['site/login'], ['class' => 'card-title'])?></h3>
+                                    <?php } else if($_SESSION['userCategory'] == 3){?>
+                                        <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['resep/index'], ['class' => 'card-title'])?></h3>
+                                    <?php } else{ ?>
+                                        <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
+                                    <?php } ?>
                                 </div>
                             </div>
                             </a>
-                                
-                               <?php if (Yii::$app->user->isGuest) {?>    
-                                <h3 class="card-title text-center"><?= Html::a('Check Up', ['site/login'], ['class' => 'card-title'])?></h3>
-                               <?php } else {?>
-                                <h3 class="card-title text-center"><?= Html::a('Check Up', ['users/dokter'], ['class' => 'card-title'])?></h3>
-                               <?php }?>
-                            </div>
-                            </a>
-                        </div>
-                        <div class="col-md-3">
-                        <a href="">
-                        <div class="card" style="width: 14rem;">
-                            <div class="card-body">
-                                <div class="gambar" style="padding-top:20px;" align="center">
-                                    <img src="../../assets/pills.png" alt="" width="100" height="100">
-                                </div>
-                                <?php if (Yii::$app->user->isGuest) {?>    
-                                  <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['site/login'], ['class' => 'card-title'])?></h3>
-                                <?php } else if(Yii::$app->user->identity->username == 'apoteker'){?>
-                                  <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['resep/index'], ['class' => 'card-title'])?></h3>
-                                <?php } else{ ?>
-                                    <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
-                                <?php } ?>
                             </div>
                             <div class="col-md-3">
                                 <p align="left" style="color:#797b7c;">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eum maiores, culpa voluptatem alias earum mollitia a accusamus ex nobis, cumque omnis quidem ipsa saepe quos, corrupti aspernatur aliquam molestiae ullam?</p>
