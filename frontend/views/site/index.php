@@ -16,7 +16,8 @@ foreach($userQuery->each() as $user){
     <div class="body" style="padding-top:40px;">
     <br>
     <br>
-    <?php if($_SESSION['userCategory'] >=5){ 
+    <?php if(isset($_SESSION['userCategory'])){
+            if($_SESSION['userCategory'] >=5){ 
     // buat tampilan Dokter?>
     
     <div class="col-md-12">
@@ -57,7 +58,7 @@ foreach($userQuery->each() as $user){
                         </div>
                     </div>
     
-    <?php } else { ?>
+    <?php }} else { ?>
         <div class="jumbotron" style="background-color:#FFFFFF;box-shadow: 10px 10px 133px -21px rgba(158,153,158,0.45);">
             <div class="row" style="padding-left:80px;">
                 <h1 class="display-4" style="color:#35ad9f;"><b>SiKlinik !</b></h1>
