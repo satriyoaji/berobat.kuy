@@ -81,8 +81,4 @@ if(isset($_SESSION['resep'])){
         </tbody>
     </table>
     <td><?= Html::a('Kembali', ['pemeriksaan/update','id'=>$_SESSION['pemeriksaan']], ['class' => 'btn btn-success']) ?></td>
-
-    
-
-
 </div>
