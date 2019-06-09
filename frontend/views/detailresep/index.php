@@ -67,8 +67,4 @@ use yii\db\Query;
         </tr>
       </thead>
     </table> 
-   
-
-   
-
 </div>

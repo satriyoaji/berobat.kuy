@@ -4,6 +4,7 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\db\Query;
 use backend\models\Obat;
+use frontend\models\Resep;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ResepSearch */
@@ -12,11 +13,12 @@ $this->title = 'Resep';
 $this->params['breadcrumbs'][] = $this->title;
 $i=1;
 $userQuery=(new Query())
- ->select('userPekerjaan')
+ ->select('userPekerjaan,userId')
  ->from('users')
  ->where('userId = :userId', [':userId' => Yii::$app->user->getId()]);
 foreach($userQuery->each() as $row4){  
     $login=$row4['userPekerjaan'];
+    $userId=$row4['userId'];
 }
 $post=$provider->getModels();
   foreach ($post as $row) { 
@@ -30,7 +32,7 @@ $post=$provider->getModels();
       <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
       <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">List Resep</a>
       <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">List Obat</a>
-      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">verifikasi Resep</a>
+      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Verifikasi Resep</a>
     </div>
   </div>
   <div class="col-8">
@@ -95,7 +97,30 @@ $post=$provider->getModels();
         <?php } ?>
         </table>
       </div>
-      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">...</div>
+      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
+         <?php
+         $y=1;
+         $resepQuery = Resep::find();
+         $resepQuery->andFilterWhere(['LIKE','apotekerID',0]);
+         foreach($resepQuery->each() as $roww){ ?>
+          <table class="table">
+        <thead class="thead-dark">
+        <tr>
+        <th scope="col">No</th>
+        <th scope="col">ID Resep</th>
+        <th scope="col">ID Apoteker</th>
+        <th scope="col">Verifikasi</th>
+        </tr>
+        </thead>
+        <tbody>
+        <td><?php echo $y;$y++;?></td>
+        <td><?php echo $roww['resepID'];?></td>
+        <td><?php echo $roww['apotekerID'];?></td>
+        <td> <?= Html::a('Verifikasi', ['uptodate','id'=>$row['resepID'],'apotekerID'=>$userId], ['class' => 'btn btn-success']) ?></td>
+        </tbody>
+        <?php } ?>
+        </table>
+      </div>
     </div>
   </div>
 </div>
