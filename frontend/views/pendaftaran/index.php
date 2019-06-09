@@ -42,7 +42,11 @@ $id = Yii::$app->user->id;
                             <td><?php echo $i; $i++;?></td>
                             <td><?php echo $user['userNama'];?></td>
                             <td><?php echo $pendaftaran['pendaftaranTanggal'];?></td>
-                            <td><?php echo $pendaftaran['pendaftaranStatus'];?></td>
+                            <?php if($pendaftaran['pendaftaranStatus'] == 'Sudah Diperiksa'){ ?> 
+                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pemeriksaan/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td>
+                            <?php } else { ?>
+                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pendaftaran/index'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td></td>
+                            <?php } ?>
                         </tr>
                 <?php }
                 }
