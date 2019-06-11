@@ -24,43 +24,6 @@ if(!isset($_SESSION['userCategory'])){
             if($_SESSION['userCategory'] >=5){ 
     // buat tampilan Dokter?>
     
-    <div class="col-md-12">
-                        <div class="row">
-                        <div class="col-md-3">
-                                <a href="">
-                                <div class="card" style="width: 14rem;">
-                                    <div class="gambar" style="padding-top:20px;" align="center">
-                                        <img src="../../assets/doctor.png" alt="" width="100" height="100">
-                                    </div>
-                                    <h3 class="card-title text-center"><?= Html::a('List Pasien', ['users/pasien'], ['class' => 'card-title'])?></h3>
-                                </div>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                                <a href="">
-                                <div class="card" style="width: 14rem;">
-                                    <div class="gambar" style="padding-top:20px;" align="center">
-                                        <img src="../../assets/doctor.png" alt="" width="100" height="100">
-                                    </div>
-                                    <h3 class="card-title text-center"><?= Html::a('List Periksa', ['pendaftaran/listharian'], ['class' => 'card-title'])?></h3>
-                                </div>
-                                </a>
-                            </div>
-                            <div class="col-md-3">
-                            <a href="">
-                            <div class="card" style="width: 14rem;">
-                                <div class="card-body">
-                                    <div class="gambar" style="padding-top:20px;" align="center">
-                                        <img src="../../assets/pills.png" alt="" width="100" height="100">
-                                    </div>
-                                    <h3 class="card-title text-center"><?= Html::a('Beli Obat', ['obat/index'], ['class' => 'card-title'])?></h3>
-                                </div>
-                            </div>
-                            </a>
-                            </div>
-                            
-                        </div>
-                    </div>
     
     <?php } else if($_SESSION['userCategory']==4){ ?>
 

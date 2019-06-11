@@ -23,6 +23,8 @@ use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\Helpers\ArrayHelper;
 use yii\data\SqlDataProvider;
+use frontend\models\Users;
+use frontend\models\UsersSearch;
 
 /**
  * Site controller
@@ -83,12 +85,6 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        $model = new Cari();
-        if($model->load(Yii::$app->request->post())){
-            $_SESSION['cari']=$model->detailResepDosis;
-            return $this->goHome();
-        }
-
         $status=0;
         $userQuery = (new Query())
             ->from('users')
@@ -115,12 +111,41 @@ class SiteController extends Controller
                     'provider' => $provider,
                 ]);
             }
+
+            else if($id == 4){
+                $model = new Cari();
+                if($model->load(Yii::$app->request->post())){
+                    $_SESSION['cari']=$model->detailResepDosis;
+                    return $this->goHome();
+                }
+
+                $searchModel = new UsersSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                return $this->render('/users/indexkasir', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'model' => $model,
+                ]);
+            }
+
+            else if($id > 4){
+                $searchModel = new UsersSearch();
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                return $this->render('/users/indexdokter', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                ]);
+            }
+
+            else {
+                return $this->render('index');
+            }
         }
             
         
-        return $this->render('index',[
-            'model' => $model,
-        ]);
+        return $this->render('index');
     }
 
     /**
