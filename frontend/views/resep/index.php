@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\db\Query;
 use backend\models\Obat;
 use frontend\models\Resep;
+use phpDocumentor\Reflection\Types\Null_;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ResepSearch */
@@ -20,11 +21,14 @@ foreach($userQuery->each() as $row4){
     $login=$row4['userPekerjaan'];
     $userId=$row4['userId'];
 }
-$post=$provider->getModels();
-  foreach ($post as $row) { 
 ?>
 <div>
 <?php  if ($login == 3) {?>
+  <div class="jumbotron text-center" style="margin-bottom:0">
+  <h1>Welcome to the Pharmacist's Menu</h1>
+  <p>All Pharmaceutical Services are Available Here !</p>
+</div>
+<br><br>
 <div class="row">
   <br><br>
   <div class="col-4">
@@ -40,8 +44,9 @@ $post=$provider->getModels();
       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
         <h4> Selamat datang apoteker <?php echo Yii::$app->user->identity->username ?> </h4>
       </div>
-      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"> 
       <table class="table">
+        
         <thead class="thead-dark">
         <tr>
         <th scope="col">No</th>
@@ -51,6 +56,8 @@ $post=$provider->getModels();
         </tr>
         </thead>
         <tbody>
+        <?php $post=$provider->getModels();
+         foreach ($post as $row) { ?>
         <td><?php echo $i;$i++;?></td>
         <td><?php echo $row['resepID'];?></td>
         <td><?php echo $row['resepStatus'];?></td>
@@ -60,6 +67,7 @@ $post=$provider->getModels();
         </table>
       </div>
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+      <?= Html::a('create', ['obat/create'], ['class' => 'btn btn-success']) ?>
       <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -83,7 +91,7 @@ $post=$provider->getModels();
         <td><?php echo $rows['obatHarga'];?></td>
         <td><?php echo $rows['obatGolongan'];?></td>
         <td><?php echo $rows['obatDeskripsi'];?></td>
-        <td> <?= Html::a('create', ['obat/create'], ['class' => 'btn btn-success']) ?>
+        <td> 
              <?= Html::a('update', ['obat/update','id'=>$rows['obatID']], ['class' => 'btn btn-success']) ?>
              <?= Html::a('Delete', ['delete', 'id'=>$rows['obatID']], [
             'class' => 'btn btn-danger',
@@ -102,7 +110,7 @@ $post=$provider->getModels();
          $y=1;
          $resepQuery = Resep::find();
          $resepQuery->andFilterWhere(['LIKE','apotekerID',0]);
-         foreach($resepQuery->each() as $roww){ ?>
+         ?>
           <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -113,6 +121,7 @@ $post=$provider->getModels();
         </tr>
         </thead>
         <tbody>
+        <?php foreach($resepQuery->each() as $roww){ ?>
         <td><?php echo $y;$y++;?></td>
         <td><?php echo $roww['resepID'];?></td>
         <td><?php echo $roww['apotekerID'];?></td>
