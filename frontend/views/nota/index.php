@@ -30,6 +30,7 @@ $id = $_GET['id'];
         ->from('pendaftaran')
         ->where(['pasienID'=>$id]);
     foreach($pendaftaranQuery->each() as $pendaftaran){
+        $status=0;
         $pemeriksaanQuery = (new Query())
             ->from('pemeriksaan')
             ->where(['pendaftranID'=>$pendaftaran['pendaftaranID']]);
@@ -44,9 +45,11 @@ $id = $_GET['id'];
                     <td><?php echo $nota['notaTotalHarga'];?></td>
                     <td><?php echo $nota['code'];?></td>
                 </tr>
-            <?php }
+            <?php 
+            $status = 1;
+            }
         }
-
+        if($status == 0){
         $resepQuery = (new Query())
             ->from('resep')
             ->where(['pendaftaranID'=>$pendaftaran['pendaftaranID']]);
@@ -61,7 +64,8 @@ $id = $_GET['id'];
                     <td><?php echo $nota['notaTotalHarga'];?></td>
                     <td><?php echo $nota['code'];?></td>
                 </tr>
-            <?php }
+            <?php }}
+            
         }
     } ?>
       
