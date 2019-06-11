@@ -15,6 +15,14 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use frontend\models\Cari;
+use yii\db\Query;
+use frontend\models\Resep;
+use frontend\models\ResepSearch;
+use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\Helpers\ArrayHelper;
+use yii\data\SqlDataProvider;
 
 /**
  * Site controller
@@ -81,6 +89,33 @@ class SiteController extends Controller
             return $this->goHome();
         }
 
+        $status=0;
+        $userQuery = (new Query())
+            ->from('users')
+            ->where(['userId'=>Yii::$app->user->id]);
+        foreach($userQuery->each() as $user){
+            $id = $user['userPekerjaan'];
+            $status =1;
+        } 
+        
+        if($status == 1){
+            if($id == 3){
+                $searchModel = new ResepSearch();
+                $provider = new ActiveDataProvider([
+                    'query'=>Resep::find(),
+                    'Pagination'=>[
+                    'pageSize'=>6,
+                    ],
+                ]);
+                $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+                return $this->render('/resep/index', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
+                    'provider' => $provider,
+                ]);
+            }
+        }
             
         
         return $this->render('index',[

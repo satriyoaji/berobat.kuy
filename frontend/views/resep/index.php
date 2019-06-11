@@ -21,7 +21,7 @@ foreach($userQuery->each() as $row4){
     $userId=$row4['userId'];
 }
 $post=$provider->getModels();
-  foreach ($post as $row) { 
+  
 ?>
 <div>
 <?php  if ($login == 3) {?>
@@ -40,6 +40,7 @@ $post=$provider->getModels();
       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
         <h4> Selamat datang apoteker <?php echo Yii::$app->user->identity->username ?> </h4>
       </div>
+      
       <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
       <table class="table">
         <thead class="thead-dark">
@@ -50,6 +51,7 @@ $post=$provider->getModels();
         <th scope="col">Detail</th>
         </tr>
         </thead>
+        <?php foreach ($post as $row) {  ?>
         <tbody>
         <td><?php echo $i;$i++;?></td>
         <td><?php echo $row['resepID'];?></td>
@@ -60,6 +62,7 @@ $post=$provider->getModels();
         </table>
       </div>
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
+      <?= Html::a('create', ['obat/create'], ['class' => 'btn btn-success']) ?>
       <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -83,7 +86,7 @@ $post=$provider->getModels();
         <td><?php echo $rows['obatHarga'];?></td>
         <td><?php echo $rows['obatGolongan'];?></td>
         <td><?php echo $rows['obatDeskripsi'];?></td>
-        <td> <?= Html::a('create', ['obat/create'], ['class' => 'btn btn-success']) ?>
+        <td> 
              <?= Html::a('update', ['obat/update','id'=>$rows['obatID']], ['class' => 'btn btn-success']) ?>
              <?= Html::a('Delete', ['delete', 'id'=>$rows['obatID']], [
             'class' => 'btn btn-danger',
