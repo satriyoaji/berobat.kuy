@@ -6,16 +6,15 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Pendaftaran */
 
-$this->title = $model->pendaftaranID;
-$this->params['breadcrumbs'][] = ['label' => 'Pendaftarans', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = "Detail";
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="pendaftaran-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <br>
+    <br>
 
-    <p>
+    <!-- <p>
         <?= Html::a('Update', ['update', 'id' => $model->pendaftaranID], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Delete', ['delete', 'id' => $model->pendaftaranID], [
             'class' => 'btn btn-danger',
@@ -24,8 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'method' => 'post',
             ],
         ]) ?>
-    </p>
+    </p> -->
+    
+    <h2>Detail Pendaftaran Check Up</h2>
+    <br>
 
+    <div class="row">
+    <div class="col-md-7">
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [
@@ -36,5 +40,36 @@ $this->params['breadcrumbs'][] = $this->title;
             'pendaftaranStatus',
         ],
     ]) ?>
+    </div>
 
+    <div class="col-md-5">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <script type="text/javascript">
+            function generateBarCode()
+            {
+                var nric = $('#text').val();
+                var url = 'https://api.qrserver.com/v1/create-qr-code/?data=' + nric + '&amp;size=50x50';
+                $('#barcode').attr('src', url);
+            }
+        </script>
+
+        <img id='barcode' 
+                src="https://api.qrserver.com/v1/create-qr-code/?data=<?php echo $model->pendaftaranID; ?>&amp;size=100x100" 
+                alt="" 
+                title="HELLO" 
+                width="200" 
+                height="200" />
+                <br>
+                <br>
+        <p><small><i>Harap datang 15 menit sebelum pemeriksaan.</i></small></p>
+    </div>
+    </div>
 </div>
+
+<div class="download">
+    <!-- belum di link -->
+    <?= Html::a('Download Bukti', ['jadwaldokter/index'], ['class' => 'btn bg-primary', 'style' => 'color:white']) ?>
+</div>
+
+<br>
+<br>

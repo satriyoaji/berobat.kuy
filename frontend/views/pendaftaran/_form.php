@@ -16,7 +16,7 @@ use yii\db\Query;
         <tbody>
             <?php
             $jadwalQuery = (new Query())
-                ->from('jadwalDokter')
+                ->from('jadwaldokter')
                 ->where(['jadwalID'=>$id]);
             foreach($jadwalQuery->each() as $jadwal){
                 $userQuery = (new Query())
@@ -24,19 +24,19 @@ use yii\db\Query;
                     ->where(['userId'=>$jadwal['dokterID']]);
                 foreach($userQuery->each() as $user){ ?>
                     <tr>
-                        <td> Nama Dokter </td>
-                        <td><?php echo $user['userNama'];?></td>
+                        <td><i>Nama Dokter </i> </td>
+                        <td><b><?php echo $user['userNama'];?></b> </td>
                     </tr>
                     <tr>
-                        <td> Tanggal Pemeriksaan </td>
+                        <td> <i>Tanggal Pemeriksaan </i> </td>
                         <td><?php echo $jadwal['jadwalTanggal'];?></td>
                     </tr>
                     <tr>
-                        <td> Waktu Pemeriksaan </td>
+                        <td> <i>Waktu Pemeriksaan </i> </td>
                         <td><?php echo $jadwal['jadwalWaktu'];?></td>
                     </tr>
                     <tr>
-                        <td> Ruang Pemeriksaan </td>
+                        <td> <i>Ruang Pemeriksaan</i>  </td>
                         <td><?php echo $jadwal['jadwalRuangan'];?></td>
                     </tr>
                 <?php
@@ -63,10 +63,18 @@ use yii\db\Query;
     </div>
 
     <div class="form-group">
-        Yakin dengan Pemeriksaan? <?= Html::submitButton('Iya', ['class' => 'btn btn-success']) ?> 
+        <br>
+        Yakin dengan Pemeriksaan ? 
+        <br>
+        <br>
+        <?= Html::submitButton('Iya', ['class' => 'btn bg-primary', 'style' => 'color:white;']) ?> 
         <?= Html::a('Tidak', ['jadwaldokter/index','idDokter'=>$user['userId']], ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
+
+    <br>
+    <br>
+    <br>
 
 </div>

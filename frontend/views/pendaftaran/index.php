@@ -8,22 +8,26 @@ use yii\db\Query;
 /* @var $searchModel frontend\models\PendaftaranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pendaftarans';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'List Check Up';
+
 $id = Yii::$app->user->id;
 ?>
 <div class="pendaftaran-index">
-
+    <br>
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <br>
     <table class="table table-condensed">
-        <tbody>
-            <tr>
-                <td> No </td>
-                <td> Nama Dokter </td>
-                <td> Tanggal Periksa </td>
-                <td> Status Pemeriksaan </td>
-            </tr>
+        <thead class="thead-dark text-center">
+                <tr>
+                <th scope="col">No</th>
+                <th scope="col">Nama Dokter</th>
+                <th scope="col">Tanggal Periksa</th>
+                <th scope="col">Cetak Bukti</th>
+                <th scope="col">Waktu</th>
+                <th scope="col">Hapus</th>
+                </tr>
+        </thead>
+        <tbody class="text-center">
             <?php
             $i = 1;
             $pendaftaranQuery = (new Query())
@@ -31,7 +35,7 @@ $id = Yii::$app->user->id;
                 ->where(['pasienID'=>$id]);
             foreach($pendaftaranQuery->each() as $pendaftaran){
                 $jadwalQuery = (new Query())
-                    ->from('jadwalDokter')
+                    ->from('jadwaldokter')
                     ->where(['jadwalID'=>$pendaftaran['jadwalID']]);
                 foreach($jadwalQuery->each() as $jadwal){
                     $userQuery = (new Query())
@@ -47,6 +51,8 @@ $id = Yii::$app->user->id;
                             <?php } else { ?>
                                 <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pendaftaran/index'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td></td>
                             <?php } ?>
+                            <td></td>
+                            <td><?= Html::a('HAPUS', ['pemeriksaan/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success', 'style' => 'color:red']) ?></td>
                         </tr>
                 <?php }
                 }
@@ -58,3 +64,6 @@ $id = Yii::$app->user->id;
 
 
 </div>
+<br>
+<br>
+<br>

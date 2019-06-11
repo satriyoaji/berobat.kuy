@@ -60,18 +60,15 @@ MyAsset::register($this);
           <a class="dropdown-item" href="#"></a>
           <a class="dropdown-item" href="#"></a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" href="#"></a>
+          
         </div>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link disabled" href="#"></a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0">
     <p>
-      <?php if (Yii::$app->user->isGuest){ ?>
-        <?= Html::a('Create Users', ['users/create'], ['class' => 'btn btn-success']) ?>
-        <?= Html::a('Sign in', ['site/login'], ['class' => 'btn btn-success']) ?>
+      <?php if (Yii::$app->user->isGuest){ ?> 
+        <?= Html::a('Create Users', ['users/create'], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
+        <?= Html::a('Sign in', ['site/login'], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
         
       <?php } else { ?>
         <div class="dropdown">
@@ -83,10 +80,10 @@ MyAsset::register($this);
           <img src="../../assets/FOTO USER/download.png" alt="Avatar" style="border-radius: 50%; width: 50px;border-style: ridge;">
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
-          <?= Html::a('List Periksa', ['pendaftaran/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
-          <?= Html::a('Pembayaran', ['nota/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
-          <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-success','data'=>['method'=>'post']] ) ?>
+          <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
+          <?= Html::a('List Periksa', ['pendaftaran/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
+          <?= Html::a('Pembayaran', ['nota/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
+          <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-success', 'style'=>'color:#35a373','data'=>['method'=>'post']] ) ?>
           <div = hidden>
           <?= Html::beginForm(['/site/logout'], 'post')
               . Html::submitButton(

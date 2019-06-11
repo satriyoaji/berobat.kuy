@@ -161,4 +161,115 @@ if(!isset($_SESSION['userCategory'])){
             
         </div>
     <?php } ?>
+<br>
+<br>
+<div class="col-md-12" style="width: 1100px;display: flex;flex-direction: column;justify-content: center;text-align: center;">
+    <h1 align="center" style="color:#67696b;">OUR TEAM</h1>
+    <br>
+</div>                                  
+<section class="carousel slide testimonials-slider cid-qyvf5AQs7c" id="testimonials-slider1-3" data-rv-view="767">
+    <div class="container text-center">
+        <div class="carousel slide" data-ride="carousel" role="listbox">
+            <div class="carousel-inner">
+                
+                
+            <div class="carousel-item active">
+                    <div class="user col-md-12">
+                        <img src="../../assets/profil/lana.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
+                        
+                        <div class="user_text pb-3">
+                        <br>
+                        <br>
+                            <p class="mbr-fonts-style display-7">
+                                Good afternoon. I am very pleased with the quality of the work of your employee representing your wonderful company.
+                            </p>
+                        </div>
+                        <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
+                            Shafiyah
+                        </div>
+                        <div class="user_desk mbr-light mbr-fonts-style display-7">
+                            BACKEND
+                        </div>
+                    </div>
+                </div><div class="carousel-item">
+                    <div class="user col-md-12">
+                    <img src="../../assets/profil/shaf.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
+                        <div class="user_text pb-3">
+                        <br>
+                        <br>
+                            <p class="mbr-fonts-style display-7">
+                                All issues are resolved promptly. In communication, the employees are pleasant, helpful. Always offer new ideas, new ways to develop, improve our project.
+                            </p>
+                        </div>
+                        <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
+                            Hanun
+                        </div>
+                        <div class="user_desk mbr-light mbr-fonts-style display-7">
+                            DEVELOPER
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="user col-md-12">
+                        <img src="../../assets/profil/hanun.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
+                        <br>
+                        <br>
+                        <div class="user_text pb-3">
+                            <p class="mbr-fonts-style display-7">
+                                Excellent client manager. He is always accurate, all promises are fulfilled, all questions get answers, the company presents very attentive and positive approach.
+                            </p>
+                        </div>
+                        <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
+                            Edy
+                        </div>
+                        <div class="user_desk mbr-light mbr-fonts-style display-7">
+                            FrontEnd Developer
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="user col-md-12">
+                        <img src="../../assets/profil/edy.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
+                        <div class="user_text pb-3">
+                        <br>
+                        <br>
+                            <p class="mbr-fonts-style display-7">
+                                Excellent client manager. He is always accurate, all promises are fulfilled, all questions get answers, the company presents very attentive and positive approach.
+                            </p>
+                        </div>
+                        <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
+                            Zulfa
+                        </div>
+                        <div class="user_desk mbr-light mbr-fonts-style display-7">
+                            FrontEnd Developer
+                        </div>
+                    </div>
+                </div>
+                </div>
+
+            <div class="carousel-controls">
+                <a class="carousel-control-prev" role="button" data-slide="prev" href="#testimonials-slider1-3">
+                  <span aria-hidden="true" class="mbri-arrow-prev mbr-iconfont"></span>
+                  <span class="sr-only">Previous</span>
+                </a>
+                
+                <a class="carousel-control-next" role="button" data-slide="next" href="#testimonials-slider1-3">
+                  <span aria-hidden="true" class="mbri-arrow-next mbr-iconfont"></span>
+                  <span class="sr-only">Next</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="assets/web/assets/jquery/jquery.min.js"></script>
+<script src="assets/popper/popper.min.js"></script>
+<script src="assets/tether/tether.min.js"></script>
+  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+  <script src="assets/dropdown/js/script.min.js"></script>
+  <script src="assets/touch-swipe/jquery.touch-swipe.min.js"></script>
+  <script src="assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
+  <script src="assets/smooth-scroll/smooth-scroll.js"></script>
+  <script src="assets/theme/js/script.js"></script>
+  <script src="assets/formoid/formoid.min.js"></script>
 </div>
