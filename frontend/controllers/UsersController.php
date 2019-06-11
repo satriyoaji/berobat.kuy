@@ -4,10 +4,12 @@ namespace frontend\controllers;
 
 use Yii;
 use frontend\models\Users;
+use frontend\models\GantiPassword;
 use frontend\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Query;
 
 /**
  * UsersController implements the CRUD actions for Users model.
@@ -149,13 +151,31 @@ class UsersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model2 = new GantiPassword();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model2->load(Yii::$app->request->post())) {
+            echo "halo";
+            $model2->username= sha1($model2->username);
+            $cekPassword = (new Query())
+                ->select('count(*)')
+                ->from('users')
+                ->where(['password'=>$model2->username]);
+            foreach($cekPassword->each() as $cek){
+                if($cek['count(*)']){
+                    if($model2->userNama == $model2->userEmail){
+                        $model->password = sha1($model2->userNama);
+                        $model->save();
+                    }
+                }
+            }
+            
             return $this->redirect(['view', 'id' => $model->userId]);
         }
 
+
         return $this->render('update', [
             'model' => $model,
+            'model2' => $model2,
         ]);
     }
 

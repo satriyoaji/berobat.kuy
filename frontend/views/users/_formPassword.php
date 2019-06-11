@@ -14,15 +14,11 @@ use yii\widgets\ActiveForm;
 
     
 
-    <?= $form->field($model, 'userAlamat')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model2, 'username')->passwordInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'userTanggalLahir')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model2, 'userNama')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'userTelephone')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'userJenisKelamin')->dropDownList(
-            ['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']
-    ); ?>
+    <?= $form->field($model2, 'userEmail')->passwordInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

@@ -69,6 +69,7 @@ class Users extends \yii\db\ActiveRecord
             'userFoto' => 'User Foto',
             'userTanggalLahir' => 'User Tanggal Lahir',
             'userJenisKelamin' => 'User Jenis Kelamin',
+            'password1' => 'Password Lama',
         ];
     }
 

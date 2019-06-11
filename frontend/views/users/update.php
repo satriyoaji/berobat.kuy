@@ -22,6 +22,7 @@ $kategori = $_GET['kategori'];
     <?php } else { ?>
         <?= $this->render('_formPassword', [
         'model' => $model,
+        'model2' => $model2,
     ]) ?>
     <?php } ?>
 
