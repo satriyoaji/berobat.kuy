@@ -71,7 +71,7 @@ echo "Tanggal Periksa $date";
             <?php
             $i = 1;
             $jadwalQuery = (new Query())
-                ->from('jadwalDokter')
+                ->from('jadwaldokter')
                 ->where(['dokterID'=>$id, 
                          'jadwalTanggal' =>$date]);
             foreach($jadwalQuery->each() as $jadwal){

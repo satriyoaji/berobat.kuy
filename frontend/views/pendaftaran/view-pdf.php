@@ -25,7 +25,7 @@ $this->title = "Detail";
         ]) ?>
     </p> -->
     
-    <h2>Detail Pendaftaran Check Up</h2>
+    <h2>Bukti Pendaftaran Check Up</h2>
     <br>
 
     <div class="row">
@@ -62,14 +62,8 @@ $this->title = "Detail";
                 <br>
                 <br>
         <p><small><i>Harap datang 15 menit sebelum pemeriksaan.</i></small></p>
+        <p><small><i>Tunjukan bukti ini ke petugas.</i></small></p>
     </div>
     </div>
 </div>
 
-<div class="download">
-    <!-- belum di link -->
-    <?= Html::a('Download Bukti', ['gen-pdf', 'id' => $model->pendaftaranID], ['class' => 'btn bg-primary', 'style' => 'color:white']) ?>
-</div>
-
-<br>
-<br>
