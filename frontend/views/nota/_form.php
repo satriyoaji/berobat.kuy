@@ -12,18 +12,24 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'kasirID')->textInput() ?>
+    <div = hidden>
+    <?= $form->field($model, 'kasirID')->textInput(['value'=>Yii::$app->user->id]) ?>
 
-    <?= $form->field($model, 'notaTotalHarga')->textInput() ?>
+    
 
     <?= $form->field($model, 'pemeriksaanID')->textInput() ?>
 
     <?= $form->field($model, 'resepID')->textInput() ?>
+    </div>
 
-    <?= $form->field($model, 'notaStatus')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'notaTotalHarga')->textInput() ?>
+
+    <?= $form->field($model, 'notaStatus')->dropDownList(
+            ['Belum dibayar' => 'Belum dibayar', 'Sudah Bayar' => 'Sudah Bayar']
+    ); ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Bayar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

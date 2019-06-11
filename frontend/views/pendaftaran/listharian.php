@@ -11,6 +11,43 @@ use yii\db\Query;
 $this->title = 'Pendaftarans';
 $this->params['breadcrumbs'][] = $this->title;
 $id = Yii::$app->user->id;
+if(isset($_GET['status'])){
+    $resepQuery = (new Query())
+        ->from('resep')
+        ->where(['resepID'=>$_SESSION['resep']]);
+    foreach($resepQuery->each() as $resep){
+        $hargaResep = $resep['resepTotalHarga'];
+    }
+
+    $resepQuery = (new Query())
+        ->from('resep')
+        ->where(['resepID'=>$_SESSION['resep']]);
+    foreach($resepQuery->each() as $resep){
+        $hargaResep = $resep['resepTotalHarga'];
+    }
+
+    $pemeriksaanQuery = (new Query())
+        ->from('pemeriksaan')
+        ->where(['pemeriksaanID'=>$_SESSION['pemeriksaan']]);
+    foreach($pemeriksaanQuery->each() as $pemeriksaan){
+        $jenisQuery = (new Query())
+            ->from('jenisPeriksa')
+            ->where(['jenisPeriksaID'=>$pemeriksaan['jenisPeriksaID']]);
+        foreach($jenisQuery->each() as $jenis){
+            $hargaPeriksa = $jenis['jenisPeriksaHarga'];
+        }
+    }
+
+    $code = $password = rand(1,10000);
+    $hargaAkhir = $hargaPeriksa + $hargaResep;
+    Yii::$app->db->createCommand()->insert('nota', [
+        'notaStatus' => 'Belum dibayar',
+        'pemeriksaanID' => $_SESSION['pemeriksaan'],
+        'resepID' => $_SESSION['resep'],
+        'notaTotalHarga' => $hargaAkhir,
+        'code' => $code,
+    ])->execute();
+}
 if(isset($_GET['id'])){
     $date = date('d-m-Y', time() + (24 * 60 * 60));
 } else {
@@ -51,7 +88,22 @@ echo "Tanggal Periksa $date";
                             <td><?php echo $user['userNama'];?></td>
                             <td><?php echo $jadwal['jadwalWaktu'];?></td>
                             <td><?php echo $pendaftaran['pendaftaranStatus'];?></td>
-                            <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success']) ?></td>
+                            <td><?php echo $pendaftaran['pendaftaranID'];?></td>
+                            <?php 
+                            $validasiPendaftaran = (new Query())
+                                ->select('count(*),pemeriksaanID')
+                                ->from('pemeriksaan')
+                                ->where(['pendaftranID'=>$pendaftaran['pendaftaranID']]);
+                            foreach($validasiPendaftaran->each() as $validasi){ 
+                                $banyak = $validasi['count(*)'];
+                                $idPemeriksaan = $validasi['pemeriksaanID'];
+                            }
+                            if($banyak == 0){
+                            ?>
+                                <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success']) ?></td>
+                            <?php } else { ?>
+                                <td><?= Html::a('Update Periksa', ['pemeriksaan/update','id'=>$idPemeriksaan], ['class' => 'btn btn-success']) ?></td>
+                            <?php } ?>
                         </tr>
                 <?php }
                 }

@@ -53,7 +53,6 @@ class PemeriksaanController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
         ]);
     }
 
@@ -88,10 +87,11 @@ class PemeriksaanController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['obat/listobat']);
+        if(isset($_SESSION['pemeriksaan'])){
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['obat/listobat']);
+            }
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);

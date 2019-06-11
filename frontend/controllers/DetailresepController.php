@@ -92,6 +92,25 @@ class DetailresepController extends Controller
         $model = new Detailresep();
         
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $banyak = $model->detailResepQuantity;
+            $obatQuery=(new Query())
+                ->from('obat')
+                ->where(['obatID' => $model->obatID]);
+            foreach($obatQuery->each() as $obat){ 
+                $harga = $obat['obatHarga'];
+            }
+            $harga = $harga * $banyak;
+            $model->detailResepSubtotal = $harga;
+            $model->save();
+
+            $hargaAkhir = 0;
+            $resepQuery=(new Query())
+                ->from('detailResep')
+                ->where(['resepID' => $_SESSION['resep']]);
+            foreach($resepQuery->each() as $resep){ 
+                $hargaAkhir = $resep['detailResepSubtotal'] + $hargaAkhir;
+            }
+            Yii::$app->db->createCommand()->update('resep', ['resepTotalHarga' => $hargaAkhir], ['resepID'=>$_SESSION['resep']])->execute();
             return $this->redirect(['pemeriksaan/update','id'=>$_SESSION['pemeriksaan']]);
         }
         return $this->render('create',[

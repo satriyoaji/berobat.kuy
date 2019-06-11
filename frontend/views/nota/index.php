@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use yii\db\Query;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\NotaSearch */
@@ -9,33 +10,61 @@ use yii\grid\GridView;
 
 $this->title = 'Notas';
 $this->params['breadcrumbs'][] = $this->title;
+
+$id = $_GET['id'];
 ?>
 <div class="nota-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
+    <table class="table table-condensed">
+        <tbody>
+            <tr>
+                <td> No </td>
+                <td> Nama Obat </td>
+                <td> Golongan Obat </td>
+                <td> Status Pemeriksaan </td>
+            </tr>
+    <?php
+    $i=1;
+    $pendaftaranQuery = (new Query())
+        ->from('pendaftaran')
+        ->where(['pasienID'=>$id]);
+    foreach($pendaftaranQuery->each() as $pendaftaran){
+        $pemeriksaanQuery = (new Query())
+            ->from('pemeriksaan')
+            ->where(['pendaftranID'=>$pendaftaran['pendaftaranID']]);
+        foreach($pemeriksaanQuery->each() as $pemeriksaan){
+            $cekNotaPemeriksaan = (new Query())
+                ->from('nota')
+                ->where(['pemeriksaanID'=>$pemeriksaan['pemeriksaanID']]);
+            foreach($cekNotaPemeriksaan->each() as $nota){ ?>
+                <tr>
+                    <td><?php echo $i; $i++;?></td>
+                    <td><?php echo $nota['notaStatus'];?></td>
+                    <td><?php echo $nota['notaTotalHarga'];?></td>
+                    <td><?php echo $nota['code'];?></td>
+                </tr>
+            <?php }
+        }
 
-    <p>
-        <?= Html::a('Create Nota', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
-
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'notaID',
-            'kasirID',
-            'notaTotalHarga',
-            'pemeriksaanID',
-            'resepID',
-            //'notaStatus',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-
+        $resepQuery = (new Query())
+            ->from('resep')
+            ->where(['pendaftaranID'=>$pendaftaran['pendaftaranID']]);
+        foreach($resepQuery->each() as $resep){
+            $cekNotaResep = (new Query())
+                ->from('nota')
+                ->where(['resepID'=>$resep['resepID']]);
+            foreach($cekNotaResep->each() as $cekNota2){ ?>
+                <tr>
+                    <td><?php echo $i; $i++;?></td>
+                    <td><?php echo $nota['notaStatus'];?></td>
+                    <td><?php echo $nota['notaTotalHarga'];?></td>
+                    <td><?php echo $nota['code'];?></td>
+                </tr>
+            <?php }
+        }
+    } ?>
+      
+        </tbody>
+    </table>
 </div>

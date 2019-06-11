@@ -9,10 +9,11 @@ use Yii;
  *
  * @property int $jenisPeriksaID
  * @property string $jenisPeriksaNama
+ * @property int $jenisPeriksaHarga
  *
- * @property Pemeriksaan $pemeriksaan
+ * @property Pemeriksaan[] $pemeriksaans
  */
-class JenisPeriksa extends \yii\db\ActiveRecord
+class Jenisperiksa extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -28,6 +29,7 @@ class JenisPeriksa extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['jenisPeriksaHarga'], 'integer'],
             [['jenisPeriksaNama'], 'string', 'max' => 15],
         ];
     }
@@ -40,14 +42,15 @@ class JenisPeriksa extends \yii\db\ActiveRecord
         return [
             'jenisPeriksaID' => 'Jenis Periksa ID',
             'jenisPeriksaNama' => 'Jenis Periksa Nama',
+            'jenisPeriksaHarga' => 'Jenis Periksa Harga',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPemeriksaan()
+    public function getPemeriksaans()
     {
-        return $this->hasOne(Pemeriksaan::className(), ['jenisPeriksaID' => 'jenisPeriksaID']);
+        return $this->hasMany(Pemeriksaan::className(), ['jenisPeriksaID' => 'jenisPeriksaID']);
     }
 }

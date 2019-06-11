@@ -7,7 +7,6 @@ use yii\helpers\ArrayHelper;
 use yii\db\ActiveQuery;
 use yii\data\ActiveDataProvider;
 use yii\db\Query;
-use yii\jui\DatePicker;
 //use yii\jui\DatePicker;
 //use yii\widgets\ActiveField::widget();
 
@@ -33,7 +32,7 @@ $listData=ArrayHelper::map($categories,'userId','userNama');
 
     <?= $form->field($model, 'jadwalRuangan')->textInput(['maxlength' => true]) ?>
     
-    <?= $form->field($model,'jadwalTanggal')->widget(DatePicker::className(),['clientOptions' => ['defaultDate' => '2014-01-01']]) ?>
+    
     <?= $form->field($model,'jadwalTanggal')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">

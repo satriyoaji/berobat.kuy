@@ -63,7 +63,7 @@ if(isset($_SESSION['resep'])){
                     <?php $verifikasiResep = (new Query())
                         ->select('count(*)')
                         ->from('detailResep')
-                        ->where(['obatID'=>$obat['obatID']]);
+                        ->where(['obatID'=>$obat['obatID'],'resepID'=>$_SESSION['resep']]);
                     foreach($verifikasiResep->each() as $data){
                         $verifikasi = $data['count(*)']; 
                     }?>

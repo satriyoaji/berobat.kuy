@@ -14,6 +14,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use frontend\models\Cari;
 
 /**
  * Site controller
@@ -74,7 +75,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = new Cari();
+        if($model->load(Yii::$app->request->post())){
+            $_SESSION['cari']=$model->detailResepDosis;
+            return $this->goHome();
+        }
+
+            
+        
+        return $this->render('index',[
+            'model' => $model,
+        ]);
     }
 
     /**

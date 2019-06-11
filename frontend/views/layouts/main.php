@@ -85,6 +85,7 @@ MyAsset::register($this);
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
           <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
           <?= Html::a('List Periksa', ['pendaftaran/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
+          <?= Html::a('Pembayaran', ['nota/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
           <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-success','data'=>['method'=>'post']] ) ?>
           <div = hidden>
           <?= Html::beginForm(['/site/logout'], 'post')

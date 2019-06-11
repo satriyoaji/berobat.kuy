@@ -62,7 +62,50 @@ if(!isset($_SESSION['userCategory'])){
                         </div>
                     </div>
     
-    <?php } else { ?>
+    <?php } else if($_SESSION['userCategory']==4){ ?>
+
+        <div class="comments-create">
+            <?= $this->render('cari', ['model' => $model]) ?>
+        </div>
+
+        <?php 
+        if(isset($_SESSION['cari'])){
+        ?>
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                <th scope="col">No</th>
+                <th scope="col">Code</th>
+                <th scope="col">Jumlah Harga</th>
+                <th> </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                <?php
+                $i = 0;
+                $notaQuery = (new Query())
+                    ->select('*')
+                    ->from('nota')
+                    ->where(['code'=>$_SESSION['cari']]);
+                foreach($notaQuery->each() as $nota){ 
+
+                ?>
+                <td><?php echo $i; $i++;?></td>
+                <td><?php echo $nota['code'];?></td>
+                <td><?php echo $nota['notaTotalHarga'];?></td>
+                <td><?= Html::a('Bayar', ['nota/update','id'=>$nota['notaID']], ['class' => 'btn btn-success']) ?></td>
+                </tr>
+                <?php 
+            } ?> 
+            </tbody>
+        </table>
+        
+        <?php 
+        unset($_SESSION['cari']);
+        }
+    }else { ?>
+        
         <div class="jumbotron" style="background-color:#FFFFFF;box-shadow: 10px 10px 133px -21px rgba(158,153,158,0.45);">
             <div class="row" style="padding-left:80px;">
                 <h1 class="display-4" style="color:#35ad9f;"><b>SiKlinik !</b></h1>
@@ -84,7 +127,7 @@ if(!isset($_SESSION['userCategory'])){
             </div>
         </div>
         </div>
-
+        
         <div class="body-content">
             <br>
             <br>

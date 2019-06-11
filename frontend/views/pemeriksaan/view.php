@@ -7,9 +7,9 @@ use yii\db\Query;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Pemeriksaan */
 
-$this->title = $model->pemeriksaanID;
+//$this->title = $model->pemeriksaanID;
 $this->params['breadcrumbs'][] = ['label' => 'Pemeriksaans', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 
 
 $id=$_GET['id'];
@@ -44,7 +44,15 @@ $id=$_GET['id'];
         </tr>
     </thead>
     <tbody>
-        <?php if(!isset($_SESSION['resep'])){ ?>
+        <?php 
+        $resepValidasi = (new Query())
+            ->select('count(*)')
+            ->from('resep')
+            ->where(['pendaftaranID'=>$id]);
+        foreach($resepValidasi->each() as $validasi){
+            $banyak = $validasi['count(*)'];
+        }
+        if($banyak==0){ ?>
         <tr>
             <th colspan="5"><center> Tidak Ada Resep Obat </center></th>
         </tr>
@@ -54,24 +62,24 @@ $id=$_GET['id'];
                 ->from('resep')
                 ->where(['pendaftaranID'=>$id]);
             foreach($resepQuery->each() as $resep){
-            $detailresepQuery = (new Query())
-                ->from('detailresep')
-                ->where(['resepID'=>$resep['resepID']]);
-            foreach($detailresepQuery->each() as $detailresep){
-                $obatQuery = (new Query())
-                    ->from('obat')
-                    ->where(['obatID'=>$detailresep['obatID']]);
-                foreach($obatQuery->each() as $obat){?>
-                <tr>
-                    <th><?php echo $i; $i++; ?></th>
-                    <th><?php echo $obat['obatNama'] ?></th>
-                    <th><?php echo $detailresep['detailResepQuantity'] ?></th>
-                    <th><?php echo $detailresep['detailResepDosis'] ?></th>
-                    <th><?php echo $obat['obatGolongan'] ?></th>
-                </tr>
-                <?php }
+                $detailresepQuery = (new Query())
+                    ->from('detailresep')
+                    ->where(['resepID'=>$resep['resepID']]);
+                foreach($detailresepQuery->each() as $detailresep){
+                    $obatQuery = (new Query())
+                        ->from('obat')
+                        ->where(['obatID'=>$detailresep['obatID']]);
+                    foreach($obatQuery->each() as $obat){?>
+                    <tr>
+                        <th><?php echo $i; $i++; ?></th>
+                        <th><?php echo $obat['obatNama'] ?></th>
+                        <th><?php echo $detailresep['detailResepQuantity'] ?></th>
+                        <th><?php echo $detailresep['detailResepDosis'] ?></th>
+                        <th><?php echo $obat['obatGolongan'] ?></th>
+                    </tr>
+                    <?php }
+                    }
                 }
-            }
             }?>
 
     </tbody>
