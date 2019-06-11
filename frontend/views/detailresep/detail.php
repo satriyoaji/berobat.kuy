@@ -40,7 +40,7 @@ use backend\models\Pendaftaran;
           <?= $form->field($model, 'detailResepSubtotal')->textInput(['value'=>$obatharga]) ?>
         </div>
          <div class="form-group">
-           <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
+           <?= Html::submitButton('Submit', ['class' => 'btn bg-primary', 'name' => 'contact-button', 'style' => 'color:white']) ?>
          </div>
       </div>
       <div class="space-ten"></div>
