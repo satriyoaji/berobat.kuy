@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\db\Query;
 use backend\models\Obat;
 use frontend\models\Resep;
+use phpDocumentor\Reflection\Types\Null_;
 
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ResepSearch */
@@ -20,11 +21,19 @@ foreach($userQuery->each() as $row4){
     $login=$row4['userPekerjaan'];
     $userId=$row4['userId'];
 }
+<<<<<<< HEAD
+=======
 $post=$provider->getModels();
   
+>>>>>>> 6e14522db5cba5a230c7488b8524eb6b2e00a54d
 ?>
 <div>
 <?php  if ($login == 3) {?>
+  <div class="jumbotron text-center" style="margin-bottom:0">
+  <h1>Welcome to the Pharmacist's Menu</h1>
+  <p>All Pharmaceutical Services are Available Here !</p>
+</div>
+<br><br>
 <div class="row">
   <br><br>
   <div class="col-4">
@@ -40,9 +49,14 @@ $post=$provider->getModels();
       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
         <h4> Selamat datang apoteker <?php echo Yii::$app->user->identity->username ?> </h4>
       </div>
+<<<<<<< HEAD
+      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"> 
+=======
       
       <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
+>>>>>>> 6e14522db5cba5a230c7488b8524eb6b2e00a54d
       <table class="table">
+        
         <thead class="thead-dark">
         <tr>
         <th scope="col">No</th>
@@ -53,6 +67,8 @@ $post=$provider->getModels();
         </thead>
         <?php foreach ($post as $row) {  ?>
         <tbody>
+        <?php $post=$provider->getModels();
+         foreach ($post as $row) { ?>
         <td><?php echo $i;$i++;?></td>
         <td><?php echo $row['resepID'];?></td>
         <td><?php echo $row['resepStatus'];?></td>
@@ -105,7 +121,7 @@ $post=$provider->getModels();
          $y=1;
          $resepQuery = Resep::find();
          $resepQuery->andFilterWhere(['LIKE','apotekerID',0]);
-         foreach($resepQuery->each() as $roww){ ?>
+         ?>
           <table class="table">
         <thead class="thead-dark">
         <tr>
@@ -116,6 +132,7 @@ $post=$provider->getModels();
         </tr>
         </thead>
         <tbody>
+        <?php foreach($resepQuery->each() as $roww){ ?>
         <td><?php echo $y;$y++;?></td>
         <td><?php echo $roww['resepID'];?></td>
         <td><?php echo $roww['apotekerID'];?></td>
