@@ -48,7 +48,7 @@ use yii\db\Query;
         $obatQuery=(new Query())
         ->select('obatNama,obatHarga')
         ->from('obat')
-        ->where('obatID = :obatID', [':obatID' => $row1['resepID']]);
+        ->where('obatID = :obatID', [':obatID' => $row1['obatID']]);
         foreach($obatQuery->each() as $row2){ ?>
           <td><?php echo $row2['obatNama'];?></td>
           <td><?php echo $row1['detailResepQuantity'];?></td>

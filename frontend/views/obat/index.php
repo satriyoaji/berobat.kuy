@@ -51,11 +51,11 @@ $pendaftaranQuery=(new Query())
             <hr>
             <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <?= Html::a("Obat Ringan",['obat/index','id'=>'Obat Ringan'],['class' =>'list-group-item']) ?>
+            <?= Html::a("Obat Ringan",['obat/index','id'=>'bebas'],['class' =>'list-group-item']) ?>
                
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <?= Html::a("Obat Keras",['obat/index','id'=>'Obat Keras'],['class' =>'list-group-item']) ?>
+            <?= Html::a("Obat Keras",['obat/index','id'=>'keras'],['class' =>'list-group-item']) ?>
                 
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">

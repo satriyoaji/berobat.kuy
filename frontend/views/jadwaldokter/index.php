@@ -27,6 +27,7 @@ $this->title = 'Jadwal Dokter';
     foreach($dataUser->each() as $user){ ?>
         <div class="detailDokter" style="padding-left:12px;">
         <h4><b><?php echo $user['userNama']; ?></b></h4>
+        <?php $pekerjaan = $user['userPekerjaan'];?>
         <?php
         $dataPekerjaan = (new Query())
             ->select('*')
@@ -49,13 +50,14 @@ $this->title = 'Jadwal Dokter';
         <th scope="col">Ruangan</th>
         <th scope="col">Waktu</th>
         <th scope="col">Kuota</th>
+        <?php if ($pekerjaan < 4){ ?>
         <th scope="col">Booking</th>
+        <?php } ?>
         </tr>
     </thead>
     <tbody>
     <?php
-        $i=1;
-            
+        $i=1;     
         $dataJadwal = (new Query())
             ->select('*')
             ->from('jadwaldokter')
@@ -92,6 +94,8 @@ $this->title = 'Jadwal Dokter';
                             'method' => 'post',],]) ?></td>
                     <?php } else if (Yii::$app->user->isGuest){ ?>
                         <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
+                    <?php } else if ($pekerjaan > 4){ ?>
+                         <td></td>
                     <?php } else { ?>
                         <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
                     <?php } ?>
