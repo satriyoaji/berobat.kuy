@@ -9,8 +9,6 @@ use yii\db\Query;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Jadwal Dokter';
-echo date('d-m-Y');
-echo date('d-m-Y', time() + (24 * 60 * 60));
 ?>
 <div class="users-index">
     <br>

@@ -29,7 +29,7 @@ if(isset($_SESSION['resep'])){
         'resepStatus' => 'Belum Dibuat',
         'resepTanggal' => $date = date('d-m-Y'),
         'resepTotalHarga' => 0,
-        'apotekerID' => 0,
+        'apotekerID' => 19,
     ])->execute();
 
     $resepQuery = (new Query())

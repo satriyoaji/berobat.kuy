@@ -8,6 +8,7 @@ use frontend\models\PendaftaranSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use mPDF;
 
 /**
  * PendaftaranController implements the CRUD actions for Pendaftaran model.
@@ -65,6 +66,26 @@ class PendaftaranController extends Controller
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
+    }
+
+    public function actionGenPdf($id)
+    {
+       
+        $pdf_content = $this->renderPartial('view-pdf', [
+            'model' => $this->findModel($id),
+        ]);
+
+        $mpdf = new \Mpdf\Mpdf([
+            'tempDir' => __DIR__ , // uses the current directory's parent "tmp" subfolder
+            'setAutoTopMargin' => 'stretch',
+            'setAutoBottomMargin' => 'stretch'
+          ]);
+        $mpdf->WriteHTML($pdf_content);
+        $mpdf->Output();
+        exit;
+
+        
+
     }
 
     /**

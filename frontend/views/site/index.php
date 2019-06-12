@@ -102,15 +102,16 @@ if(!isset($_SESSION['userCategory'])){
                     </div>
                     <div class="col-md-12">
                         <div class="row">
-                            <div class="col-md-3">
+                            <div class="col-md-3" >
                                 <p align="right" style="color:#797b7c;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique facilis vel, eveniet incidunt explicabo nisi doloremque reiciendis cumque, eaque velit repellendus ad adipisci, voluptas repellat! Neque minus ut alias enim.</p>
                             </div>
-                            <div class="col-md-3">
+                            <div class="col-md-3"  >
                                 <a href="">
-                                <div class="card" style="width: 14rem;">
+                                <div class="card" style="min-height: 200px;">
                                     <div class="gambar" style="padding-top:20px;" align="center">
                                         <img src="../../assets/doctor.png" alt="" width="100" height="100">
                                     </div>
+                                    <br>
                                     <?php if (Yii::$app->user->isGuest) {?>    
                                         <h3 class="card-title text-center"><?= Html::a('Check Up', ['site/login'], ['class' => 'card-title'])?></h3>
                                     <?php } else {?>

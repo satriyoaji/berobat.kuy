@@ -109,16 +109,13 @@ class ResepController extends Controller
         ]);
     }
 
-    public function actionUptodate($id)
+    public function actionUptodate($id,$apotekerID)
     {
-        $apotekerID=$_GET['apotekerID'];
         $model = $this->findModel($id);
         $model->apotekerID = $apotekerID;
         $model->save();
-        return $this->redirect(['index']);   
+        return Yii::$app->response->redirect(['/resep/index']);  
     }
-
-
     /**
      * Deletes an existing Resep model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

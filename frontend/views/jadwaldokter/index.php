@@ -102,3 +102,6 @@ $this->title = 'Jadwal Dokter';
     </tbody>
     </table>
     </div>
+
+    <br>
+    <br>

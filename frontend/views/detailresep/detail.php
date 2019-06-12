@@ -37,7 +37,6 @@ use backend\models\Pendaftaran;
           <?= $form->field($model, 'obatID')->textInput(['value'=>$obatID]) ?>
           <?= $form->field($model, 'detailResepDosis')->textInput() ?>
           <?= $form->field($model, 'resepID')->textInput(['value'=>$resepID]) ?>
-          <?= $form->field($model, 'detailResepSubtotal')->textInput(['value'=>$obatharga]) ?>
         </div>
          <div class="form-group">
            <?= Html::submitButton('Submit', ['class' => 'btn bg-primary', 'name' => 'contact-button', 'style' => 'color:white']) ?>

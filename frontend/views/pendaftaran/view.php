@@ -68,7 +68,7 @@ $this->title = "Detail";
 
 <div class="download">
     <!-- belum di link -->
-    <?= Html::a('Download Bukti', ['jadwaldokter/index'], ['class' => 'btn bg-primary', 'style' => 'color:white']) ?>
+    <?= Html::a('Download Bukti', ['gen-pdf', 'id' => $model->pendaftaranID], ['class' => 'btn bg-primary', 'style' => 'color:white']) ?>
 </div>
 
 <br>

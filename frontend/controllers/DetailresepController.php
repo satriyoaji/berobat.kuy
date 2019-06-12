@@ -90,8 +90,8 @@ class DetailresepController extends Controller
     public function actionCreate()
     {
         $model = new Detailresep();
-        
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if(isset($_SESSION['resep'])){
             $banyak = $model->detailResepQuantity;
             $obatQuery=(new Query())
                 ->from('obat')
@@ -112,6 +112,9 @@ class DetailresepController extends Controller
             }
             Yii::$app->db->createCommand()->update('resep', ['resepTotalHarga' => $hargaAkhir], ['resepID'=>$_SESSION['resep']])->execute();
             return $this->redirect(['pemeriksaan/update','id'=>$_SESSION['pemeriksaan']]);
+          }else{
+            return $this->redirect(['obat/index']); 
+          }
         }
         return $this->render('create',[
             'model' => $model,
