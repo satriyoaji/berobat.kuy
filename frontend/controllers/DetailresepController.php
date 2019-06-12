@@ -90,7 +90,7 @@ class DetailresepController extends Controller
     public function actionCreate()
     {
         $model = new Detailresep();
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
             if(isset($_SESSION['resep'])){
             $banyak = $model->detailResepQuantity;
             $obatQuery=(new Query())

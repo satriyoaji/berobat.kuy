@@ -11,6 +11,7 @@ $id = $_GET['idDokter'];
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Jadwal Dokter';
+$date = date('d-m-Y');
 ?>
 <div class="jadwaldokter-index">
 
@@ -50,9 +51,7 @@ $this->title = 'Jadwal Dokter';
         <th scope="col">Ruangan</th>
         <th scope="col">Waktu</th>
         <th scope="col">Kuota</th>
-        <?php if ($pekerjaan < 4){ ?>
         <th scope="col">Booking</th>
-        <?php } ?>
         </tr>
     </thead>
     <tbody>
@@ -72,7 +71,8 @@ $this->title = 'Jadwal Dokter';
                 $sisa = $jadwal['jadwalKuota']-$pendaftaran['count(*)'];
                 if($sisa == 0){ ?>
                 <?php 
-                } else { ?>
+                } else { 
+                    if($jadwal['jadwalTanggal'] >= $date){?>
                     <tr>
                     <th scope="row"><?php echo $i; $i++; ?></th>
                     <td><?php echo $jadwal['jadwalTanggal'];?></td>
@@ -95,13 +95,14 @@ $this->title = 'Jadwal Dokter';
                             'method' => 'post',],]) ?></td>
                     <?php } else if (Yii::$app->user->isGuest){ ?>
                         <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
-                    <?php } else if ($pekerjaan > 4){ ?>
-                         <td></td>
+                  
                     <?php } else { ?>
                         <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
                     <?php } ?>
                     </tr>
-                    <?php } ?>
+                    <?php 
+                    }
+                } ?>
             <?php } 
         }  ?>    
     </tbody>

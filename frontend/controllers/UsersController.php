@@ -9,6 +9,7 @@ use frontend\models\UsersSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\UploadedFile; 
 use yii\db\Query;
 
 /**
@@ -169,6 +170,18 @@ class UsersController extends Controller
                 }
             }
             
+            return $this->redirect(['view', 'id' => $model->userId]);
+        }
+        
+        if ($model->load(Yii::$app->request->post())) {
+            if(isset($model->userFoto)){
+                $model->userFoto = UploadedFile::getInstance($model, 'userFoto');
+                $model->userFoto->saveAs('gambar/' .$model->userFoto->baseName. '.' .$model->userFoto->extension);
+                //save to database
+                $model->userFoto = $model->userFoto->baseName. '.' .$model->userFoto->extension;
+            
+            }
+            $model->save();
             return $this->redirect(['view', 'id' => $model->userId]);
         }
 
