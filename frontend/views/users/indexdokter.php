@@ -5,13 +5,19 @@ use yii\helpers\Url;
 use yii\db\Query;
 $this->title = 'Si Klinik';
 
+$userQuery = (new Query())
+  ->from('users')
+  ->where(['userId'=>Yii::$app->user->id]);
+foreach($userQuery->each() as $user){
+  $nama = $user['userNama'];
+}
 ?>
 <br>
 <div class="row">
 <div class="col-md-8"></div>
 <div class="col-md-4 text-right">
 <div class="alert alert-primary" role="alert">
-  Selamat datang dr. <b>Nama Dokter</b>
+  Selamat datang dr. <b><?php echo $nama;?></b>
 </div>
 </div>
 </div>
@@ -57,17 +63,17 @@ $this->title = 'Si Klinik';
     <div class="col-md-4">
     <div class="card" style="width: 18rem;">
     <div class="card-body">
-        <h5 class="card-title">Beli Obat</h5>
+        <h5 class="card-title">List Jadwal</h5>
         <div class="row">
             <div class="col-md-4">
-                <img src="../../assets/pills.png" alt="" width="80" height="80">
+            <img src="../../assets/icon/questionnaire.png" alt="" width="80" height="80">
             </div>
             <div class="col-md-8">
-            <p class="card-text">Halaman yang menampilkan list pasien yang melakukan pemeriksaan.</p>
+            <p class="card-text">Halaman yang menampilkan list jadwal dokter.</p>
             </div>
         </div>
         <br>
-        <?= Html::a('Kunjungi Laman', ['obat/index'], ['class' => 'card-link'])?>
+        <?= Html::a('Kunjungi Laman', ['jadwaldokter/index','idDokter'=>Yii::$app->user->id], ['class' => 'card-link'])?>
     </div>
     </div>
     </div>
