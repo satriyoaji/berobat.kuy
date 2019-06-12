@@ -108,6 +108,7 @@ $pendaftaranQuery=(new Query())
      $post=$provider->getModels();
     foreach ($post as $rows) {
   ?>
+  
   <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
       <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
@@ -115,7 +116,7 @@ $pendaftaranQuery=(new Query())
         <h4 class="card-title">
           <center><h5><b><?php echo $rows['obatNama'];?></b></h5>
           <h5> RP. <?php echo $rows['obatHarga'];?></h5>
-          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#product_view"><i class="fa fa-search"></i> Quick View</button>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?php echo $rows['obatID']; ?>">detail obat</button>
           <?php if ($pendaftaranID==0){ ?>
             <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
             'confirm' => ' maaf anda belum melakukan pendaftaran?',
@@ -130,15 +131,22 @@ $pendaftaranQuery=(new Query())
       </div>
     </div>
   </div>
-  <div class="modal fade product_view" id="product_view">
-<div class="modal-dialog">
+<!-- Modal -->
+<div class="modal fade" id="<?php echo $rows['obatID']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
     <div class="modal-content">
-        <div class="modal-body">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
             <div class="row">
                 <div class="col-md-6 product_img">
                 <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
                 </div>
-                <div class="col-md-6 product_content">
+                <div class="col-sm-6 col-md-5 col-lg-6" product_content">
                     <h3 class="modal-title"><?php echo $rows['obatNama'];?></h3><br>
                     <h3><?php echo $rows['obatDeskripsi'];?></h3>
                     <h3 class="cost"><span class="glyphicon glyphicon-usd"></span>Rp.<?php echo $rows['obatHarga'];?></h3>
@@ -147,11 +155,11 @@ $pendaftaranQuery=(new Query())
                     <div class="space-ten"></div>            
                 </div>
             </div>
-        </div>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
     </div>
+  </div>
 </div>
-</div> 
-
 <?php } ?>
 </div>
 <!-- /.row -->
