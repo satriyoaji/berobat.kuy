@@ -3,17 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Pendaftaran;
-use frontend\models\PendaftaranSearch;
+use frontend\models\Pemeriksaan;
+use frontend\models\PemeriksaanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use mPDF;
 
 /**
- * PendaftaranController implements the CRUD actions for Pendaftaran model.
+ * PemeriksaanController implements the CRUD actions for Pemeriksaan model.
  */
-class PendaftaranController extends Controller
+class PemeriksaanController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,12 +30,12 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Lists all Pendaftaran models.
+     * Lists all Pemeriksaan models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PendaftaranSearch();
+        $searchModel = new PemeriksaanSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,18 +44,8 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function actionListharian()
-    {
-        $searchModel = new PendaftaranSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('listharian', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
     /**
-     * Displays a single Pendaftaran model.
+     * Displays a single Pemeriksaan model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -64,44 +53,22 @@ class PendaftaranController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
         ]);
-    }
-
-    public function actionGenPdf($id)
-    {
-       
-        $pdf_content = $this->renderPartial('view-pdf', [
-            'model' => $this->findModel($id),
-        ]);
-
-        $mpdf = new \Mpdf\Mpdf([
-            'tempDir' => __DIR__ , // uses the current directory's parent "tmp" subfolder
-            'setAutoTopMargin' => 'stretch',
-            'setAutoBottomMargin' => 'stretch'
-          ]);
-        $mpdf->WriteHTML($pdf_content);
-        $mpdf->Output();
-        exit;
-
-        
-
     }
 
     /**
-     * Creates a new Pendaftaran model.
+     * Creates a new Pemeriksaan model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Pendaftaran();
-        
-
-        if ($model->load(Yii::$app->request->post()) ) {
-            
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+        $model = new Pemeriksaan();
+        if(isset($_SESSION['pendaftaranID'])){
+            Yii::$app->db->createCommand()->update('pendaftaran', ['pendaftaranStatus' => 'Sudah Diperiksa'], ['pendaftaranID' => $_SESSION['pendaftaranID']])->execute();
+        }
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['obat/listobat']);
         }
 
         return $this->render('create', [
@@ -110,7 +77,7 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Updates an existing Pendaftaran model.
+     * Updates an existing Pemeriksaan model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -120,17 +87,18 @@ class PendaftaranController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+        if(isset($_SESSION['pemeriksaan'])){
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                return $this->redirect(['obat/listobat']);
+            }
         }
-
         return $this->render('update', [
             'model' => $model,
         ]);
     }
 
     /**
-     * Deletes an existing Pendaftaran model.
+     * Deletes an existing Pemeriksaan model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -144,15 +112,15 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Finds the Pendaftaran model based on its primary key value.
+     * Finds the Pemeriksaan model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Pendaftaran the loaded model
+     * @return Pemeriksaan the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Pendaftaran::findOne($id)) !== null) {
+        if (($model = Pemeriksaan::findOne($id)) !== null) {
             return $model;
         }
 

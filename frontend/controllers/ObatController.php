@@ -3,17 +3,23 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Pendaftaran;
-use frontend\models\PendaftaranSearch;
+use frontend\models\Obat;
+use frontend\models\ObatSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use mPDF;
+use yii\base\Configurable; 
+use yii\web\Linkable;
+use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\Helpers\ArrayHelper;
+use yii\data\SqlDataProvider;
 
 /**
- * PendaftaranController implements the CRUD actions for Pendaftaran model.
+ * ObatController implements the CRUD actions for Obat model.
  */
-class PendaftaranController extends Controller
+class ObatController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,32 +37,52 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Lists all Pendaftaran models.
+     * Lists all Obat models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PendaftaranSearch();
+        $searchModel = new ObatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        if(isset($_GET['id'])){
+            $id = $_GET['id'];
+            $provider = new ActiveDataProvider([
+                'query'=>Obat::find()
+                 ->where(['obatGolongan'=>$id]),
+                'Pagination'=>[
+                'pageSize'=>6,
+                ],
+            ]);
+        }
+        else{
+            $provider = new ActiveDataProvider([
+                'query'=>Obat::find(),
+                'Pagination'=>[
+                'pageSize'=>6,
+                ],
+            ]);
+        }
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'provider' => $provider,
         ]);
     }
 
-    public function actionListharian()
-    {
-        $searchModel = new PendaftaranSearch();
+    public function actionListobat()
+    {   
+
+        $searchModel = new ObatSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
-        return $this->render('listharian', [
+        return $this->render('listobat', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
+
     /**
-     * Displays a single Pendaftaran model.
+     * Displays a single Obat model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,40 +94,17 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function actionGenPdf($id)
-    {
-       
-        $pdf_content = $this->renderPartial('view-pdf', [
-            'model' => $this->findModel($id),
-        ]);
-
-        $mpdf = new \Mpdf\Mpdf([
-            'tempDir' => __DIR__ , // uses the current directory's parent "tmp" subfolder
-            'setAutoTopMargin' => 'stretch',
-            'setAutoBottomMargin' => 'stretch'
-          ]);
-        $mpdf->WriteHTML($pdf_content);
-        $mpdf->Output();
-        exit;
-
-        
-
-    }
-
     /**
-     * Creates a new Pendaftaran model.
+     * Creates a new Obat model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Pendaftaran();
-        
-
-        if ($model->load(Yii::$app->request->post()) ) {
-            
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+        $model = new Obat();
+       
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->obatID]);
         }
 
         return $this->render('create', [
@@ -110,7 +113,7 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Updates an existing Pendaftaran model.
+     * Updates an existing Obat model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -121,7 +124,7 @@ class PendaftaranController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+            return $this->redirect(['view', 'id' => $model->obatID]);
         }
 
         return $this->render('update', [
@@ -130,7 +133,7 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Deletes an existing Pendaftaran model.
+     * Deletes an existing Obat model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -144,15 +147,15 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Finds the Pendaftaran model based on its primary key value.
+     * Finds the Obat model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Pendaftaran the loaded model
+     * @return Obat the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Pendaftaran::findOne($id)) !== null) {
+        if (($model = Obat::findOne($id)) !== null) {
             return $model;
         }
 

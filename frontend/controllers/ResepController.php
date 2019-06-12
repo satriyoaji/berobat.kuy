@@ -3,17 +3,23 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Pendaftaran;
-use frontend\models\PendaftaranSearch;
+use frontend\models\Resep;
+use frontend\models\ResepSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use mPDF;
+use yii\base\Configurable; 
+use yii\web\Linkable;
+use yii\data\Pagination;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
+use yii\Helpers\ArrayHelper;
+use yii\data\SqlDataProvider;
 
 /**
- * PendaftaranController implements the CRUD actions for Pendaftaran model.
+ * ResepController implements the CRUD actions for Resep model.
  */
-class PendaftaranController extends Controller
+class ResepController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,32 +37,29 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Lists all Pendaftaran models.
+     * Lists all Resep models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PendaftaranSearch();
+        $searchModel = new ResepSearch();
+        $provider = new ActiveDataProvider([
+            'query'=>Resep::find(),
+            'Pagination'=>[
+            'pageSize'=>6,
+            ],
+        ]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'provider' => $provider,
         ]);
     }
 
-    public function actionListharian()
-    {
-        $searchModel = new PendaftaranSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('listharian', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
     /**
-     * Displays a single Pendaftaran model.
+     * Displays a single Resep model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,40 +71,17 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function actionGenPdf($id)
-    {
-       
-        $pdf_content = $this->renderPartial('view-pdf', [
-            'model' => $this->findModel($id),
-        ]);
-
-        $mpdf = new \Mpdf\Mpdf([
-            'tempDir' => __DIR__ , // uses the current directory's parent "tmp" subfolder
-            'setAutoTopMargin' => 'stretch',
-            'setAutoBottomMargin' => 'stretch'
-          ]);
-        $mpdf->WriteHTML($pdf_content);
-        $mpdf->Output();
-        exit;
-
-        
-
-    }
-
     /**
-     * Creates a new Pendaftaran model.
+     * Creates a new Resep model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Pendaftaran();
-        
-
-        if ($model->load(Yii::$app->request->post()) ) {
-            
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+        $model = new Resep();
+        $model->resepTanggal=Yii::$app->formatter->asDate('now', 'dd-MM-yyyy');
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->resepID]);
         }
 
         return $this->render('create', [
@@ -110,7 +90,7 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Updates an existing Pendaftaran model.
+     * Updates an existing Resep model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -121,7 +101,7 @@ class PendaftaranController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+            return $this->redirect(['view', 'id' => $model->resepID]);
         }
 
         return $this->render('update', [
@@ -129,8 +109,18 @@ class PendaftaranController extends Controller
         ]);
     }
 
+    public function actionUptodate($id)
+    {
+        $apotekerID=$_GET['apotekerID'];
+        $model = $this->findModel($id);
+        $model->apotekerID = $apotekerID;
+        $model->save();
+        return $this->redirect(['index']);   
+    }
+
+
     /**
-     * Deletes an existing Pendaftaran model.
+     * Deletes an existing Resep model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -144,15 +134,15 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Finds the Pendaftaran model based on its primary key value.
+     * Finds the Resep model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Pendaftaran the loaded model
+     * @return Resep the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Pendaftaran::findOne($id)) !== null) {
+        if (($model = Resep::findOne($id)) !== null) {
             return $model;
         }
 

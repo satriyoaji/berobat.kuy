@@ -3,17 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Pendaftaran;
-use frontend\models\PendaftaranSearch;
+use frontend\models\Nota;
+use frontend\models\NotaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use mPDF;
 
 /**
- * PendaftaranController implements the CRUD actions for Pendaftaran model.
+ * NotaController implements the CRUD actions for Nota model.
  */
-class PendaftaranController extends Controller
+class NotaController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,12 +30,12 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Lists all Pendaftaran models.
+     * Lists all Nota models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PendaftaranSearch();
+        $searchModel = new NotaSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,18 +44,8 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function actionListharian()
-    {
-        $searchModel = new PendaftaranSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('listharian', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
     /**
-     * Displays a single Pendaftaran model.
+     * Displays a single Nota model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,40 +57,17 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function actionGenPdf($id)
-    {
-       
-        $pdf_content = $this->renderPartial('view-pdf', [
-            'model' => $this->findModel($id),
-        ]);
-
-        $mpdf = new \Mpdf\Mpdf([
-            'tempDir' => __DIR__ , // uses the current directory's parent "tmp" subfolder
-            'setAutoTopMargin' => 'stretch',
-            'setAutoBottomMargin' => 'stretch'
-          ]);
-        $mpdf->WriteHTML($pdf_content);
-        $mpdf->Output();
-        exit;
-
-        
-
-    }
-
     /**
-     * Creates a new Pendaftaran model.
+     * Creates a new Nota model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Pendaftaran();
-        
+        $model = new Nota();
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->notaID]);
         }
 
         return $this->render('create', [
@@ -110,7 +76,7 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Updates an existing Pendaftaran model.
+     * Updates an existing Nota model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -121,7 +87,7 @@ class PendaftaranController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+            return $this->redirect(['site/index']);
         }
 
         return $this->render('update', [
@@ -130,7 +96,7 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Deletes an existing Pendaftaran model.
+     * Deletes an existing Nota model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -144,15 +110,15 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Finds the Pendaftaran model based on its primary key value.
+     * Finds the Nota model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Pendaftaran the loaded model
+     * @return Nota the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Pendaftaran::findOne($id)) !== null) {
+        if (($model = Nota::findOne($id)) !== null) {
             return $model;
         }
 

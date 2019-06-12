@@ -3,17 +3,19 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Pendaftaran;
-use frontend\models\PendaftaranSearch;
+use frontend\models\Jadwaldokter;
+use frontend\models\JadwaldokterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use mPDF;
+use yii\db\ActiveQuery;
+use yii\data\ActiveDataProvider;
+
 
 /**
- * PendaftaranController implements the CRUD actions for Pendaftaran model.
+ * JadwaldokterController implements the CRUD actions for Jadwaldokter model.
  */
-class PendaftaranController extends Controller
+class JadwaldokterController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -31,32 +33,23 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Lists all Pendaftaran models.
+     * Lists all Jadwaldokter models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new PendaftaranSearch();
+        $searchModel = new JadwaldokterSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
+            
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    public function actionListharian()
-    {
-        $searchModel = new PendaftaranSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('listharian', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
     /**
-     * Displays a single Pendaftaran model.
+     * Displays a single Jadwaldokter model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -68,40 +61,17 @@ class PendaftaranController extends Controller
         ]);
     }
 
-    public function actionGenPdf($id)
-    {
-       
-        $pdf_content = $this->renderPartial('view-pdf', [
-            'model' => $this->findModel($id),
-        ]);
-
-        $mpdf = new \Mpdf\Mpdf([
-            'tempDir' => __DIR__ , // uses the current directory's parent "tmp" subfolder
-            'setAutoTopMargin' => 'stretch',
-            'setAutoBottomMargin' => 'stretch'
-          ]);
-        $mpdf->WriteHTML($pdf_content);
-        $mpdf->Output();
-        exit;
-
-        
-
-    }
-
     /**
-     * Creates a new Pendaftaran model.
+     * Creates a new Jadwaldokter model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Pendaftaran();
-        
+        $model = new Jadwaldokter();
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            
-            $model->save();
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            return $this->redirect(['view', 'id' => $model->jadwalID]);
         }
 
         return $this->render('create', [
@@ -110,7 +80,7 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Updates an existing Pendaftaran model.
+     * Updates an existing Jadwaldokter model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -121,7 +91,7 @@ class PendaftaranController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->pendaftaranID]);
+            return $this->redirect(['view', 'id' => $model->jadwalID]);
         }
 
         return $this->render('update', [
@@ -130,7 +100,7 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Deletes an existing Pendaftaran model.
+     * Deletes an existing Jadwaldokter model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -144,15 +114,15 @@ class PendaftaranController extends Controller
     }
 
     /**
-     * Finds the Pendaftaran model based on its primary key value.
+     * Finds the Jadwaldokter model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Pendaftaran the loaded model
+     * @return Jadwaldokter the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Pendaftaran::findOne($id)) !== null) {
+        if (($model = Jadwaldokter::findOne($id)) !== null) {
             return $model;
         }
 
