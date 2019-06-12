@@ -22,7 +22,7 @@ MyAsset::register($this);
 
     <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css" integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
     <link href="http://localhost/siklinik/frontend/web/index.php" rel="stylesheet">
-    <link rel="icon" href="images/favicon.ico" />
+    <link rel="icon" href="../../assets/" />
 
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
