@@ -14,12 +14,15 @@ $this->title = 'Resep';
 $this->params['breadcrumbs'][] = $this->title;
 $i=1;
 $userQuery=(new Query())
- ->select('userPekerjaan,userId')
  ->from('users')
  ->where('userId = :userId', [':userId' => Yii::$app->user->getId()]);
 foreach($userQuery->each() as $row4){  
     $login=$row4['userPekerjaan'];
     $userId=$row4['userId'];
+    $email = $row4['userEmail'];
+    $telephon = $row4['userTelephone']; 
+    $alamat =  $row4['userAlamat']; 
+    
 }
 if (isset($_GET['id']))
 {
@@ -47,11 +50,21 @@ if (isset($_GET['id']))
   <div class="col-8">
     <div class="tab-content" id="nav-tabContent">
       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
-        <h4> Selamat datang apoteker <?php echo Yii::$app->user->identity->username ?> </h4>
+      <div class="modal-body">
+        <center>
+         <img src="../../assets/icon/nurse.png" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+        <h3 class="media-heading"><?php echo Yii::$app->user->identity->username; ?></h3>
+        </center>
+        <hr>
+        <p class="text-left"><strong>Bio: </strong><br></p>
+         <p> Memberikan sarana pada profesional kesehata bagaimana pemilian dan penggunaan obat yang tepat</p>
+         <p> memberikan informasi mengenai efek samping dari obat</p>
+         <p>memastikan bahwa obat aman untuk dikonsumsi oleh pasien baik secara terpisah atau bersamaan dengan objeck lain</p>
+        <br>
+        </div>
       </div>
       <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"> 
       <table class="table">
-        
         <thead class="thead-dark">
         <tr>
         <th scope="col">No</th>
@@ -130,7 +143,11 @@ if (isset($_GET['id']))
         <td><?php echo $y;$y++;?></td>
         <td><?php echo $roww['resepID'];?></td>
         <td><?php echo $roww['apotekerID'];?></td>
-        <td> <?= Html::a('Verifikasi', ['resep/index','id'=>$roww['resepID']], ['class' => 'btn btn-success']) ?></td>
+        <?php if($roww['apotekerID']== 20){?>
+        <td> <?= Html::a('Sudah Terverifsikasi', ['resep/index'], ['class' => 'btn btn-success']) ?></td>
+        <?php } else { ?>
+          <td> <?= Html::a('Verifikasi', ['resep/index','id'=>$roww['resepID']], ['class' => 'btn btn-success']) ?></td>
+        <?php }  ?>
         </tbody>
         <?php } ?>
         </table>

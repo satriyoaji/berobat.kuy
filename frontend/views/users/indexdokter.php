@@ -14,12 +14,12 @@ foreach($userQuery->each() as $user){
 ?>
 <br>
 <div class="row">
-<div class="col-md-8"></div>
-<div class="col-md-4 text-right">
-<div class="alert alert-primary" role="alert">
-  Selamat datang dr. <b><?php echo $nama;?></b>
-</div>
-</div>
+    <div class="col-md-8"></div>
+        <div class="col-md-4 text-right">
+            <div class="alert alert-primary" role="alert">
+                Selamat datang dr. <b><?php echo $nama;?></b>
+        </div>
+    </div>
 </div>
 
 <br>

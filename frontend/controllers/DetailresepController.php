@@ -127,7 +127,7 @@ class DetailresepController extends Controller
         return $this->render('create',[
             'model' => $model,
         ]);
-    }
+    }  
 
     /**
      * Updates an existing Detailresep model.
