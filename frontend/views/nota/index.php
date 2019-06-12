@@ -44,6 +44,7 @@ $id = $_GET['id'];
                     <td><?php echo $nota['notaStatus'];?></td>
                     <td><?php echo $nota['notaTotalHarga'];?></td>
                     <td><?php echo $nota['code'];?></td>
+                    <td><?= Html::a('Detail Pembayaran', ['view','id'=>$nota['notaID']], ['class' => 'btn btn-success']) ?></td>
                 </tr>
             <?php 
             $status = 1;
@@ -63,6 +64,7 @@ $id = $_GET['id'];
                     <td><?php echo $nota['notaStatus'];?></td>
                     <td><?php echo $nota['notaTotalHarga'];?></td>
                     <td><?php echo $nota['code'];?></td>
+                    <td><?= Html::a('Detail Pembayaran', ['view','id'=>$nota['notaID']], ['class' => 'btn btn-success']) ?></td>
                 </tr>
             <?php }}
             

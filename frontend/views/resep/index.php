@@ -21,11 +21,8 @@ foreach($userQuery->each() as $row4){
     $login=$row4['userPekerjaan'];
     $userId=$row4['userId'];
 }
-<<<<<<< HEAD
-=======
 $post=$provider->getModels();
   
->>>>>>> 6e14522db5cba5a230c7488b8524eb6b2e00a54d
 ?>
 <div>
 <?php  if ($login == 3) {?>
@@ -49,12 +46,7 @@ $post=$provider->getModels();
       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
         <h4> Selamat datang apoteker <?php echo Yii::$app->user->identity->username ?> </h4>
       </div>
-<<<<<<< HEAD
       <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"> 
-=======
-      
-      <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list">
->>>>>>> 6e14522db5cba5a230c7488b8524eb6b2e00a54d
       <table class="table">
         
         <thead class="thead-dark">
@@ -150,7 +142,7 @@ $post=$provider->getModels();
     $('#myTab li:last-child a').tab('show')
   })
 </script>
-<?php } ?>
+<?php }} ?>
 </div>
 
   
