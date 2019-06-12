@@ -8,8 +8,7 @@ use yii\db\Query;
 /* @var $searchModel frontend\models\PendaftaranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pendaftarans';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'List Pemeriksaan';
 $id = Yii::$app->user->id;
 if(isset($_SESSION['resep'])){
     if(isset($_GET['status'])){
@@ -60,22 +59,34 @@ if(isset($_GET['id'])){
 } else {
     $date = date('d-m-Y');
 }
-echo "Tanggal Periksa $date";
+
 ?>
 <div class="pendaftaran-index">
-
+    <br>
     <h1><?= Html::encode($this->title) ?></h1>
-    <td><?= Html::a('Hari ini', ['pendaftaran/listharian'], ['class' => 'btn btn-success']) ?></td>
-    <td><?= Html::a('Besok', ['pendaftaran/listharian','id'=>1], ['class' => 'btn btn-success']) ?></td>
-    <table class="table table-condensed">
-        <tbody>
-            <tr>
-                <td> No </td>
-                <td> Nama Dokter </td>
-                <td> Tanggal Periksa </td>
-                <td> Status Pemeriksaan </td>
-            </tr>
-            <?php
+    <i><?php echo "Tanggal Periksa $date"; ?></i><br>
+    <br>
+    <div class="row" style="padding-left:10px;">
+    <td><?= Html::a('Hari ini', ['pendaftaran/listharian'], ['class' => 'btn bg-info', 'style'=>'color:white']) ?></td>
+    <div class="tombol" style="padding-left:10px;">
+        <td><?= Html::a('Besok', ['pendaftaran/listharian','id'=>1], ['class' => 'btn bg-primary', 'style'=>'color:white']) ?></td>
+    </div>
+    </div>
+    
+    <br>
+    <table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+        <th scope="col">No</th>
+        <th scope="col">Nama Dokter</th>
+        <th scope="col">Waktu</th>
+        <th scope="col">Status Pemeriksaan</th>
+        <th scope="col">Kuota</th>
+        <th scope="col">Update Pemeriksaan</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
             $i = 1;
             $jadwalQuery = (new Query())
                 ->from('jadwaldokter')
@@ -106,18 +117,16 @@ echo "Tanggal Periksa $date";
                             }
                             if($banyak == 0){
                             ?>
-                                <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success']) ?></td>
+                                <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn bg-danger', 'style'=>'color:white']) ?></td>
                             <?php } else { ?>
-                                <td><?= Html::a('Update Periksa', ['pemeriksaan/update','id'=>$idPemeriksaan], ['class' => 'btn btn-success']) ?></td>
+                                <td><?= Html::a('Update Periksa', ['pemeriksaan/update','id'=>$idPemeriksaan], ['class' => 'btn bg-warning', 'style'=>'color:white']) ?></td>
                             <?php } ?>
                         </tr>
                 <?php }
                 }
             } ?>
-        </tbody>
+    </tbody>
     </table>
-
-    
-
-
 </div>
+<br>
+<br>

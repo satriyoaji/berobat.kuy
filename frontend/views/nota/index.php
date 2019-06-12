@@ -70,6 +70,7 @@ $id = $_GET['id'];
                         <td><?php echo $nota['notaStatus'];?></td>
                         <td><?php echo $nota['notaTotalHarga'];?></td>
                         <td><?php echo $nota['code'];?></td>
+                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button></td>
                         <td><?= Html::a('Detail Pembayaran', ['view','id'=>$nota['notaID']], ['class' => 'btn btn-success']) ?></td>
                     </tr>
                 <?php }}
