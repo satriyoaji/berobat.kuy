@@ -23,9 +23,10 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'userJenisKelamin')->dropDownList(
             ['Laki-laki' => 'Laki-laki', 'Perempuan' => 'Perempuan']
     ); ?>
-
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    
+    <br>
+    <div class="form-group text-center">
+        <?= Html::submitButton('Save', ['class' => 'btn bg-primary', 'style' => 'color:white']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

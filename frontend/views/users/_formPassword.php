@@ -8,11 +8,9 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="users-form">
+<div class="users-form text-center">
 
     <?php $form = ActiveForm::begin(); ?>
-
-    
 
     <?= $form->field($model2, 'username')->passwordInput(['maxlength' => true]) ?>
 
@@ -20,8 +18,9 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model2, 'userEmail')->passwordInput(['maxlength' => true]) ?>
 
-    <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+    <br>
+    <div class="form-group text-center">
+        <?= Html::submitButton('Ganti Password', ['class' => 'btn bg-primary', 'style' => 'color:white']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
