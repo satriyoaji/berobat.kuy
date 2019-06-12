@@ -21,7 +21,7 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
     <?php $form = ActiveForm::begin(); ?>
 
     <div = hidden>
-    <?= $form->field($model, 'pendaftranID')->textInput(['value' => $_SESSION['pendaftaranID']]) ?>
+    <?= $form->field($model, 'pendaftranID')->textInput(['value' => $_GET['id']]) ?>
     </div>
 
     <?= $form->field($model, 'jenisPeriksaID')->dropDownList(
@@ -43,7 +43,7 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
     <tbody>
         <?php 
         $verifikasiResep = (new Query())
-            ->select('count(*),resepID')
+            ->select('count(*)')
             ->from('resep')
             ->where(['pendaftaranID'=>$_SESSION['pendaftaranID']]);
         foreach($verifikasiResep->each() as $verifikasi){

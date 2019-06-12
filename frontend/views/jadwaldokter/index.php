@@ -57,7 +57,8 @@ $this->title = 'Jadwal Dokter';
     </thead>
     <tbody>
     <?php
-        $i=1;     
+        $i=1;
+        $date = date('d-m-Y');  
         $dataJadwal = (new Query())
             ->select('*')
             ->from('jadwaldokter')
