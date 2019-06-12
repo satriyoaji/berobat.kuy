@@ -65,7 +65,7 @@ if(isset($_SESSION['resep'])){
                     <td><?php echo $obat['obatGolongan'];?></td>
                     <?php $verifikasiResep = (new Query())
                         ->select('count(*)')
-                        ->from('detailResep')
+                        ->from('detailresep')
                         ->where(['obatID'=>$obat['obatID'],'resepID'=>$_SESSION['resep']]);
                     foreach($verifikasiResep->each() as $data){
                         $verifikasi = $data['count(*)']; 

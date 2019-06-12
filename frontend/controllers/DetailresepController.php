@@ -105,7 +105,7 @@ class DetailresepController extends Controller
 
             $hargaAkhir = 0;
             $resepQuery=(new Query())
-                ->from('detailResep')
+                ->from('detailresep')
                 ->where(['resepID' => $_SESSION['resep']]);
             foreach($resepQuery->each() as $resep){ 
                 $hargaAkhir = $resep['detailResepSubtotal'] + $hargaAkhir;

@@ -23,7 +23,7 @@ $id = $_GET['id'];
                 <th scope="col">Nama Dokter</th>
                 <th scope="col">Tanggal Periksa</th>
                 <th scope="col">Waktu</th>
-                <th scope="col">Cetak Bukti</th>
+                <th scope="col">Status</th>
                 
                 </tr>
         </thead>

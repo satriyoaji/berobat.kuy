@@ -31,7 +31,7 @@ if(isset($_SESSION['resep'])){
             ->where(['pemeriksaanID'=>$_SESSION['pemeriksaan']]);
         foreach($pemeriksaanQuery->each() as $pemeriksaan){
             $jenisQuery = (new Query())
-                ->from('jenisPeriksa')
+                ->from('jenisperiksa')
                 ->where(['jenisPeriksaID'=>$pemeriksaan['jenisPeriksaID']]);
             foreach($jenisQuery->each() as $jenis){
                 $hargaPeriksa = $jenis['jenisPeriksaHarga'];
@@ -81,7 +81,6 @@ if(isset($_GET['id'])){
         <th scope="col">Nama Dokter</th>
         <th scope="col">Waktu</th>
         <th scope="col">Status Pemeriksaan</th>
-        <th scope="col">Kuota</th>
         <th scope="col">Update Pemeriksaan</th>
         </tr>
     </thead>
