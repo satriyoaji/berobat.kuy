@@ -38,7 +38,7 @@ $this->title = 'Jadwal Dokter';
                 ?>
                 <td><?php echo $i; $i++;?></td>
                 <td><?php echo $user['userNama'];?></td>
-                <td><?= Html::a('Lihat Jadwal', ['jadwaldokter/index','idDokter'=>$user['userId']], ['class' => 'btn btn-success']) ?></td>
+                <td><?= Html::a('Lihat Jadwal', ['pendaftaran/listriwayat','id'=>$user['userId']], ['class' => 'btn btn-success']) ?></td>
                 </tr>
                 <?php 
             } ?> 

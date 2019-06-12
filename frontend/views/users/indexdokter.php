@@ -5,13 +5,19 @@ use yii\helpers\Url;
 use yii\db\Query;
 $this->title = 'Si Klinik';
 
+$userQuery = (new Query())
+  ->from('users')
+  ->where(['userId'=>Yii::$app->user->id]);
+foreach($userQuery->each() as $user){
+  $nama = $user['userNama'];
+}
 ?>
 <br>
 <div class="row">
 <div class="col-md-8"></div>
 <div class="col-md-4 text-right">
 <div class="alert alert-primary" role="alert">
-  Selamat datang dr. <b>Nama Dokter</b>
+  Selamat datang dr. <b><?php echo $nama;?></b>
 </div>
 </div>
 </div>

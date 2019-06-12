@@ -55,6 +55,17 @@ class PendaftaranController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+    public function actionListriwayat()
+    {
+        $searchModel = new PendaftaranSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('listriwayat', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
     /**
      * Displays a single Pendaftaran model.
      * @param integer $id
