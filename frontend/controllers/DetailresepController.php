@@ -113,6 +113,14 @@ class DetailresepController extends Controller
             Yii::$app->db->createCommand()->update('resep', ['resepTotalHarga' => $hargaAkhir], ['resepID'=>$_SESSION['resep']])->execute();
             return $this->redirect(['pemeriksaan/update','id'=>$_SESSION['pemeriksaan']]);
           }else{
+            $obatQuery=(new Query())
+                ->from('obat')
+                ->where(['obatID' => $model->obatID]);
+            foreach($obatQuery->each() as $obat){ 
+                $harga = $obat['obatHarga'];
+            }
+            $model->detailResepSubtotal=$model->detailResepQuantity*$harga;
+            $model->save();
             return $this->redirect(['obat/index']); 
           }
         }

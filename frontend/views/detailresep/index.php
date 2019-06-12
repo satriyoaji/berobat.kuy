@@ -23,10 +23,22 @@ use yii\db\Query;
   }                     
 ?>
 <div>
-  <br><h3>Resep</h3>
-  <h7> ID Resep : <?php echo $resepID;?></h7><br>
+  <br>
+  <h2 style="padding-left:10px;">Resep</h2>
+  <div class="col-md-4">
+    <hr>
+  </div>
+  <div class="detailResep" style="padding-left:10px;">
+  <i>
+  <h7> ID Resep :  <?php echo $resepID;?></h7><br>
   <h7> Date : <?php echo $resepTanggal;?></h7><br>
   <h7> Name : <?php echo Yii::$app->user->identity->username ?></h7>
+  </i>
+  </div>
+  <div class="col-md-4">
+    <hr>
+  </div>
+  <br>
 </div>
 <div class="detailresep-index">
   <table class="table">
@@ -48,12 +60,12 @@ use yii\db\Query;
         $obatQuery=(new Query())
         ->select('obatNama,obatHarga')
         ->from('obat')
-        ->where('obatID = :obatID', [':obatID' => $row1['resepID']]);
+        ->where('obatID = :obatID', [':obatID' => $row1['obatID']]);
         foreach($obatQuery->each() as $row2){ ?>
           <td><?php echo $row2['obatNama'];?></td>
           <td><?php echo $row1['detailResepQuantity'];?></td>
           <?php $subTotal = $row1['detailResepSubtotal']?>
-          <td><?php echo $row1['detailResepSubtotal'] ;?></td>
+          <td><?php echo "Rp ".$row1['detailResepSubtotal']." ,- " ;?></td>
           <?php $total +=$subTotal;?>
          <?php } ?>
       </tbody>

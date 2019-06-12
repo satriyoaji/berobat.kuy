@@ -167,8 +167,12 @@ if(!isset($_SESSION['userCategory'])){
 <div class="col-md-12" style="width: 1100px;display: flex;flex-direction: column;justify-content: center;text-align: center;">
     <h1 align="center" style="color:#67696b;">OUR TEAM</h1>
     <br>
-</div>                                  
-<section class="carousel slide testimonials-slider cid-qyvf5AQs7c" id="testimonials-slider1-3" data-rv-view="767">
+</div> 
+
+<div class="col-md-12 text-center" style="padding-left:90px;">
+<div class="card" style="width: 60rem; padding-left:20px;">
+  <div class="card-body">
+  <section class="carousel slide testimonials-slider cid-qyvf5AQs7c" id="testimonials-slider1-3" data-rv-view="767">
     <div class="container text-center">
         <div class="carousel slide" data-ride="carousel" role="listbox">
             <div class="carousel-inner">
@@ -176,6 +180,7 @@ if(!isset($_SESSION['userCategory'])){
                 
             <div class="carousel-item active">
                     <div class="user col-md-12">
+                    <br>
                         <img src="../../assets/profil/lana.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
                         
                         <div class="user_text pb-3">
@@ -194,6 +199,7 @@ if(!isset($_SESSION['userCategory'])){
                     </div>
                 </div><div class="carousel-item">
                     <div class="user col-md-12">
+                    <br>
                     <img src="../../assets/profil/shaf.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
                         <div class="user_text pb-3">
                         <br>
@@ -212,6 +218,7 @@ if(!isset($_SESSION['userCategory'])){
                 </div>
                 <div class="carousel-item">
                     <div class="user col-md-12">
+                    <br>
                         <img src="../../assets/profil/hanun.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
                         <br>
                         <br>
@@ -230,6 +237,7 @@ if(!isset($_SESSION['userCategory'])){
                 </div>
                 <div class="carousel-item">
                     <div class="user col-md-12">
+                    <br>
                         <img src="../../assets/profil/edy.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
                         <div class="user_text pb-3">
                         <br>
@@ -261,6 +269,7 @@ if(!isset($_SESSION['userCategory'])){
             </div>
         </div>
     </div>
+</div>
 </section>
 
 <script src="assets/web/assets/jquery/jquery.min.js"></script>
@@ -274,3 +283,10 @@ if(!isset($_SESSION['userCategory'])){
   <script src="assets/theme/js/script.js"></script>
   <script src="assets/formoid/formoid.min.js"></script>
 </div>
+
+  </div>
+</div>
+
+<br>
+<br>
+

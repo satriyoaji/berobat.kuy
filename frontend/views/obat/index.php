@@ -51,11 +51,11 @@ $pendaftaranQuery=(new Query())
             <hr>
             <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <?= Html::a("Obat Ringan",['obat/index','id'=>'Obat Ringan'],['class' =>'list-group-item']) ?>
+            <?= Html::a("Obat Ringan",['obat/index','id'=>'bebas'],['class' =>'list-group-item']) ?>
                
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <?= Html::a("Obat Keras",['obat/index','id'=>'Obat Keras'],['class' =>'list-group-item']) ?>
+            <?= Html::a("Obat Keras",['obat/index','id'=>'keras'],['class' =>'list-group-item']) ?>
                 
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
@@ -114,8 +114,9 @@ $pendaftaranQuery=(new Query())
       <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
       <div class="card-body">
         <h4 class="card-title">
-          <center><h5><b><?php echo $rows['obatNama'];?></b></h5>
-          <h5> RP. <?php echo $rows['obatHarga'];?></h5>
+          <center><h6><b><?php echo $rows['obatNama'];?></b></h6>
+          <br>
+          <h6> <i>Rp. <?php echo $rows['obatHarga'];?> ,- </i> </h6>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?php echo $rows['obatID']; ?>">detail obat</button>
           <?php if ($pendaftaranID==0){ ?>
             <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
@@ -136,20 +137,22 @@ $pendaftaranQuery=(new Query())
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel"><?php echo $rows['obatNama'];?></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-            <div class="row">
-                <div class="col-md-6 product_img">
+            <br>
+            <div class="text-center">
                 <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
-                </div>
-                <div class="col-sm-6 col-md-5 col-lg-6" product_content">
-                    <h3 class="modal-title"><?php echo $rows['obatNama'];?></h3><br>
-                    <h3><?php echo $rows['obatDeskripsi'];?></h3>
-                    <h3 class="cost"><span class="glyphicon glyphicon-usd"></span>Rp.<?php echo $rows['obatHarga'];?></h3>
+            </div>
+            <div class="row">
+                
+                <div class="product_content" style="padding-left:18px;padding-right:18px;">
+                    <br>
+                    <h6><?php echo $rows['obatDeskripsi'];?></h6>
+                    <h6 class="cost text-right">Harga : <b><span class="glyphicon glyphicon-usd"></span>Rp.<?php echo $rows['obatHarga'];?></b></h6>
                     <div class="row">
                     </div>  
                     <div class="space-ten"></div>            

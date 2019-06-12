@@ -27,6 +27,7 @@ $this->title = 'Jadwal Dokter';
     foreach($dataUser->each() as $user){ ?>
         <div class="detailDokter" style="padding-left:12px;">
         <h4><b><?php echo $user['userNama']; ?></b></h4>
+        <?php $pekerjaan = $user['userPekerjaan'];?>
         <?php
         $dataPekerjaan = (new Query())
             ->select('*')
@@ -49,7 +50,9 @@ $this->title = 'Jadwal Dokter';
         <th scope="col">Ruangan</th>
         <th scope="col">Waktu</th>
         <th scope="col">Kuota</th>
+        <?php if ($pekerjaan < 4){ ?>
         <th scope="col">Booking</th>
+        <?php } ?>
         </tr>
     </thead>
     <tbody>
@@ -69,37 +72,36 @@ $this->title = 'Jadwal Dokter';
                 $sisa = $jadwal['jadwalKuota']-$pendaftaran['count(*)'];
                 if($sisa == 0){ ?>
                 <?php 
-                } else { 
-                    if($jadwal['jadwalTanggal'] >= $date){?>
-                        <tr>
-                        <th scope="row"><?php echo $i; $i++; ?></th>
-                        <td><?php echo $jadwal['jadwalTanggal'];?></td>
-                        <td><?php echo $jadwal['jadwalRuangan'];?></td>
-                        <td><?php echo $jadwal['jadwalWaktu'];?></td>
-                        <td><?php echo $sisa;?></td>
-                        <?php $verifikasiPendaftaran = (new Query())
-                            ->select('count(*)')
-                            ->from('pendaftaran')
-                            ->where(['jadwalID'=>$jadwal['jadwalID'],
-                                    'pasienID'=>Yii::$app->user->id]);
-                        foreach($verifikasiPendaftaran->each() as $data){
-                            $verifikasi = $data['count(*)']; 
-                        }?>
-                            
-                        <?php
-                        if($verifikasi>0){ ?>
-                            <td><?= Html::a('Booking', ['jadwaldokter/index','idDokter'=>$id], ['class' => 'btn btn-success','data' => [
-                                'confirm' => ' maaf anda sudah terdaftar pada jadwal yang sama',
-                                'method' => 'post',],]) ?></td>
-                        <?php } else if (Yii::$app->user->isGuest){ ?>
-                            <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
-                        <?php } else { ?>
-                            <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
-                        <?php } ?>
-                        </tr>
-                    <?php 
-                    }
-                } ?>
+                } else { ?>
+                    <tr>
+                    <th scope="row"><?php echo $i; $i++; ?></th>
+                    <td><?php echo $jadwal['jadwalTanggal'];?></td>
+                    <td><?php echo $jadwal['jadwalRuangan'];?></td>
+                    <td><?php echo $jadwal['jadwalWaktu'];?></td>
+                    <td><?php echo $sisa;?></td>
+                    <?php $verifikasiPendaftaran = (new Query())
+                        ->select('count(*)')
+                        ->from('pendaftaran')
+                        ->where(['jadwalID'=>$jadwal['jadwalID'],
+                                 'pasienID'=>Yii::$app->user->id]);
+                    foreach($verifikasiPendaftaran->each() as $data){
+                        $verifikasi = $data['count(*)']; 
+                    }?>
+                        
+                    <?php
+                    if($verifikasi>0){ ?>
+                        <td><?= Html::a('Booking', ['jadwaldokter/index','idDokter'=>$id], ['class' => 'btn btn-success','data' => [
+                            'confirm' => ' maaf anda sudah terdaftar pada jadwal yang sama',
+                            'method' => 'post',],]) ?></td>
+                    <?php } else if (Yii::$app->user->isGuest){ ?>
+                        <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
+                    <?php } else if ($pekerjaan > 4){ ?>
+                         <td></td>
+                    <?php } else { ?>
+                        <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
+                    <?php } ?>
+                    </tr>
+                    <?php } ?>
             <?php } 
         }  ?>    
     </tbody>
