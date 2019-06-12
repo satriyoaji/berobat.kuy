@@ -17,8 +17,8 @@ $id = Yii::$app->user->id;
 <br>
 <div class="col-md-12">
     <div class="text-right">
-        <?= Html::a('EDIT', ['users/update','id'=>Yii::$app->user->id,'kategori'=>1], ['class' => 'btn btn-raised btn-info', 'style' => 'color:#006d55']) ?>
-        <?= Html::a('PASSWORD', ['users/update','id'=>Yii::$app->user->id,'kategori'=>2], ['class' => 'btn btn-raised btn-info', 'style' => 'color:#006d55']) ?>
+        <?= Html::a('EDIT', ['users/update','id'=>Yii::$app->user->id,'kategori'=>1], ['class' => 'btn btn-raised btn-primary', 'style' => 'color:white']) ?>
+        <?= Html::a('PASSWORD', ['users/update','id'=>Yii::$app->user->id,'kategori'=>2], ['class' => 'btn btn-raised btn-info', 'style' => 'color:white']) ?>
     </div>
     <div class="row">
         <div class="col-md-4 text-center">
