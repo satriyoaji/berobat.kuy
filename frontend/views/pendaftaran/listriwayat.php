@@ -23,7 +23,7 @@ $id = $_GET['id'];
                 <th scope="col">Nama Dokter</th>
                 <th scope="col">Tanggal Periksa</th>
                 <th scope="col">Waktu</th>
-                <th scope="col">Cetak Bukti</th>
+                <th scope="col">Detail Periksa</th>
                 
                 </tr>
         </thead>
@@ -50,7 +50,7 @@ $id = $_GET['id'];
                             <?php if($pendaftaran['pendaftaranStatus'] == 'Sudah Diperiksa'){ ?> 
                                 <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pemeriksaan/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td>
                             <?php } else { ?>
-                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pendaftaran/index'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td></td>
+                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pendaftaran/index','id'=>$id], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td></td>
                             <?php } ?>
                             
                         </tr>
