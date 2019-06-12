@@ -5,13 +5,11 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Nota */
 
-$this->title = 'Update Nota: ' . $model->notaID;
-$this->params['breadcrumbs'][] = ['label' => 'Notas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => $model->notaID, 'url' => ['view', 'id' => $model->notaID]];
-$this->params['breadcrumbs'][] = 'Update';
+$this->title = 'Update Nota : ' . $model->notaID;
+
 ?>
 <div class="nota-update">
-
+    <br>
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
