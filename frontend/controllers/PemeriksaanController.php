@@ -87,11 +87,13 @@ class PemeriksaanController extends Controller
     {
         $model = $this->findModel($id);
 
-        if(isset($_SESSION['pemeriksaan'])){
-            if ($model->load(Yii::$app->request->post()) && $model->save()) {
-                return $this->redirect(['obat/listobat']);
+    
+            if ($model->load(Yii::$app->request->post())) {
+                echo $model->pemeriksaanHasil;
+                $model->save();
+                return Yii::$app->response->redirect(['/obat/listobat']);
             }
-        }
+        
         return $this->render('update', [
             'model' => $model,
         ]);

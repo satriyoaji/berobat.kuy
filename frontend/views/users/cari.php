@@ -11,6 +11,7 @@ use yii\widgets\ActiveForm;
 <br>
 <h3 style="color:grey" class="text-center">Masukkan Kode Transaksi</h3>
 
+<div class="search" style="padding-left:420px;">
 <div class="row">
     <div class="col-md-8">
         <div class="cari-form">
@@ -36,4 +37,7 @@ use yii\widgets\ActiveForm;
     
     </div>
 </div>
+</div>
+
+
 

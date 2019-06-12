@@ -8,67 +8,85 @@ use yii\db\Query;
 /* @var $searchModel frontend\models\PendaftaranSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Pendaftarans';
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'List Pemeriksaan';
 $id = Yii::$app->user->id;
-if(isset($_GET['status'])){
-    $resepQuery = (new Query())
-        ->from('resep')
-        ->where(['resepID'=>$_SESSION['resep']]);
-    foreach($resepQuery->each() as $resep){
-        $hargaResep = $resep['resepTotalHarga'];
-    }
-
-    $resepQuery = (new Query())
-        ->from('resep')
-        ->where(['resepID'=>$_SESSION['resep']]);
-    foreach($resepQuery->each() as $resep){
-        $hargaResep = $resep['resepTotalHarga'];
-    }
-
-    $pemeriksaanQuery = (new Query())
-        ->from('pemeriksaan')
-        ->where(['pemeriksaanID'=>$_SESSION['pemeriksaan']]);
-    foreach($pemeriksaanQuery->each() as $pemeriksaan){
-        $jenisQuery = (new Query())
-            ->from('jenisPeriksa')
-            ->where(['jenisPeriksaID'=>$pemeriksaan['jenisPeriksaID']]);
-        foreach($jenisQuery->each() as $jenis){
-            $hargaPeriksa = $jenis['jenisPeriksaHarga'];
+if(isset($_SESSION['resep'])){
+    if(isset($_GET['status'])){
+        $resepQuery = (new Query())
+            ->from('resep')
+            ->where(['resepID'=>$_SESSION['resep']]);
+        foreach($resepQuery->each() as $resep){
+            $hargaResep = $resep['resepTotalHarga'];
         }
+
+        $resepQuery = (new Query())
+            ->from('resep')
+            ->where(['resepID'=>$_SESSION['resep']]);
+        foreach($resepQuery->each() as $resep){
+            $hargaResep = $resep['resepTotalHarga'];
+        }
+
+        $pemeriksaanQuery = (new Query())
+            ->from('pemeriksaan')
+            ->where(['pemeriksaanID'=>$_SESSION['pemeriksaan']]);
+        foreach($pemeriksaanQuery->each() as $pemeriksaan){
+            $jenisQuery = (new Query())
+                ->from('jenisPeriksa')
+                ->where(['jenisPeriksaID'=>$pemeriksaan['jenisPeriksaID']]);
+            foreach($jenisQuery->each() as $jenis){
+                $hargaPeriksa = $jenis['jenisPeriksaHarga'];
+            }
+        }
+
+        $code = $password = rand(1,10000);
+        $hargaAkhir = $hargaPeriksa + $hargaResep;
+        Yii::$app->db->createCommand()->insert('nota', [
+            'notaStatus' => 'Belum dibayar',
+            'pemeriksaanID' => $_SESSION['pemeriksaan'],
+            'resepID' => $_SESSION['resep'],
+            'notaTotalHarga' => $hargaAkhir,
+            'code' => $code,
+        ])->execute();
     }
 
-    $code = $password = rand(1,10000);
-    $hargaAkhir = $hargaPeriksa + $hargaResep;
-    Yii::$app->db->createCommand()->insert('nota', [
-        'notaStatus' => 'Belum dibayar',
-        'pemeriksaanID' => $_SESSION['pemeriksaan'],
-        'resepID' => $_SESSION['resep'],
-        'notaTotalHarga' => $hargaAkhir,
-        'code' => $code,
-    ])->execute();
+
+    unset($_SESSION['pemeriksaan']);
+    unset($_SESSION['resep']);
+    unset($_SESSION['pendaftaranID']);
 }
 if(isset($_GET['id'])){
     $date = date('d-m-Y', time() + (24 * 60 * 60));
 } else {
     $date = date('d-m-Y');
 }
-echo "Tanggal Periksa $date";
+
 ?>
 <div class="pendaftaran-index">
-
+    <br>
     <h1><?= Html::encode($this->title) ?></h1>
-    <td><?= Html::a('Hari ini', ['pendaftaran/listharian'], ['class' => 'btn btn-success']) ?></td>
-    <td><?= Html::a('Besok', ['pendaftaran/listharian','id'=>1], ['class' => 'btn btn-success']) ?></td>
-    <table class="table table-condensed">
-        <tbody>
-            <tr>
-                <td> No </td>
-                <td> Nama Dokter </td>
-                <td> Tanggal Periksa </td>
-                <td> Status Pemeriksaan </td>
-            </tr>
-            <?php
+    <i><?php echo "Tanggal Periksa $date"; ?></i><br>
+    <br>
+    <div class="row" style="padding-left:10px;">
+    <td><?= Html::a('Hari ini', ['pendaftaran/listharian'], ['class' => 'btn bg-info', 'style'=>'color:white']) ?></td>
+    <div class="tombol" style="padding-left:10px;">
+        <td><?= Html::a('Besok', ['pendaftaran/listharian','id'=>1], ['class' => 'btn bg-primary', 'style'=>'color:white']) ?></td>
+    </div>
+    </div>
+    
+    <br>
+    <table class="table table-striped">
+    <thead class="thead-dark">
+        <tr>
+        <th scope="col">No</th>
+        <th scope="col">Nama Dokter</th>
+        <th scope="col">Waktu</th>
+        <th scope="col">Status Pemeriksaan</th>
+        <th scope="col">Kuota</th>
+        <th scope="col">Update Pemeriksaan</th>
+        </tr>
+    </thead>
+    <tbody>
+    <?php
             $i = 1;
             $jadwalQuery = (new Query())
                 ->from('jadwaldokter')
@@ -88,7 +106,6 @@ echo "Tanggal Periksa $date";
                             <td><?php echo $user['userNama'];?></td>
                             <td><?php echo $jadwal['jadwalWaktu'];?></td>
                             <td><?php echo $pendaftaran['pendaftaranStatus'];?></td>
-                            <td><?php echo $pendaftaran['pendaftaranID'];?></td>
                             <?php 
                             $validasiPendaftaran = (new Query())
                                 ->select('count(*),pemeriksaanID')
@@ -100,18 +117,16 @@ echo "Tanggal Periksa $date";
                             }
                             if($banyak == 0){
                             ?>
-                                <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success']) ?></td>
+                                <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn bg-danger', 'style'=>'color:white']) ?></td>
                             <?php } else { ?>
-                                <td><?= Html::a('Update Periksa', ['pemeriksaan/update','id'=>$idPemeriksaan], ['class' => 'btn btn-success']) ?></td>
+                                <td><?= Html::a('Update Periksa', ['pemeriksaan/update','id'=>$idPemeriksaan], ['class' => 'btn bg-warning', 'style'=>'color:white']) ?></td>
                             <?php } ?>
                         </tr>
                 <?php }
                 }
             } ?>
-        </tbody>
+    </tbody>
     </table>
-
-    
-
-
 </div>
+<br>
+<br>

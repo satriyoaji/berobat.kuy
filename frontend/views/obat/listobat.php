@@ -20,7 +20,9 @@ if(!isset($_SESSION['pemeriksaan'])){
         $_SESSION['pemeriksaan']=$pemeriksaan['pemeriksaanID'];
     }
 }
+
 echo $_SESSION['pemeriksaan'];
+
 if(isset($_SESSION['resep'])){
 
 }else{

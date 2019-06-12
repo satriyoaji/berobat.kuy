@@ -9,11 +9,25 @@ use yii\db\Query;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Pemeriksaan */
 /* @var $form yii\widgets\ActiveForm */
-$_SESSION['pendaftaranID'] = $_GET['id'];
+if(!isset($_SESSION['pendaftaranID'])){
+    $_SESSION['pendaftaranID'] = $_GET['id'];
+    echo $_SESSION['pendaftaranID'];
+}
+
 
 $categories=Jenisperiksa::find()->all();
 
 $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
+
+if(isset($_SESSION['pendaftaranID'])){
+    echo $_SESSION['pendaftaranID'];
+}
+if(isset($_SESSION['resep'])){
+    echo $_SESSION['resep'];
+}
+if(isset($_SESSION['pemeriksaan'])){
+    echo $_SESSION['pemeriksaan'];
+}
 ?>
 
 <div class="pemeriksaan-form">
@@ -21,7 +35,7 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
     <?php $form = ActiveForm::begin(); ?>
 
     <div = hidden>
-    <?= $form->field($model, 'pendaftranID')->textInput(['value' => $_SESSION['pendaftaranID']]) ?>
+    <?= $form->field($model, 'pendaftranID')->textInput(['value' => $_GET['id']]) ?>
     </div>
 
     <?= $form->field($model, 'jenisPeriksaID')->dropDownList(
@@ -43,7 +57,7 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
     <tbody>
         <?php 
         $verifikasiResep = (new Query())
-            ->select('count(*),resepID')
+            ->select('count(*)')
             ->from('resep')
             ->where(['pendaftaranID'=>$_SESSION['pendaftaranID']]);
         foreach($verifikasiResep->each() as $verifikasi){
@@ -88,12 +102,14 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
             <td><?= Html::a('Done', ['pendaftaran/listharian', 'status'=> 1], ['class' => 'btn btn-success','data' => [
                             'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',
                             'method' => 'post',],]) ?></td>
-        <?php } else { ?>
+        <?php 
+            
+            
+    } else { ?>
             <?= Html::submitButton('Done', ['class' => 'btn btn-success','data' => [
                             'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',
                             'method' => 'post',],]) ?></td>
         <?php } ?>
-        
         <?= Html::submitButton('Tambah Obat', ['class' => 'btn btn-success']) ?>
     </div>
 
