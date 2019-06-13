@@ -73,7 +73,7 @@ foreach($userQuery->each() as $user){
             </div>
         </div>
         <br>
-        <?= Html::a('Kunjungi Laman', ['jadwaldokter/index','idDokter'=>Yii::$app->user->id], ['class' => 'card-link'])?>
+        <?= Html::a('Kunjungi Laman', ['jadwaldokter/listjadwal','idDokter'=>Yii::$app->user->id], ['class' => 'card-link'])?>
     </div>
     </div>
     </div>

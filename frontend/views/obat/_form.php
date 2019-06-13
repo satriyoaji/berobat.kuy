@@ -18,7 +18,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'obatGolongan')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'file')->fileInput() ?>
+    <?= $form->field($model, 'obatFoto')->fileInput() ?>
 
     <?= $form->field($model, 'obatDeskripsi')->textInput(['maxlength' => true]) ?>
 

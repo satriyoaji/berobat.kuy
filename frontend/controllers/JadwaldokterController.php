@@ -48,6 +48,18 @@ class JadwaldokterController extends Controller
         ]);
     }
 
+    public function actionListjadwal()
+    {
+        $searchModel = new JadwaldokterSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('listjadwal', [
+            
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Jadwaldokter model.
      * @param integer $id
