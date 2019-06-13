@@ -44,10 +44,7 @@ class ResepController extends Controller
     {
         $searchModel = new ResepSearch();
         $provider = new ActiveDataProvider([
-            'query'=>Resep::find(),
-            'Pagination'=>[
-            'pageSize'=>6,
-            ],
+            'query'=>Resep::findAll(),
         ]);
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 

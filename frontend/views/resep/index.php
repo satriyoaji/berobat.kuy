@@ -44,7 +44,7 @@ if (isset($_GET['id']))
       <a class="list-group-item list-group-item-action active" id="list-home-list" data-toggle="list" href="#list-home" role="tab" aria-controls="home">Home</a>
       <a class="list-group-item list-group-item-action" id="list-profile-list" data-toggle="list" href="#list-profile" role="tab" aria-controls="profile">List Resep</a>
       <a class="list-group-item list-group-item-action" id="list-messages-list" data-toggle="list" href="#list-messages" role="tab" aria-controls="messages">List Obat</a>
-      <a class="list-group-item list-group-item-action" id="list-settings-list" data-toggle="list" href="#list-settings" role="tab" aria-controls="settings">Verifikasi Resep</a>
+      
     </div>
   </div>
   <div class="col-8">
@@ -71,17 +71,27 @@ if (isset($_GET['id']))
         <th scope="col">ID Resep</th>
         <th scope="col">Status</th>
         <th scope="col">Detail</th>
+        <th scope="col">Verifikasi</th>
         </tr>
         </thead>
         <tbody>
-        <?php $post=$provider->getModels();
-         foreach ($post as $row) { ?>
-        <td><?php echo $i;$i++;?></td>
-        <td><?php echo $row['resepID'];?></td>
-        <td><?php echo $row['resepStatus'];?></td>
-        <td> <?= Html::a('Detail', ['detailresep/index','id'=>$row['resepID']], ['class' => 'btn btn-success']) ?></td>
-        </tbody>
-        <?php } ?>
+        <?php
+        $post = Resep::find()->all();
+         foreach ($post as $row) { 
+          ?>
+            <td><?php echo $i;$i++;?></td>
+            <td><?php echo $row['resepID'];?></td>
+            <td><?php echo $row['resepStatus'];?></td>
+            <td> <?= Html::a('Detail', ['detailresep/index','id'=>$row['resepID']], ['class' => 'btn btn-success']) ?></td>
+      
+            <?php if($row['apotekerID']!= NULL){?>
+            <td> <?= Html::a('Sudah Terverifikasi', ['resep/index'], ['class' => 'btn btn-success']) ?></td>
+            <?php } else { ?>
+              <td> <?= Html::a('Verifikasi', ['resep/index','id'=>$row['resepID']], ['class' => 'btn btn-success']) ?></td>
+            <?php }  ?>
+            </tbody>
+        <?php 
+        } ?>
         </table>
       </div>
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
@@ -123,36 +133,7 @@ if (isset($_GET['id']))
         <?php } ?>
         </table>
       </div>
-      <div class="tab-pane fade" id="list-settings" role="tabpanel" aria-labelledby="list-settings-list">
-         <?php
-         $y=1;
-         $resepQuery = Resep::find();
-         $resepQuery->andFilterWhere(['LIKE','apotekerID','']);
-         ?>
-          <table class="table">
-        <thead class="thead-dark">
-        <tr>
-        <th scope="col">No</th>
-        <th scope="col">ID Resep</th>
-        <th scope="col">ID Apoteker</th>
-        <th scope="col">Verifikasi</th>
-        </tr>
-        </thead>
-        <tbody>
-        <?php foreach($resepQuery->each() as $roww){ ?>
-        <td><?php echo $y;$y++;?></td>
-        <td><?php echo $roww['resepID'];?></td>
-        <td><?php echo $roww['apotekerID'];?></td>
-        <?php if($roww['apotekerID']== 20){?>
-        <td> <?= Html::a('Sudah Terverifsikasi', ['resep/index'], ['class' => 'btn btn-success']) ?></td>
-        <?php } else { ?>
-          <td> <?= Html::a('Verifikasi', ['resep/index','id'=>$roww['resepID']], ['class' => 'btn btn-success']) ?></td>
-        <?php }  ?>
-        </tbody>
-        <?php } ?>
-        </table>
-      </div>
-    </div>
+      
   </div>
 </div>
 
