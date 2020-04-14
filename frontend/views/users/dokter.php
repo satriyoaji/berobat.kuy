@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
 use yii\db\Query;
 
 /* @var $this yii\web\View */
@@ -59,7 +58,7 @@ $this->title = 'Jadwal Dokter';
                 $jumlahUser = (new Query())
                     ->select('count(*)')
                     ->from('users')
-                    ->where('userPekerjaan =7 ');
+                    ->where('userPekerjaan = 7 ');
                 foreach($jumlahUser->each() as $user)
                 ?>
                 <span class="badge badge-primary badge-pill"><?php echo $user['count(*)']; ?></span>

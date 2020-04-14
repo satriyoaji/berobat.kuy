@@ -35,7 +35,8 @@ class Obat extends \yii\db\ActiveRecord
             [['obatHarga'], 'integer'],
             [['obatNama'], 'string', 'max' => 30],
             [['obatGolongan'], 'string', 'max' => 15],
-            [['obatFoto', 'obatDeskripsi'], 'string', 'max' => 50],
+            [['obatFoto'], 'string', 'max' => 50],
+            [['obatFoto', 'obatDeskripsi'], 'string', 'max' => 100],
         ];
     }
 

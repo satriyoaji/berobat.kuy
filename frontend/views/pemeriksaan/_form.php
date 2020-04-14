@@ -9,28 +9,24 @@ use yii\db\Query;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Pemeriksaan */
 /* @var $form yii\widgets\ActiveForm */
-if(!isset($_SESSION['pendaftaranID'])){
+
+if(Yii::$app->request->pathInfo == 'pemeriksaan/update'){
+    $_SESSION['pemeriksaanID'] = $_GET['id'];
+    $_SESSION['pendaftaranID'] = $_GET['pendaftaranID'];
+}else if (Yii::$app->request->pathInfo == 'pemeriksaan/create'){
     $_SESSION['pendaftaranID'] = $_GET['id'];
-    echo $_SESSION['pendaftaranID'];
 }
 
+/*if (isset($_SESSION['resepID']))
+    unset($_SESSION['resepID']);*/
 
 $categories=Jenisperiksa::find()->all();
 
 $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
 
-if(isset($_SESSION['pendaftaranID'])){
-    echo $_SESSION['pendaftaranID'];
-}
-if(isset($_SESSION['resep'])){
-    echo $_SESSION['resep'];
-}
-if(isset($_SESSION['pemeriksaan'])){
-    echo $_SESSION['pemeriksaan'];
-}
 ?>
 
-<div class="pemeriksaan-form">
+<div class="pemeriksaan-form col-lg-10">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -59,35 +55,39 @@ if(isset($_SESSION['pemeriksaan'])){
         $verifikasiResep = (new Query())
             ->select('count(*)')
             ->from('resep')
-            ->where(['pendaftaranID'=>$_SESSION['pendaftaranID']]);
+            ->where(['pendaftaranID'=>$_SESSION['pendaftaranID']]); //mencari jumlah resep hasil pemeriksaan sebelumnya
         foreach($verifikasiResep->each() as $verifikasi){
             $banyak = $verifikasi['count(*)'];
         }
-        if($banyak == 0){ ?>
+        if($banyak == 0){ //jika ga ditemukan?>
         <tr>
             <th colspan="5"><center> Belum Ada Resep </center></th>
         </tr>
-        <?php } else {
+        <?php } else { //jika data ditemukan ( lbh dari 0 ) maka tampilkan resep
             $i=1;
             $resepQuery = (new Query())
                 ->from('resep')
                 ->where(['pendaftaranID'=>$_SESSION['pendaftaranID']]);
-            foreach($resepQuery->each() as $resep){
-                $id = $resep['resepID'];
+            //var_dump( $resepQuery); //kalau mau query all bisa ditambahkan di akhir statement SQL, tapi foreachnya GAPAKE DI EACH()
+            foreach($resepQuery->each() as $resep){ //hasilnya cmn 1
+                $idResep = $resep['resepID'];
+                $_SESSION['resepID'] = $resep['resepID'];
             }
-            $resepQuery = (new Query())
+            $detailResepQuery = (new Query())
                 ->from('detailresep')
-                ->where(['resepID'=>$id]);
-            foreach($resepQuery->each() as $resep){
+                ->where(['resepID'=>$idResep])
+                ->all();
+
+            foreach($detailResepQuery as $detailResep){
                 $obatQuery = (new Query())
                     ->from('obat')
-                    ->where(['obatID'=>$resep['obatID']]);
-                foreach($obatQuery->each() as $obat){?>
+                    ->where(['obatID'=>$detailResep['obatID']]);
+                foreach($obatQuery->each() as $obat){ //bisa banyak?>
                 <tr>
                     <th><?php echo $i; $i++; ?></th>
                     <th><?php echo $obat['obatNama'] ?></th>
-                    <th><?php echo $resep['detailResepQuantity'] ?></th>
-                    <th><?php echo $resep['detailResepDosis'] ?></th>
+                    <th><?php echo $detailResep['detailResepQuantity'] ?></th>
+                    <th><?php echo $detailResep['detailResepDosis'] ?></th>
                     <th><?php echo $obat['obatGolongan'] ?></th>
                 </tr>
                 <?php }
@@ -98,19 +98,32 @@ if(isset($_SESSION['pemeriksaan'])){
     </table>
 
     <div class="form-group">
+            <td><?php if($banyak==0){ //jika belum ada resep
+                    echo Html::a('Berikan Resep', ['resep/create', 'id' => $_GET['id']], ['class' => 'btn bg-primary', 'style'=>'color:white','data' => [
+
+                    'method' => 'post',],]);
+                } else{ //jika sudah ada resep
+                    echo Html::a('Tambahkan Obat', ['detailresep/tambah', 'id' => $_GET['id']], ['class' => 'btn bg-primary', 'style'=>'color:white','data' => [
+
+                        'method' => 'post',],]);
+                }
+                ?>
+            </td>
+
+
         <?php if(isset($_SESSION['resep'])){ ?>
-            <td><?= Html::a('Done', ['pendaftaran/listharian', 'status'=> 1], ['class' => 'btn btn-success','data' => [
+            <td><?= Html::a('Done', ['pendaftaran/listharian', 'status'=> 1], ['class' => 'btn bg-info', 'style'=>'color:white','data' => [
                             'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',
                             'method' => 'post',],]) ?></td>
         <?php 
             
-            
-    } else { ?>
-            <?= Html::submitButton('Done', ['class' => 'btn btn-success','data' => [
-                            'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',
-                            'method' => 'post',],]) ?></td>
+        } else { ?>
+                <td><?= Html::submitButton('Done', ['class' => 'btn bg-info', 'style'=>'color:white','data' => [
+                                'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',
+                                'method' => 'post',],]) ?></td>
         <?php } ?>
-        <?= Html::submitButton('Tambah Obat', ['class' => 'btn btn-success']) ?>
+
+
     </div>
 
     <?php ActiveForm::end(); ?>

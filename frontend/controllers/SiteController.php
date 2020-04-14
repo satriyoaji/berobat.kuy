@@ -89,13 +89,13 @@ class SiteController extends Controller
         $userQuery = (new Query())
             ->from('users')
             ->where(['userId'=>Yii::$app->user->id]);
-        foreach($userQuery->each() as $user){
+        foreach($userQuery->each() as $user){ //hasil query pasti 1
             $id = $user['userPekerjaan'];
             $status =1;
         } 
         
         if($status == 1){
-            if($id == 3){
+            if($id == 3){ //apoteker
                 $searchModel = new ResepSearch();
                 $provider = new ActiveDataProvider([
                     'query'=>Resep::find(),
@@ -112,7 +112,7 @@ class SiteController extends Controller
                 ]);
             }
 
-            else if($id == 4){
+            else if($id == 4){ //kasir
                 $model = new Cari();
                 if($model->load(Yii::$app->request->post())){
                     $_SESSION['cari']=$model->detailResepDosis;
@@ -129,7 +129,7 @@ class SiteController extends Controller
                 ]);
             }
 
-            else if($id > 4){
+            else if($id > 4){ //profesi dokter
                 $searchModel = new UsersSearch();
                 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -161,7 +161,7 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            return $this->goBack(); //untuk kembali ke aktifitas trakhir sebelumnya
         } else {
             $model->password = '';
 

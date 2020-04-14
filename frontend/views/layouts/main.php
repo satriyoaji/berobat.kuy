@@ -54,7 +54,8 @@ foreach($userQuery->each() as $user){
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-  <a class="navbar-brand" href="http://localhost/siklinik/frontend/web/"><img src="../../assets/logo.png" alt="" class="img-responsive" width="200" height="55"></a>
+
+  <a class="navbar-brand" href="http://localhost/siklinik/frontend/web/"><img src="<?php echo Yii::$app->getHomeUrl(); ?>../../assets/logo.png" alt="" class="img-responsive" width="200" height="55"></a>
   
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
@@ -87,33 +88,32 @@ foreach($userQuery->each() as $user){
         <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
         <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="../../assets/FOTO USER/download.png" alt="Avatar" style="border-radius: 50%; width: 50px;border-style: ridge;">
+          <img src="<?php echo Yii::$app->getHomeUrl(); ?>../../assets/FOTO USER/profil.png" alt="Avatar" style="border-radius: 50%; width: 50px;border-style: ridge;">
           </button>
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
-          <?php if($kategory == 1) { ?>
-          <?= Html::a('List Periksa', ['pendaftaran/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
-          <?= Html::a('Pembayaran', ['nota/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
-          <?php } ?>
-          
-          <?= Html::a('LogOut', ['/site/logout'], ['class' => 'btn btn-success', 'style'=>'color:#35a373','data'=>['method'=>'post']] ) ?>
-          <div = hidden>
-          <?= Html::beginForm(['/site/logout'], 'post')
-              . Html::submitButton(
-                  'Logout (' . Yii::$app->user->identity->username . ')',
-                  ['class' => 'btn btn-link logout']
-              )
-          ?>
-          </div>
-        <?php } ?>
+              <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
+              <?php if($kategory == 1) { ?>
+              <?= Html::a('List Periksa', ['pendaftaran/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
+              <?= Html::a('Pembayaran', ['nota/index', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
+              <?php } ?>
+
+              <?= Html::a('Logout (' . Yii::$app->user->identity->username . ')', ['/site/logout'], ['class' => 'btn btn-success', 'style'=>'color:#35a373','data'=>['method'=>'post']] ) ?>
+              <div = hidden>
+              <?= Html::beginForm(['/site/logout'], 'post')
+                  . Html::submitButton(
+                      'Logout (' . Yii::$app->user->identity->username . ')',
+                  ['class' => 'btn btn-success', 'style'=>'color:#35a373'] )
+              ?>
+              </div>
+              <?php } ?>
           </div>
         </div>
         <?= Html::a('', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success']) ?>
         <br>
-    </p>
+    </nav>
     </form>
   </div>
-</nav>
+
 
 
     <div class="container">

@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Resep;
 use Yii;
 use frontend\models\Detailresep;
 use frontend\models\DetailresepSearch;
@@ -108,7 +109,7 @@ class DetailresepController extends Controller
                 ->from('detailresep')
                 ->where(['resepID' => $_SESSION['resep']]);
             foreach($resepQuery->each() as $resep){ 
-                $hargaAkhir = $resep['detailResepSubtotal'] + $hargaAkhir;
+                $hargaAkhir = $resep['detailResepSubtotal'] + $resep['resepTotalHarga'];
             }
             Yii::$app->db->createCommand()->update('resep', ['resepTotalHarga' => $hargaAkhir], ['resepID'=>$_SESSION['resep']])->execute();
             return $this->redirect(['pemeriksaan/update','id'=>$_SESSION['pemeriksaan']]);
@@ -127,7 +128,44 @@ class DetailresepController extends Controller
         return $this->render('create',[
             'model' => $model,
         ]);
-    }  
+    }
+
+    public function actionTambah()
+    {
+        $model = new Detailresep();
+
+        if ($model->load(Yii::$app->request->post())) {
+            $banyak = $model->detailResepQuantity;
+            $obatQuery=(new Query())
+                ->from('obat')
+                ->where(['obatID' => $model->obatID]);
+            foreach($obatQuery->each() as $obat){
+                $harga = $obat['obatHarga'];
+            }
+            $harga = $harga * $banyak;
+            $model->detailResepSubtotal = $harga;
+            $model->save();
+
+            //LALU LAKUKAN UPDATE TOTAL HARGA PADA TABEL RESEP
+            $hargaAkhir = 0;
+            $detailresepQuery=(new Query())
+                ->from('detailresep')
+                ->where(['resepID' => $_SESSION['resepID']]);
+            foreach($detailresepQuery->each() as $detailresep){
+                $resep = Resep::findOne($_SESSION['resepID']);
+                $hargaAkhir = $detailresep['detailResepSubtotal'] + $resep['resepTotalHarga'];
+                //disini menambahkan harga subtotal darti detail resep baru dengan total harga sebelumnya di Resep yg bersangkutan
+            }
+            //$resep->save();
+            Yii::$app->db->createCommand()->update('resep', ['resepTotalHarga' => $hargaAkhir], ['resepID'=>$_SESSION['resepID']])->execute();
+
+            return $this->redirect(['pemeriksaan/update', 'pendaftaranID'=>$_SESSION['pendaftaranID'], 'id'=>$_SESSION['pemeriksaanID']]);
+        }
+
+        return $this->render('create', [
+            'model' => $model,
+        ]);
+    }
 
     /**
      * Updates an existing Detailresep model.

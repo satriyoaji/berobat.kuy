@@ -5,6 +5,7 @@ namespace frontend\controllers;
 use Yii;
 use frontend\models\Pendaftaran;
 use frontend\models\PendaftaranSearch;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -25,6 +26,17 @@ class PendaftaranController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['create', 'update', 'delete', 'listharian', 'listriwayat', 'gen-pdf'], //index dan view tanpa dikasih aturan gpp, otomatis semua user bisa akses
+                'rules' => [
+                    [
+                        'actions' => ['create', 'update', 'delete', 'listharian', 'listriwayat', 'gen-pdf'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];

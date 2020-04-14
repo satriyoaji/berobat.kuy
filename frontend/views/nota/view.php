@@ -9,8 +9,6 @@ use yii\db\Query;
 /* @var $model frontend\models\Nota */
 
 $this->title = $model->notaID;
-$this->params['breadcrumbs'][] = ['label' => 'Notas', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="nota-view">
@@ -86,7 +84,5 @@ $this->params['breadcrumbs'][] = $this->title;
                     <td><?php echo $nota['notaTotalHarga'];?></td>
                 </tr>
             <?php }
-            ?>
-        
-
+        ?>
 </div>

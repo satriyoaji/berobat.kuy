@@ -3,16 +3,16 @@
 namespace backend\controllers;
 
 use Yii;
-use backend\models\JadwalDokter;
-use backend\models\JadwalDokterSearch;
+use backend\models\Jadwaldokter;
+use backend\models\JadwaldokterSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * JadwalDokterController implements the CRUD actions for JadwalDokter model.
+ * JadwaldokterController implements the CRUD actions for Jadwaldokter model.
  */
-class JadwalDokterController extends Controller
+class JadwaldokterController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -30,12 +30,12 @@ class JadwalDokterController extends Controller
     }
 
     /**
-     * Lists all JadwalDokter models.
+     * Lists all Jadwaldokter models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $searchModel = new JadwalDokterSearch();
+        $searchModel = new JadwaldokterSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
@@ -45,7 +45,7 @@ class JadwalDokterController extends Controller
     }
 
     /**
-     * Displays a single JadwalDokter model.
+     * Displays a single Jadwaldokter model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -58,13 +58,13 @@ class JadwalDokterController extends Controller
     }
 
     /**
-     * Creates a new JadwalDokter model.
+     * Creates a new Jadwaldokter model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new JadwalDokter();
+        $model = new Jadwaldokter();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->jadwalID]);
@@ -76,7 +76,7 @@ class JadwalDokterController extends Controller
     }
 
     /**
-     * Updates an existing JadwalDokter model.
+     * Updates an existing Jadwaldokter model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -96,7 +96,7 @@ class JadwalDokterController extends Controller
     }
 
     /**
-     * Deletes an existing JadwalDokter model.
+     * Deletes an existing Jadwaldokter model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -110,15 +110,15 @@ class JadwalDokterController extends Controller
     }
 
     /**
-     * Finds the JadwalDokter model based on its primary key value.
+     * Finds the Jadwaldokter model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return JadwalDokter the loaded model
+     * @return Jadwaldokter the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = JadwalDokter::findOne($id)) !== null) {
+        if (($model = Jadwaldokter::findOne($id)) !== null) {
             return $model;
         }
 

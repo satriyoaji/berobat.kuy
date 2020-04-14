@@ -29,7 +29,8 @@ use yii\helpers\Html;
                   <li class="user-footer">
 
                     <div class="pull-right">
-                      <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                        <?= Html::a('Logout', ['site/logout'], ['class' => 'btn bg-primary', 'style'=>'color:white','data' => [
+                            'method' => 'post',],]) ?>
                     </div>
                   </li>
                 </ul>

@@ -28,7 +28,7 @@ $baseUrl    = $asset->baseUrl;
 <div class="wrapper">
     <?= $this->render('header.php', ['baserUrl' => $baseUrl, 'title'=>Yii::$app->name]) ?>
     <?= $this->render('leftside.php', ['baserUrl' => $baseUrl]) ?>
-    <?= $this->render('content.php', ['content' => $content]) ?>
+    <?= $this->render('content.php', ['baserUrl' => $baseUrl]) ?>
     <?= $this->render('footer.php', ['baserUrl' => $baseUrl]) ?>
     <?= $this->render('rightside.php', ['baserUrl' => $baseUrl]) ?>
 </div>

@@ -27,7 +27,7 @@ foreach($userQuery->each() as $row4){
 if (isset($_GET['id']))
 {
   $id = $_GET['id'];
-  Yii::$app->db->createCommand()->update('resep', ['apotekerID' => Yii::$app->user->getId() ], ['resepID' =>  $id])->execute();
+  Yii::$app->db->createCommand()->update('resep', ['apotekerID' => Yii::$app->user->getId(),'resepStatus' => 'Sudah dibuat' ], ['resepID' =>  $id])->execute();
 }
 ?>
 <div>
@@ -64,7 +64,7 @@ if (isset($_GET['id']))
         </div>
       </div>
       <div class="tab-pane fade" id="list-profile" role="tabpanel" aria-labelledby="list-profile-list"> 
-      <table class="table">
+      <table class="table text-center">
         <thead class="thead-dark">
         <tr>
         <th scope="col">No</th>
@@ -85,9 +85,9 @@ if (isset($_GET['id']))
             <td> <?= Html::a('Detail', ['detailresep/index','id'=>$row['resepID']], ['class' => 'btn btn-success']) ?></td>
       
             <?php if($row['apotekerID']!= NULL){?>
-            <td> <?= Html::a('Sudah Terverifikasi', ['resep/index'], ['class' => 'btn btn-success']) ?></td>
+            <td> <?= Html::a('Sudah Terverifikasi', ['resep/index'], ['class' => 'btn bg-warning', 'style' => 'color:white']) ?></td>
             <?php } else { ?>
-              <td> <?= Html::a('Verifikasi', ['resep/index','id'=>$row['resepID']], ['class' => 'btn btn-success']) ?></td>
+              <td> <?= Html::a('Verifikasi', ['resep/index','id'=>$row['resepID']], ['class' => 'btn bg-danger', 'style' => 'color:white']) ?></td>
             <?php }  ?>
             </tbody>
         <?php 
@@ -96,7 +96,7 @@ if (isset($_GET['id']))
       </div>
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
       <?= Html::a('create', ['obat/create'], ['class' => 'btn btn-success']) ?>
-      <table class="table">
+      <table class="table text-center">
         <thead class="thead-dark">
         <tr>
         <th scope="col">No</th>

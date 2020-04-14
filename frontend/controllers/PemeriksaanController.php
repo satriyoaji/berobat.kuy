@@ -8,6 +8,7 @@ use frontend\models\PemeriksaanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * PemeriksaanController implements the CRUD actions for Pemeriksaan model.
@@ -24,6 +25,17 @@ class PemeriksaanController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                ],
+            ],
+            'access' => [
+                'class' => AccessControl::className(),
+                'only' => ['index', 'view', 'detail', 'delete'],
+                'rules' => [
+                    [
+                        'actions' => ['index', 'view', 'detail', 'delete'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
                 ],
             ],
         ];
@@ -67,8 +79,9 @@ class PemeriksaanController extends Controller
         if(isset($_SESSION['pendaftaranID'])){
             Yii::$app->db->createCommand()->update('pendaftaran', ['pendaftaranStatus' => 'Sudah Diperiksa'], ['pendaftaranID' => $_SESSION['pendaftaranID']])->execute();
         }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['obat/listobat']);
+            return $this->redirect(['pendaftaran/listharian']);
         }
 
         return $this->render('create', [
@@ -83,15 +96,15 @@ class PemeriksaanController extends Controller
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
      */
-    public function actionUpdate($id)
+    public function actionUpdate($id) //KOK GABISA UPDATE???
     {
         $model = $this->findModel($id);
 
-    
-            if ($model->load(Yii::$app->request->post())) {
-                echo $model->pemeriksaanHasil;
-                $model->save();
-                return Yii::$app->response->redirect(['/obat/listobat']);
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+                return Yii::$app->response->redirect(['pendaftaran/listharian']);
+            }else{
+                //var_dump(Yii::$app->errorHandler);
             }
         
         return $this->render('update', [

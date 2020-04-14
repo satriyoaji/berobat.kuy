@@ -76,9 +76,10 @@ class ResepController extends Controller
     public function actionCreate()
     {
         $model = new Resep();
-        $model->resepTanggal=Yii::$app->formatter->asDate('now', 'dd-MM-yyyy');
+        $model->resepTanggal = Yii::$app->formatter->asDate('now', 'yyyy-MM-dd'); //seperti php:Y-m-d
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->resepID]);
+            $_SESSION['resepID'] = $model->resepID;
+            return $this->redirect(['detailresep/tambah']);
         }
 
         return $this->render('create', [
@@ -106,10 +107,10 @@ class ResepController extends Controller
         ]);
     }
 
-    public function actionUptodate($id,$apotekerID)
+    public function actionUptodate($id,$dokterID)
     {
         $model = $this->findModel($id);
-        $model->apotekerID = $apotekerID;
+        $model->dokterID = $dokterID;
         $model->save();
         return Yii::$app->response->redirect(['/resep/index']);  
     }

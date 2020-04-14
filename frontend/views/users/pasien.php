@@ -8,11 +8,11 @@ use yii\db\Query;
 /* @var $searchModel frontend\models\UsersSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Jadwal Dokter';
+$this->title = 'List Pasien';
 ?>
 <div class="users-index">
     <br>
-    <h1>List Dokter</h1>
+    <h1>List Pasien</h1>
     <hr>
     <br>
     <div class="row">
@@ -36,7 +36,7 @@ $this->title = 'Jadwal Dokter';
                 foreach($dataUser->each() as $user){ 
 
                 ?>
-                <td><?php echo $i; $i++;?></td>
+                <td><?php $i++; echo $i; ?></td>
                 <td><?php echo $user['userNama'];?></td>
                 <td><?= Html::a('Lihat Jadwal', ['pendaftaran/listriwayat','id'=>$user['userId']], ['class' => 'btn btn-success']) ?></td>
                 </tr>

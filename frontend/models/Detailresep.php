@@ -34,7 +34,7 @@ class Detailresep extends \yii\db\ActiveRecord
     {
         return [
             [['obatID', 'resepID', 'detailResepQuantity', 'detailResepSubtotal'], 'integer'],
-            [['detailResepDosis'], 'string', 'max' => 15],
+            [['detailResepDosis'], 'string', 'max' => 50],
             [['resepID'], 'exist', 'skipOnError' => true, 'targetClass' => Resep::className(), 'targetAttribute' => ['resepID' => 'resepID']],
             [['obatID'], 'exist', 'skipOnError' => true, 'targetClass' => Obat::className(), 'targetAttribute' => ['obatID' => 'obatID']],
         ];

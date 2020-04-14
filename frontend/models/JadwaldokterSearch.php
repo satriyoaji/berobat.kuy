@@ -17,7 +17,7 @@ class JadwaldokterSearch extends Jadwaldokter
     public function rules()
     {
         return [
-            [['jadwalID', 'dokterID', 'jadwalKuota'], 'integer'],
+            [['jadwalID', 'dokterID', 'jadwalKuota', 'jadwalDurasi'], 'integer'],
             [['jadwalWaktu', 'jadwalRuangan'], 'safe'],
         ];
     }
@@ -64,6 +64,8 @@ class JadwaldokterSearch extends Jadwaldokter
         ]);
 
         $query->andFilterWhere(['like', 'jadwalWaktu', $this->jadwalWaktu])
+            ->andFilterWhere(['like', 'jadwalDurasi', $this->jadwalDurasi])
+            ->andFilterWhere(['like', 'jadwalTanggal', $this->jadwalTanggal])
             ->andFilterWhere(['like', 'jadwalRuangan', $this->jadwalRuangan]);
 
         return $dataProvider;

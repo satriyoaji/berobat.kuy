@@ -10,6 +10,7 @@ use Yii;
  * @property int $jadwalID
  * @property int $dokterID
  * @property string $jadwalWaktu
+ * @property int $jadwalDurasi
  * @property int $jadwalKuota
  * @property string $jadwalRuangan
  * @property string $jadwalTanggal
@@ -33,7 +34,8 @@ class Jadwaldokter extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['dokterID', 'jadwalKuota'], 'integer'],
+            [['dokterID', 'jadwalDurasi', 'jadwalKuota'], 'integer'],
+            [['jadwalDurasi'], 'required'],
             [['jadwalWaktu'], 'string', 'max' => 30],
             [['jadwalRuangan'], 'string', 'max' => 15],
             [['jadwalTanggal'], 'string', 'max' => 100],
@@ -50,6 +52,7 @@ class Jadwaldokter extends \yii\db\ActiveRecord
             'jadwalID' => 'Jadwal ID',
             'dokterID' => 'Dokter ID',
             'jadwalWaktu' => 'Jadwal Waktu',
+            'jadwalDurasi' => 'Jadwal Durasi',
             'jadwalKuota' => 'Jadwal Kuota',
             'jadwalRuangan' => 'Jadwal Ruangan',
             'jadwalTanggal' => 'Jadwal Tanggal',

@@ -4,12 +4,12 @@ namespace backend\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use backend\models\JadwalDokter;
+use backend\models\Jadwaldokter;
 
 /**
- * JadwalDokterSearch represents the model behind the search form of `backend\models\JadwalDokter`.
+ * JadwaldokterSearch represents the model behind the search form of `backend\models\Jadwaldokter`.
  */
-class JadwalDokterSearch extends JadwalDokter
+class JadwaldokterSearch extends Jadwaldokter
 {
     /**
      * {@inheritdoc}
@@ -17,8 +17,8 @@ class JadwalDokterSearch extends JadwalDokter
     public function rules()
     {
         return [
-            [['jadwalID', 'dokterID', 'jadwalKuota'], 'integer'],
-            [['jadwalWaktu', 'jadwalRuangan'], 'safe'],
+            [['jadwalID', 'dokterID', 'jadwalDurasi', 'jadwalKuota'], 'integer'],
+            [['jadwalWaktu', 'jadwalRuangan', 'jadwalTanggal'], 'safe'],
         ];
     }
 
@@ -40,7 +40,7 @@ class JadwalDokterSearch extends JadwalDokter
      */
     public function search($params)
     {
-        $query = JadwalDokter::find();
+        $query = Jadwaldokter::find();
 
         // add conditions that should always apply here
 
@@ -60,11 +60,13 @@ class JadwalDokterSearch extends JadwalDokter
         $query->andFilterWhere([
             'jadwalID' => $this->jadwalID,
             'dokterID' => $this->dokterID,
+            'jadwalDurasi' => $this->jadwalDurasi,
             'jadwalKuota' => $this->jadwalKuota,
         ]);
 
         $query->andFilterWhere(['like', 'jadwalWaktu', $this->jadwalWaktu])
-            ->andFilterWhere(['like', 'jadwalRuangan', $this->jadwalRuangan]);
+            ->andFilterWhere(['like', 'jadwalRuangan', $this->jadwalRuangan])
+            ->andFilterWhere(['like', 'jadwalTanggal', $this->jadwalTanggal]);
 
         return $dataProvider;
     }

@@ -181,7 +181,7 @@ if(!isset($_SESSION['userCategory'])){
             <div class="carousel-item active">
                     <div class="user col-md-12">
                     <br>
-                        <img src="../../assets/profil/lana.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
+                        <img src="../../assets/profil/profilAji.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
                         
                         <div class="user_text pb-3">
                         <br>
@@ -191,16 +191,16 @@ if(!isset($_SESSION['userCategory'])){
                             </p>
                         </div>
                         <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
-                            Shafiyah
+                            Ryo
                         </div>
                         <div class="user_desk mbr-light mbr-fonts-style display-7">
-                            BACKEND
+                            Owner
                         </div>
                     </div>
                 </div><div class="carousel-item">
                     <div class="user col-md-12">
                     <br>
-                    <img src="../../assets/profil/shaf.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
+                    <img src="../../assets/profil/profilEkky.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
                         <div class="user_text pb-3">
                         <br>
                         <br>
@@ -209,17 +209,17 @@ if(!isset($_SESSION['userCategory'])){
                             </p>
                         </div>
                         <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
-                            Hanun
+                            Ekky
                         </div>
                         <div class="user_desk mbr-light mbr-fonts-style display-7">
-                            DEVELOPER
+                            Frontend Developer
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="user col-md-12">
                     <br>
-                        <img src="../../assets/profil/hanun.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
+                        <img src="../../assets/profil/profilAan.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
                         <br>
                         <br>
                         <div class="user_text pb-3">
@@ -228,17 +228,17 @@ if(!isset($_SESSION['userCategory'])){
                             </p>
                         </div>
                         <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
-                            Edy
+                            Aan
                         </div>
                         <div class="user_desk mbr-light mbr-fonts-style display-7">
-                            FrontEnd Developer
+                            Backend Developer
                         </div>
                     </div>
                 </div>
                 <div class="carousel-item">
                     <div class="user col-md-12">
                     <br>
-                        <img src="../../assets/profil/edy.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
+                        <img src="../../assets/profil/profilFaidza.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
                         <div class="user_text pb-3">
                         <br>
                         <br>
@@ -247,10 +247,10 @@ if(!isset($_SESSION['userCategory'])){
                             </p>
                         </div>
                         <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
-                            Zulfa
+                            Faidza
                         </div>
                         <div class="user_desk mbr-light mbr-fonts-style display-7">
-                            FrontEnd Developer
+                            UI/UX
                         </div>
                     </div>
                 </div>

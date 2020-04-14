@@ -51,13 +51,17 @@ $pendaftaranQuery=(new Query())
             <hr>
             <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <?= Html::a("Obat Ringan",['obat/index','id'=>'bebas'],['class' =>'list-group-item']) ?>
-               
+                <?= Html::a("Obat Ringan",['obat/index','id'=>'ringan'],['class' =>'list-group-item']) ?>
             </li>
+
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+            <?= Html::a("Obat Sedang",['obat/index','id'=>'sedang'],['class' =>'list-group-item']) ?>
+            </li>
+
             <li class="list-group-item d-flex justify-content-between align-items-center">
             <?= Html::a("Obat Keras",['obat/index','id'=>'keras'],['class' =>'list-group-item']) ?>
-                
             </li>
+
             <li class="list-group-item d-flex justify-content-between align-items-center">
             <?php if($resepID==0){?>
               <?= Html::a("Resep Saya", ['detailresep/index','id'=>$resepID], ['class' =>'list-group-item','data' => [

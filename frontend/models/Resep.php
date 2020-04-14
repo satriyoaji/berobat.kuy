@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $resepID
  * @property string $resepTanggal
- * @property int $apotekerID
+ * @property int $dokterID
  * @property int $pendaftaranID
  * @property string $resepStatus
  * @property int $resepTotalHarga
@@ -17,7 +17,7 @@ use Yii;
  * @property Detailresep[] $detailreseps
  * @property Nota[] $notas
  * @property Pendaftaran $pendaftaran
- * @property Users $apoteker
+ * @property Users $dokter
  */
 class Resep extends \yii\db\ActiveRecord
 {
@@ -35,11 +35,12 @@ class Resep extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['apotekerID', 'pendaftaranID', 'resepTotalHarga'], 'integer'],
-            [['resepTanggal'], 'string', 'max' => 20],
+            [['resepTanggal', 'dokterID'], 'required'],
+            [['dokterID', 'pendaftaranID', 'resepTotalHarga'], 'integer'],
+            [['resepTanggal'], 'string', 'max' => 50],
             [['resepStatus'], 'string', 'max' => 30],
             [['pendaftaranID'], 'exist', 'skipOnError' => true, 'targetClass' => Pendaftaran::className(), 'targetAttribute' => ['pendaftaranID' => 'pendaftaranID']],
-            [['apotekerID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['apotekerID' => 'userId']],
+            [['dokterID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['dokterID' => 'userId']],
         ];
     }
 
@@ -51,7 +52,7 @@ class Resep extends \yii\db\ActiveRecord
         return [
             'resepID' => 'Resep ID',
             'resepTanggal' => 'Resep Tanggal',
-            'apotekerID' => 'Apoteker ID',
+            'dokterID' => 'Dokter ID',
             'pendaftaranID' => 'Pendaftaran ID',
             'resepStatus' => 'Resep Status',
             'resepTotalHarga' => 'Resep Total Harga',
@@ -85,8 +86,8 @@ class Resep extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getApoteker()
+    public function getDokter()
     {
-        return $this->hasOne(Users::className(), ['userId' => 'apotekerID']);
+        return $this->hasOne(Users::className(), ['userId' => 'dokterID']);
     }
 }

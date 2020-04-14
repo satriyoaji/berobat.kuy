@@ -60,6 +60,7 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
+        //Yii::$app->user->logout();
         return $this->render('index');
     }
 
@@ -77,7 +78,19 @@ class SiteController extends Controller
 
         $model = new LoginForm();
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
+            $query = new \yii\db\Query();
+            $pekerjaanId = $query->select(['userPekerjaan'])
+                ->from('users')
+                ->where(['userId' => Yii::$app->user->id])
+                ->one();
+
+            if ( $pekerjaanId['userPekerjaan'] == 2 ){
+                return $this->goBack();
+            }else{
+                Yii::$app->user->logout();
+                Yii::$app->session->setFlash('error', "Sorry you're not an admin");
+                return $this->goHome();
+            }
         } else {
             $model->password = '';
 
@@ -95,7 +108,7 @@ class SiteController extends Controller
     public function actionLogout()
     {
         Yii::$app->user->logout();
-        Yii::$app->user->actionLogout;
+        //Yii::$app->user->actionLogout;
 
         return $this->goHome();
     }

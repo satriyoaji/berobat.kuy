@@ -9,7 +9,6 @@ use yii\db\Query;
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'List Obat';
-$this->params['breadcrumbs'][] = $this->title;
 $id = Yii::$app->user->id;
 
 if(!isset($_SESSION['pemeriksaan'])){
@@ -21,7 +20,7 @@ if(!isset($_SESSION['pemeriksaan'])){
     }
 }
 
-echo $_SESSION['pemeriksaan'];
+
 
 if(isset($_SESSION['resep'])){
 
@@ -42,18 +41,21 @@ if(isset($_SESSION['resep'])){
 
 }
 ?>
+<br>
 <div class="pendaftaran-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
-
-    <table class="table table-condensed">
+    <br>
+    <table class="table table-condensed text-center table-hover table-striped">
+        <thead class="thead-dark">
+        <tr>
+        <th scope="col">No</th>
+        <th scope="col">Nama Obat</th>
+        <th scope="col">Golongan Obat</th>
+        <th scope="col">Status Pemeriksaan</th>
+        </tr>
+        </thead>
         <tbody>
-            <tr>
-                <td> No </td>
-                <td> Nama Obat </td>
-                <td> Golongan Obat </td>
-                <td> Status Pemeriksaan </td>
-            </tr>
             <?php
             $i = 1;
             $obatQuery = (new Query())
