@@ -42,7 +42,7 @@ $this->title = 'Masuk';
         </div>
     </div>
     <div class="col-md-6 text-center img-thumbnail">
-        <img src="../../assets/background/jumbotron.png" alt="" style="width:500px;">
+        <img src="../../../assets/background/jumbotron.png" alt="" style="width:500px;">
     </div>
 </div>
 

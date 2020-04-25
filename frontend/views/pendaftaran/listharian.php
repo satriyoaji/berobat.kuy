@@ -135,7 +135,7 @@ if(isset($_GET['tomorrow'])){
                             ?>
                                 <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn bg-danger', 'style'=>'color:white']) ?></td>
                                 <?php unset($_SESSION['tomorrow']);
-                            } else if($banyak != 0){ ?>
+                            } else if(($banyak != 0) && (!isset($_SESSION['tomorrow']))){ ?>
                                 <td><?= Html::a('Update Periksa', ['pemeriksaan/update','pendaftaranID'=>$pendaftaran['pendaftaranID'], 'id'=>$idPemeriksaan], ['class' => 'btn bg-warning', 'style'=>'color:white']) ?></td>
                             <?php } else {?>
                                 <td><p class="text-info">Lakukan pemeriksaan pada waktunya</p></td>

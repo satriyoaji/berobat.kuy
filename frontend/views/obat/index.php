@@ -10,24 +10,34 @@ use yii\data\Pagination;
 use yii\widgets\LinkPager;
 use yii\db\ActiveQuery;
 use yii\widgets\ActiveForm;
+use frontend\models\Detailresep;
+use frontend\models\Nota;
 /* @var $this yii\web\View */
 /* @var $searchModel frontend\models\ObatSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-$pendaftaranID=0;
-$resepID=0;
-$pendaftaranQuery=(new Query())
+//
+$pendaftaranQuery=(new Query()) //ambil pendaftaranID
   ->select('pendaftaranID')
   ->from('pendaftaran')
-  ->where('pasienID = :pasienID', [':pasienID' => Yii::$app->user->getId()]);
-  foreach($pendaftaranQuery->each() as $row2){
-    $pendaftaranID=$row2['pendaftaranID'];
+  ->where('pasienID = :pasienID', [':pasienID' => Yii::$app->user->id])
+  ->all();
+  $countQuery = 0;
+  foreach($pendaftaranQuery as $row){
+      $pendaftaranID[$countQuery] = $row['pendaftaranID']; //ambil ID pendaftaran
+
+      $resepQuery=(new Query())
+          ->from('resep')
+          ->where('pendaftaranID = :pendaftaranID', [':pendaftaranID' => $row['pendaftaranID']])
+          ->one();  //1 pendaftaran/pemeriksaan hanya punya 1 resep. kelemahannya kalau ada pendaftaran yag baru diperiksa,
+                    //  maka hanya bisa ambil daya trakhir (resep dari pendaftaran sebelume meskipun blm diproses gaisa diambil).
+                     // jadi tiap pemeriksaan kudu nyelesaikan transaksi resepnya
+      $resepsID[$countQuery]=$resepQuery['resepID'];
+
+      $countQuery++;
   }
-  $resepQuery=(new Query())
-  ->select('resepID')
-  ->from('resep')
-  ->where('pendaftaranID = :pendaftaranID', [':pendaftaranID' => $pendaftaranID]);
-  foreach($resepQuery->each() as $row3){
-    $resepID=$row3['resepID'];
+  for ($i = 0; $i<$countQuery; $i++){
+      if ($resepsID[$i] != null)
+        $resepID = $resepsID[$i];   //ambil resep ID dari pendaftaranID terakhir
   }
 ?>
 
@@ -63,19 +73,17 @@ $pendaftaranQuery=(new Query())
             </li>
 
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <?php if($resepID==0){?>
-              <?= Html::a("Resep Saya", ['detailresep/index','id'=>$resepID], ['class' =>'list-group-item','data' => [
+            <?php if($resepID == null){?>
+              <?= Html::a("Resep Saya", ['detailresep/index','id'=>$resepsID], ['class' =>'list-group-item','data' => [
               'confirm' => ' maaf anda belum melakukan pemeriksaan?',
               'method' => 'post',],]) ?>
             <?php } else { ?> 
-              <?= Html::a("Resep Saya",['detailresep/index','id'=>$resepID],['class' =>'list-group-item']) ?>
+              <?= Html::a("Resep Saya",['detailresep/index','id'=>$resepsID],['class' =>'list-group-item']) ?>
             <?php }  ?>
             </li>
             
             </ul>
         </div>
-
-
 
         <div class="col-lg-9">
 
@@ -87,13 +95,13 @@ $pendaftaranQuery=(new Query())
   </ol>
   <div class="carousel-inner" role="listbox">
     <div class="carousel-item active">
-      <img class="d-block img-fluid" src="../../assets/promo1.jpg" alt="First slide">
+      <img class="d-block img-fluid" src="../../../assets/promo1.jpg" alt="First slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block img-fluid" src="../../assets/promo2.jpg" alt="Second slide">
+      <img class="d-block img-fluid" src="../../../assets/promo2.jpg" alt="Second slide">
     </div>
     <div class="carousel-item">
-      <img class="d-block img-fluid" src="../../assets/promo3.jpg" alt="Third slide">
+      <img class="d-block img-fluid" src="../../../assets/promo3.jpg" alt="Third slide">
     </div>
   </div>
   <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
@@ -106,33 +114,69 @@ $pendaftaranQuery=(new Query())
   </a>
 </div>
 
+<div class="container">
+    <div class="row">
+        <?php if (isset($_SESSION['paid'])): ?>
+        <div class="alert alert-success col-md-8" role="alert">
+            Pengambilan obat telah berhasil! silahkan di ambil pada loket apotek
+        </div>
+        <?php unset($_SESSION['paid']);
+        endif; ?>
+    </div>
+</div>
+
 <div class="row">
- <?php  
+ <?php
+     // di bawah ini akan menampung semoa obatID pada seluruh resep si pasien yg login
+     $detailreseps = Detailresep::find()
+         ->where(['resepID' => $resepID])
+         ->all();
+     $count = 0;
+     foreach ($detailreseps as $detailresep){
+         $listObatID[$count] = $detailresep['obatID'];
+         $count++;
+     }
+    //
+     $nota = Nota::find()
+         ->where(['resepID' => $resepID])
+         ->one();
+    //
      $obatID=0;
-     $post=$provider->getModels();
-    foreach ($post as $rows) {
-  ?>
+     $post=$dataProvider->getModels();
+     //var_dump($post);
+    foreach ($post as $rows):
+    ?>
   
   <div class="col-lg-4 col-md-6 mb-4">
     <div class="card h-100">
-      <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
+      <img  src="<?= '../../assets/img/'.$rows['obatFoto'];?>" class="card-img-top">
       <div class="card-body">
         <h4 class="card-title">
-          <center><h6><b><?php echo $rows['obatNama'];?></b></h6>
+          <center><h6><b><?= strtoupper($rows['obatNama']);?></b></h6>
           <br>
-          <h6> <i>Rp. <?php echo $rows['obatHarga'];?> ,- </i> </h6>
           <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?php echo $rows['obatID']; ?>">detail obat</button>
-          <?php if ($pendaftaranID==0){ ?>
+          <?php if ($pendaftaranQuery == null){ ?>
             <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
             'confirm' => ' maaf anda belum melakukan pendaftaran?',
             'method' => 'post',],]) ?></p>
-          <?php } else if(!isset($resepID)){?>
-            <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
+          <?php } else if($resepID == null){?>
+            <p><?= Html::a('Buat order', ['obat/index'], ['class' => 'btn btn-success','data' => [
             'confirm' => ' maaf anda belum melakukan pemeriksaan?',
             'method' => 'post',],]) ?></p>
-          <?php } else { ?>
-            <p> <?= Html::a('buatOrder', ['detailresep/create','idObat'=>$rows['obatID'],'resepID'=>$resepID], ['class' => 'btn btn-success']) ?></p>
-          <?php }  ?>
+          <?php } else if(!(in_array($rows['obatID'], $listObatID))){?>
+            <p><?= Html::a('Buat order', ['obat/index'], ['class' => 'btn btn-success','data' => [
+                  'confirm' => ' maaf obat ini tidak ada dalam list resep terbaru Anda',
+                  'method' => 'post',],]) ?></p>
+            <?php }
+            else if((in_array($rows['obatID'], $listObatID)) && ($nota['kasirID'] == null)){ // hanya obat yg ada dalam detail resepnya & yg belum Dikonfirmasi kasir jadi gabisa ambil?>
+            <p> <?= Html::a('Ambil obat', ['obat/index','idObat'=>$rows['obatID'],'resepID'=>$resepID], ['class' => 'btn btn-success','data' => [
+                    'confirm' => 'maaf pembayaran anda sedang diproses oleh kasir, silahkan datangi untuk melakukan konfirmasi',
+                    'method' => 'post',],]) ?></p>
+          <?php }
+          else if((in_array($rows['obatID'], $listObatID)) && ($nota['kasirID'] != null)){ //hanya obat yg ada dalam detail resepnya & yg sudah Dikonfirmasi kasir jadi bisa diambil ?>
+              <p> <?= Html::a('Ambil obat', ['obat/take-pill','idObat'=>$rows['obatID'],'resepID'=>$resepID], ['class' => 'btn btn-success', 'data' => [
+                      'confirm' => 'Apakah anda yakin mengambil obat sekarang ?']]) ?></p>
+          <?php }?>
       </div>
     </div>
   </div>
@@ -149,7 +193,7 @@ $pendaftaranQuery=(new Query())
       <div class="modal-body">
             <br>
             <div class="text-center">
-                <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
+                <img  src="<?= '../../assets/img/'.$rows['obatFoto'];?>" class="card-img-top">
             </div>
             <div class="row">
                 
@@ -167,10 +211,11 @@ $pendaftaranQuery=(new Query())
     </div>
   </div>
 </div>
-<?php } ?>
+<?php
+    endforeach; ?>
 </div>
 <!-- /.row -->
-<center><?php echo LinkPager::widget(['pagination' => $provider->pagination,]); ?> </center>
+<center><?php echo LinkPager::widget(['pagination' => $dataProvider->pagination,]); ?> </center>
 </div>
 <!-- /.col-lg-9 -->
 

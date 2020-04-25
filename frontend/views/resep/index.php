@@ -57,7 +57,7 @@ if (isset($_GET['id']))
         </center>
         <hr>
         <p class="text-left"><strong>Bio: </strong><br></p>
-         <p> Memberikan sarana pada profesional kesehata bagaimana pemilian dan penggunaan obat yang tepat</p>
+         <p> Memberikan sarana pada profesional kesehatan bagaimana pemilian dan penggunaan obat yang tepat</p>
          <p> memberikan informasi mengenai efek samping dari obat</p>
          <p>memastikan bahwa obat aman untuk dikonsumsi oleh pasien baik secara terpisah atau bersamaan dengan objeck lain</p>
         <br>
@@ -69,7 +69,6 @@ if (isset($_GET['id']))
         <tr>
         <th scope="col">No</th>
         <th scope="col">ID Resep</th>
-        <th scope="col">Status</th>
         <th scope="col">Detail</th>
         <th scope="col">Verifikasi</th>
         </tr>
@@ -81,13 +80,20 @@ if (isset($_GET['id']))
           ?>
             <td><?php echo $i;$i++;?></td>
             <td><?php echo $row['resepID'];?></td>
-            <td><?php echo $row['resepStatus'];?></td>
-            <td> <?= Html::a('Detail', ['detailresep/index','id'=>$row['resepID']], ['class' => 'btn btn-success']) ?></td>
-      
-            <?php if($row['apotekerID']!= NULL){?>
-            <td> <?= Html::a('Sudah Terverifikasi', ['resep/index'], ['class' => 'btn bg-warning', 'style' => 'color:white']) ?></td>
-            <?php } else { ?>
-              <td> <?= Html::a('Verifikasi', ['resep/index','id'=>$row['resepID']], ['class' => 'btn bg-danger', 'style' => 'color:white']) ?></td>
+            <td> <?= Html::a('Look detail', ['detailresep/index','id'=>$row['resepID']], ['class' => 'btn btn-success']) ?></td>
+
+            <?php
+            $apotekerQuery=(new Query())
+                ->from('users')
+                ->where('userId = :apotekerId', [':apotekerId' => $row['apotekerID']])
+                ->one();
+            $namaApoteker = $apotekerQuery['userNama'];
+            ?>
+            <?php if($row['resepStatus'] == 'Sudah Dibuat'){?>
+                <td>Sudah Diverifikasi oleh <p class="btn btn-info"><?= $namaApoteker ?></p></td>
+            <?php } else { //'Belum DIbuat' ?>
+              <td> <?= Html::a('Verifikasi', ['resep/verificate','id'=>$row['resepID']], ['class' => 'btn bg-danger', 'style' => 'color:white', 'data' => [
+                      'confirm' => ' Benar Ingin memverifikasi resep ini?  Resep yang telah diverif tidak akan bisa dikembalikan']]) ?></td>
             <?php }  ?>
             </tbody>
         <?php 
@@ -95,7 +101,7 @@ if (isset($_GET['id']))
         </table>
       </div>
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-      <?= Html::a('create', ['obat/create'], ['class' => 'btn btn-success']) ?>
+      <?= Html::a('create', ['obat/create'], ['class' => 'btn bg-success', 'style' => 'color:white']) ?>
       <table class="table text-center">
         <thead class="thead-dark">
         <tr>

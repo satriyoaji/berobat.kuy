@@ -6,6 +6,7 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model backend\models\Comments */
 /* @var $form yii\widgets\ActiveForm */
+
 ?>
 <br>
 <br>
@@ -20,7 +21,7 @@ use yii\widgets\ActiveForm;
                 <div id="custom-search-input">
                     <div class="input-group col-md-12">
                         <?php $form = ActiveForm::begin(); ?>
-                        <?= $form->field($model, 'detailResepDosis')->textInput(['maxlength' => true]);?>
+                        <?= $form->field($model, 'detailResepDosis')->textInput(['maxlength' => true]); //ngerender Model Cari ?>
                         <span class="input-group-btn">
                         <button class="btn btn-info btn-lg" type="button">
                                 <?= Html::submitButton('Cari', ['class' => 'btn bg-primary', 'style'=>'color:white']) ?>

@@ -44,8 +44,8 @@ class DetailresepController extends Controller
     public function actionIndex()
     {
         $searchModel = new DetailresepSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-        if(isset($_GET['id'])){
+        $provider = $searchModel->search(Yii::$app->request->queryParams);
+        /*if(isset($_GET['id'])){
             $id = $_GET['id'];
             $provider = new ActiveDataProvider([
                 'query'=>Detailresep::find()
@@ -56,16 +56,16 @@ class DetailresepController extends Controller
             ]);
         }
         else{
-            $provider = new ActiveDataProvider([
+            $dataProvider = new ActiveDataProvider([
                 'query'=>Detailresep::find(),
                 'Pagination'=>[
                 'pageSize'=>6,
                 ],
             ]);
-        }
+        } */
         return $this->render('index', [
             'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
+            //'dataProvider' => $dataProvider,
             'provider'=> $provider,
         ]);
     }

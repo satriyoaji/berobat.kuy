@@ -24,7 +24,7 @@ $this->title = $model->notaID;
                 <td> Harga </td>
             </tr>
             <?php 
-            $i = 0;
+            $i = 1;
             $notaQuery = (new Query())
                 ->from('nota')
                 ->where(['notaID'=>$_GET['id']]);

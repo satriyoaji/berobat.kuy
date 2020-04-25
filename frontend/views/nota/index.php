@@ -25,7 +25,7 @@ $id = $_GET['id'];
     <th scope="col">No</th>
     <th scope="col">Status Transaksi</th>
     <th scope="col">Total Pembayaran</th>
-    <th scope="col">ID Transaksi</th>
+    <th scope="col">Kode Transaksi</th>
     <th scope="col">Detail</th>
     </tr>
     </thead>
@@ -37,7 +37,7 @@ $id = $_GET['id'];
             ->where(['pasienID'=>$id]);
         foreach($pendaftaranQuery->each() as $pendaftaran){
             $status=0;
-            $pemeriksaanQuery = (new Query())
+            $pemeriksaanQuery = (new Query())       // 1 Pemeriksaan pasti hanya dari 1 pendaftaranID
                 ->from('pemeriksaan')
                 ->where(['pendaftranID'=>$pendaftaran['pendaftaranID']]);
             foreach($pemeriksaanQuery->each() as $pemeriksaan){
@@ -60,23 +60,24 @@ $id = $_GET['id'];
             $resepQuery = (new Query())
                 ->from('resep')
                 ->where(['pendaftaranID'=>$pendaftaran['pendaftaranID']]);
-            foreach($resepQuery->each() as $resep){
-                $cekNotaResep = (new Query())
-                    ->from('nota')
-                    ->where(['resepID'=>$resep['resepID']]);
-                foreach($cekNotaResep->each() as $cekNota2){ ?>
-                    <tr>
-                        <td><?php echo $i; $i++;?></td>
-                        <td><?php echo $nota['notaStatus'];?></td>
-                        <td><?php echo $nota['notaTotalHarga'];?></td>
-                        <td><?php echo $nota['code'];?></td>
-                        <td><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">Launch demo modal</button></td>
-                        <td><?= Html::a('Detail Pembayaran', ['view','id'=>$nota['notaID']], ['class' => 'btn btn-success']) ?></td>
-                    </tr>
-                <?php }}
-                
+                foreach($resepQuery->each() as $resep){
+                    $cekNotaResep = (new Query())
+                        ->from('nota')
+                        ->where(['resepID'=>$resep['resepID']]);
+                    foreach($cekNotaResep->each() as $cekNota2){ ?>
+                        <tr>
+                            <td><?php echo $i; $i++;?></td>
+                            <td><?php echo $cekNota2['notaStatus'];?></td>
+                            <td>Rp. <?php echo $cekNota2['notaTotalHarga'];?></td>
+                            <td><?php echo $cekNota2['code'];?></td>
+                            <td><?= Html::a('Detail Pembayaran', ['view','id'=>$cekNota2['notaID']], ['class' => 'btn btn-success']) ?></td>
+                        </tr>
+                    <?php
+                    }
+                }
             }
-        } ?>
+        }
+        ?>
     </tbody>
     </table>
 </div>

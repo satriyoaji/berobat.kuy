@@ -17,7 +17,7 @@ class ResepSearch extends Resep
     public function rules()
     {
         return [
-            [['resepID', 'dokterID', 'pendaftaranID', 'resepTotalHarga'], 'integer'],
+            [['resepID', 'dokterID', 'pendaftaranID', 'apotekerID', 'resepTotalHarga'], 'integer'],
             [['resepTanggal', 'resepStatus'], 'safe'],
         ];
     }
@@ -61,6 +61,7 @@ class ResepSearch extends Resep
             'resepID' => $this->resepID,
             'dokterID' => $this->dokterID,
             'pendaftaranID' => $this->pendaftaranID,
+            'apotekerID' => $this->apotekerID,
             'resepTotalHarga' => $this->resepTotalHarga,
         ]);
 

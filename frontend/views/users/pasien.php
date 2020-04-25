@@ -33,8 +33,7 @@ $this->title = 'List Pasien';
                     ->select('*')
                     ->from('users')
                     ->where('userPekerjaan = 1 ');
-                foreach($dataUser->each() as $user){ 
-
+                foreach($dataUser->each() as $user){
                 ?>
                 <td><?php $i++; echo $i; ?></td>
                 <td><?php echo $user['userNama'];?></td>

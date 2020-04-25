@@ -13,6 +13,7 @@ use Yii;
  * @property int $pemeriksaanID
  * @property int $resepID
  * @property string $notaStatus
+ * @property string $code
  *
  * @property Users $kasir
  * @property Resep $resep
@@ -36,6 +37,7 @@ class Nota extends \yii\db\ActiveRecord
         return [
             [['kasirID', 'notaTotalHarga', 'pemeriksaanID', 'resepID'], 'integer'],
             [['notaStatus'], 'string', 'max' => 15],
+            [['code'], 'string', 'max' => 4],
             [['kasirID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['kasirID' => 'userId']],
             [['resepID'], 'exist', 'skipOnError' => true, 'targetClass' => Resep::className(), 'targetAttribute' => ['resepID' => 'resepID']],
             [['pemeriksaanID'], 'exist', 'skipOnError' => true, 'targetClass' => Pemeriksaan::className(), 'targetAttribute' => ['pemeriksaanID' => 'pemeriksaanID']],
@@ -54,6 +56,7 @@ class Nota extends \yii\db\ActiveRecord
             'pemeriksaanID' => 'Pemeriksaan ID',
             'resepID' => 'Resep ID',
             'notaStatus' => 'Nota Status',
+            'code' => 'Code',
         ];
     }
 

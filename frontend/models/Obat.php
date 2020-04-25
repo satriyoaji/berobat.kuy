@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "obat".
@@ -35,8 +36,9 @@ class Obat extends \yii\db\ActiveRecord
             [['obatHarga'], 'integer'],
             [['obatNama'], 'string', 'max' => 30],
             [['obatGolongan'], 'string', 'max' => 15],
-            [['obatFoto'], 'string', 'max' => 50],
-            [['obatFoto', 'obatDeskripsi'], 'string', 'max' => 100],
+            //[['obatFoto'], 'string', 'max' => 50],
+            [['obatDeskripsi'], 'string', 'max' => 100],
+            [['obatFoto'], 'file', 'skipOnEmpty'=>TRUE, 'extensions'=>'jpg, png, jpeg'],
         ];
     }
 

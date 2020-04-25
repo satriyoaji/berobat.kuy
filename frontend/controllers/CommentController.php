@@ -3,23 +3,16 @@
 namespace frontend\controllers;
 
 use Yii;
-use frontend\models\Obat;
-use frontend\models\ObatSearch;
+use frontend\models\Comment;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\base\Configurable; 
-use yii\web\Linkable;
-use yii\data\Pagination;
-use yii\data\ActiveDataProvider;
-use yii\data\ArrayDataProvider;
-use yii\Helpers\ArrayHelper;
-use yii\data\SqlDataProvider;
 
 /**
- * ObatController implements the CRUD actions for Obat model.
+ * CommentController implements the CRUD actions for Comment model.
  */
-class ObatController extends Controller
+class CommentController extends Controller
 {
     /**
      * {@inheritdoc}
@@ -37,51 +30,22 @@ class ObatController extends Controller
     }
 
     /**
-     * Lists all Obat models.
+     * Lists all Comment models.
      * @return mixed
      */
-    public function actionIndex($id = null)
+    public function actionIndex()
     {
-        $searchModel = new ObatSearch();
-        $provider = $searchModel->search(Yii::$app->request->queryParams);
-        if($id != null){
-            $dataProvider = new ActiveDataProvider([
-                'query'=>Obat::find()
-                 ->where(['obatGolongan'=>$id]),
-                'Pagination'=>[
-                'pageSize'=>6,
-                ],
-            ]);
-        }
-        else{
-            $dataProvider = new ActiveDataProvider([
-                'query'=>Obat::find(),
-                'Pagination'=>[
-                'pageSize'=>6,
-                ],
-            ]);
-        }
-        return $this->render('index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-            'provider' => $provider,
+        $dataProvider = new ActiveDataProvider([
+            'query' => Comment::find(),
         ]);
-    }
 
-    public function actionListobat()
-    {   
-
-        $searchModel = new ObatSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
-        return $this->render('listobat', [
-            'searchModel' => $searchModel,
+        return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * Displays a single Obat model.
+     * Displays a single Comment model.
      * @param integer $id
      * @return mixed
      * @throws NotFoundHttpException if the model cannot be found
@@ -94,16 +58,16 @@ class ObatController extends Controller
     }
 
     /**
-     * Creates a new Obat model.
+     * Creates a new Comment model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Obat();
-       
+        $model = new Comment();
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->obatID]);
+            return $this->redirect(['view', 'id' => $model->commentID]);
         }
 
         return $this->render('create', [
@@ -112,7 +76,7 @@ class ObatController extends Controller
     }
 
     /**
-     * Updates an existing Obat model.
+     * Updates an existing Comment model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -123,7 +87,7 @@ class ObatController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->obatID]);
+            return $this->redirect(['view', 'id' => $model->commentID]);
         }
 
         return $this->render('update', [
@@ -132,7 +96,7 @@ class ObatController extends Controller
     }
 
     /**
-     * Deletes an existing Obat model.
+     * Deletes an existing Comment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -146,15 +110,15 @@ class ObatController extends Controller
     }
 
     /**
-     * Finds the Obat model based on its primary key value.
+     * Finds the Comment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Obat the loaded model
+     * @return Comment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Obat::findOne($id)) !== null) {
+        if (($model = Comment::findOne($id)) !== null) {
             return $model;
         }
 

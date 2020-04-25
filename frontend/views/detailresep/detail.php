@@ -13,12 +13,12 @@ use backend\models\Pendaftaran;
      $obatID = $rows['obatID'];
      $obatharga = $rows['obatHarga'];
   }
-     
+
 ?>
   <?php $form = ActiveForm::begin(); ?>
  <div class="row">
      <div class="col-md-6 product_img">
-        <img  src="<?php echo Yii::getAlias('@userImgUrl')."/".$rows['obatFoto'];?>" class="card-img-top">
+        <img  src="<?= '../../assets/img/'.$rows['obatFoto'];?>" width="80px" class="card-img">
       </div>
       <div class="col-md-6 product_content">
            <h3 class="modal-title"><?php echo $rows['obatNama'];?></h3><br>

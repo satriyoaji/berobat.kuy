@@ -11,6 +11,7 @@ use Yii;
  * @property string $resepTanggal
  * @property int $dokterID
  * @property int $pendaftaranID
+ * @property int $apotekerID
  * @property string $resepStatus
  * @property int $resepTotalHarga
  *
@@ -18,6 +19,7 @@ use Yii;
  * @property Nota[] $notas
  * @property Pendaftaran $pendaftaran
  * @property Users $dokter
+ * @property Users $apoteker
  */
 class Resep extends \yii\db\ActiveRecord
 {
@@ -36,11 +38,12 @@ class Resep extends \yii\db\ActiveRecord
     {
         return [
             [['resepTanggal', 'dokterID'], 'required'],
-            [['dokterID', 'pendaftaranID', 'resepTotalHarga'], 'integer'],
+            [['dokterID', 'pendaftaranID', 'apotekerID', 'resepTotalHarga'], 'integer'],
             [['resepTanggal'], 'string', 'max' => 50],
             [['resepStatus'], 'string', 'max' => 30],
             [['pendaftaranID'], 'exist', 'skipOnError' => true, 'targetClass' => Pendaftaran::className(), 'targetAttribute' => ['pendaftaranID' => 'pendaftaranID']],
             [['dokterID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['dokterID' => 'userId']],
+            [['apotekerID'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['apotekerID' => 'userId']],
         ];
     }
 
@@ -54,6 +57,7 @@ class Resep extends \yii\db\ActiveRecord
             'resepTanggal' => 'Resep Tanggal',
             'dokterID' => 'Dokter ID',
             'pendaftaranID' => 'Pendaftaran ID',
+            'apotekerID' => 'Apoteker ID',
             'resepStatus' => 'Resep Status',
             'resepTotalHarga' => 'Resep Total Harga',
         ];
@@ -89,5 +93,13 @@ class Resep extends \yii\db\ActiveRecord
     public function getDokter()
     {
         return $this->hasOne(Users::className(), ['userId' => 'dokterID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getApoteker()
+    {
+        return $this->hasOne(Users::className(), ['userId' => 'apotekerID']);
     }
 }

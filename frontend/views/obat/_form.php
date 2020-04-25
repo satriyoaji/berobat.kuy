@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 <div class="obat-form">
 
-    <?php $form = ActiveForm::begin(); ?>
+    <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
 
     <?= $form->field($model, 'obatNama')->textInput(['maxlength' => true]) ?>
 
@@ -23,7 +23,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'obatDeskripsi')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Save', ['class' => 'btn btn-success btn-outline-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

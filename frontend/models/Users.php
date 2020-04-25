@@ -3,6 +3,7 @@
 namespace frontend\models;
 
 use Yii;
+use yii\web\UploadedFile;
 
 /**
  * This is the model class for table "users".
@@ -45,9 +46,10 @@ class Users extends \yii\db\ActiveRecord
             [['userPekerjaan'], 'integer'],
             [['username', 'userNama', 'userEmail', 'userTelephone', 'userAlamat'], 'string', 'max' => 30],
             [['password'], 'string', 'max' => 100],
-            [['userFoto'], 'string', 'max' => 50],
+            //[['userFoto'], 'string', 'max' => 50],
             [['userTanggalLahir'], 'string', 'max' => 20],
             [['userJenisKelamin'], 'string', 'max' => 15],
+            [['userFoto'], 'file', 'skipOnEmpty'=>TRUE, 'extensions'=>'jpg, png, jpeg'],
             [['userPekerjaan'], 'exist', 'skipOnError' => true, 'targetClass' => Pekerjaan::className(), 'targetAttribute' => ['userPekerjaan' => 'pekerjaanID']],
         ];
     }

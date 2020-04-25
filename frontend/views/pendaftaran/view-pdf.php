@@ -56,7 +56,7 @@ $this->title = "Detail";
         <img id='barcode' 
                 src="https://api.qrserver.com/v1/create-qr-code/?data=<?php echo $model->pendaftaranID; ?>&amp;size=100x100" 
                 alt="" 
-                title="HELLO" 
+                title="Bukti Pendaftaran"
                 width="200" 
                 height="200" />
                 <br>

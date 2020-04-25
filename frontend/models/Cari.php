@@ -31,7 +31,7 @@ class Cari extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'detailResepDosis' => 'Comment',
+            'detailResepDosis' => 'Search Code',
         ];
     }
 

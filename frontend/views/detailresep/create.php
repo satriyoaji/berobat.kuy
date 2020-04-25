@@ -15,11 +15,11 @@ $this->title = 'Beli Obat';
 
     <h1><?= Html::encode($this->title) ?></h1>
      <br>
-     <?php if(isset($_SESSION['pendaftaranID'])){?>
+     <?php if(isset($_SESSION['pendaftaranID'])){   //jika membuka list obat as view Dokter ?>
         <?= $this->render('_form', [
             'model' => $model,
         ]) ?>
-    <?php } else {?>
+    <?php } else {  //jika membuka list obat view User?>
         <?= $this->render('detail', [
             'model' => $model,
         ]) ?>

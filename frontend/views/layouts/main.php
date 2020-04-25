@@ -18,6 +18,7 @@ $userQuery = (new Query())
   ->where(['userId'=>Yii::$app->user->id]);
 foreach($userQuery->each() as $user){
   $kategory = $user['userPekerjaan'];
+  $fotoProfil = $user['userFoto'];
 }
 ?>
 <?php $this->beginPage() ?>
@@ -32,9 +33,21 @@ foreach($userQuery->each() as $user){
     <link href="http://localhost/siklinik/frontend/web/index.php" rel="stylesheet">
     <link rel="icon" href="../../assets/" />
 
+    <style>
+        .img-profile{
+            border-bottom-left-radius: 40%;
+            border-top-right-radius: 40%;
+            border-bottom-right-radius: 40%;
+            border-top-left-radius: 40%;
+            width: 50px;
+            border-style: ridge;
+        }
+    </style>
+
     <?php $this->registerCsrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <?php $this->head() ?>
+
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -87,9 +100,18 @@ foreach($userQuery->each() as $user){
         <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U" crossorigin="anonymous"></script>
         <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9" crossorigin="anonymous"></script>
         <script>$(document).ready(function() { $('body').bootstrapMaterialDesign(); });</script>
+
           <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <img src="<?php echo Yii::$app->getHomeUrl(); ?>../../assets/FOTO USER/profil.png" alt="Avatar" style="border-radius: 50%; width: 50px;border-style: ridge;">
+<!--          <img src= alt="Avatar" style="border-radius: 50%; width: 50px;border-style: ridge;">-->
+              <?php if (!isset($fotoProfil)):?>
+                  <img src="<?php if(Yii::$app->request->pathInfo == "") {echo '..';}
+                                else {echo '../..';}?>/assets/img/profil.png" alt="Avatar" class="img-profile" style="">
+              <?php else:?>
+                  <img src="<?php if(Yii::$app->request->scriptUrl == "/siklinik/frontend/web/index.php") {echo '..';}
+                                else {echo '../..';}?>/assets/img/user/<?= $fotoProfil; ?>" alt="Avatar" class="img-profile" style="">
+              <?php endif;?>
           </button>
+
           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <?= Html::a('Profile', ['users/view', 'id'=>Yii::$app->user->id], ['class' => 'btn btn-success', 'style'=>'color:#35a373']) ?>
               <?php if($kategory == 1) { ?>

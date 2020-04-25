@@ -17,9 +17,7 @@ use yii\widgets\ActiveForm;
 
         <div = hidden>
         <?= $form->field($model, 'dokterID')->textInput(['value'=>Yii::$app->user->id]) ?>
-        </div>
-
-        <div = hidden>
+        <?= $form->field($model, 'resepStatus')->textInput(['value'=>'Belum Dibuat']) ?>
         <?= $form->field($model, 'pendaftaranID')->textInput(['value'=>$_GET['id']]) ?>
         </div>
 

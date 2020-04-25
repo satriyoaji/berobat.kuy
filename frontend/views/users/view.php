@@ -22,7 +22,11 @@ $id = Yii::$app->user->id;
     </div>
     <div class="row">
         <div class="col-md-4 text-center">
-            <img src="../../assets/FOTO USER/download.png" alt="..." class="img-thumbnail">
+            <?php if (!isset($model->userFoto)):?>
+                <img src='../../assets/img/profil.png' width="200px" alt="..." class="img-thumbnail">
+            <?php else:?>
+                <img src='../../assets/img/user/<?= $model->userFoto; ?>' width="200px" alt="..." class="img-thumbnail">
+            <?php endif;?>
         </div> 
         <?php
         $dataUser = (new Query())
@@ -30,16 +34,16 @@ $id = Yii::$app->user->id;
             ->where(['userId'=>Yii::$app->user->id]);
         foreach($dataUser->each() as $user) {
         ?>
-            <div class="col-md-8">
-                <h1><b><?php echo $user['userNama']; ?></b></h1>
-                <p><i>@<?php echo $user['username']; ?></i></p>
-                <h6 style="color:#666768;"><?php echo $user['userEmail']; ?></h6>
-                <h6><?php echo $user['userJenisKelamin']; ?></h6>
-                <h6><?php echo $user['userTelephone']; ?></h6>
-                <h6><i><?php echo $user['userAlamat']; ?></i></h6>
-                <h6><b><?php echo $user['userTanggalLahir']; ?></b></h6>
-                <br>
-                <br>
+            <div class="col-md-8 mb-4 p-2">
+                <div class="card-img">
+                    <h1><b><?php echo $user['userNama']; ?></b></h1>
+                    <p><i>@<?php echo $user['username']; ?></i></p>
+                    <h6 style="color:#666768;"><?php echo $user['userEmail']; ?></h6>
+                    <h6><?php echo $user['userJenisKelamin']; ?></h6>
+                    <h6><?php echo $user['userTelephone']; ?></h6>
+                    <h6><i><?php echo $user['userAlamat']; ?></i></h6>
+                    <h6><b><?php echo $user['userTanggalLahir']; ?></b></h6>
+                </div>
                 <br>
             </div>
         <?php } ?>

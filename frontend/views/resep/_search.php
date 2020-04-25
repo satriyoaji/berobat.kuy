@@ -13,17 +13,22 @@ use yii\widgets\ActiveForm;
     <?php $form = ActiveForm::begin([
         'action' => ['index'],
         'method' => 'get',
+        'options' => [
+            'data-pjax' => 1
+        ],
     ]); ?>
 
     <?= $form->field($model, 'resepID') ?>
 
     <?= $form->field($model, 'resepTanggal') ?>
 
-    <?= $form->field($model, 'apotekerID') ?>
+    <?= $form->field($model, 'dokterID') ?>
 
     <?= $form->field($model, 'pendaftaranID') ?>
 
-    <?= $form->field($model, 'resepStatus') ?>
+    <?= $form->field($model, 'apotekerID') ?>
+
+    <?php // echo $form->field($model, 'resepStatus') ?>
 
     <?php // echo $form->field($model, 'resepTotalHarga') ?>
 

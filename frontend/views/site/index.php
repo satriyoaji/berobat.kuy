@@ -8,7 +8,8 @@ $this->title = 'Si Klinik';
 $userQuery = (new Query())
     ->from('users')
     ->where(['userId'=>Yii::$app->user->id]);
-foreach($userQuery->each() as $user){ 
+foreach($userQuery->each() as $user){
+    $userID = $user['userId'];
     $_SESSION['userCategory'] = $user['userPekerjaan'];
 }
 
@@ -21,18 +22,19 @@ if(!isset($_SESSION['userCategory'])){
     <br>
     <br>
     <?php 
-            if($_SESSION['userCategory'] >=5){ 
+         if($_SESSION['userCategory'] >=5){
     // buat tampilan Dokter?>
     
     
     <?php } else if($_SESSION['userCategory']==4){ ?>
 
         <div class="comments-create">
-            <?= $this->render('cari', ['model' => $model]) ?>
+            <?= $this->render('cari', ['model' => $model]) //menginclude kan views/cari ?>
         </div>
 
         <?php 
         if(isset($_SESSION['cari'])){
+
         ?>
         <table class="table">
             <thead class="thead-dark">
@@ -80,17 +82,112 @@ if(!isset($_SESSION['userCategory'])){
                 <div class="col-md-6">
                     <br>
                     <br>
-                    <div class="deskrpsi">Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quibusdam consequuntur molestias perferendis voluptates, eius iure mollitia at reiciendis nemo nihil, esse delectus ut assumenda molestiae iste officiis rerum! Voluptatum, laborum.</div>
+                    <div class="deskrpsi">Aplikasi “Berobat.kuy” merupakan platform web based yang bergerak di bidang medical checkup.
+                        di sini kami memiliki prioritas utama untuk kesehatan dan kenyamanan pengguna.
+                    </div>
                     <div class="text-center">
                         <br>
                         <br>
                         <a href="#fitur" class="btn btn-primary btn-lg" role="button" aria-pressed="true">Get Started</a>
+                        <br>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-light btn-outline-primary bg-light" data-toggle="modal" data-target="#projectOwnerTeam">
+                            Project Team
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
         </div>
-        
+
+    <!-- Modal -->
+    <div class="modal fade" id="projectOwnerTeam" tabindex="-1" role="dialog" aria-labelledby="projectOwnerTeamTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-center" id="exampleModalLongTitle">Our Project Team</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!--Carousel Wrapper-->
+                    <div id="carousel-example-2" class="carousel slide carousel-fade z-depth-1-half" data-ride="carousel">
+                        <!--Indicators-->
+                        <ol class="carousel-indicators">
+                            <li data-target="#carousel-example-2" data-slide-to="0" class="active"></li>
+                            <li data-target="#carousel-example-2" data-slide-to="1"></li>
+                            <li data-target="#carousel-example-2" data-slide-to="2"></li>
+                            <li data-target="#carousel-example-2" data-slide-to="3"></li>
+                        </ol>
+                        <!--/.Indicators-->
+                        <!--Slides-->
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                                <div class="view w-75">
+                                    <img class="d-block w-75 text-center" src="../../assets/profil/profilAji.jpg" alt="First slide">
+                                    <div class="mask rgba-black-strong"></div>
+                                </div>
+                                <div class="carousel-caption">
+                                    <h3 class="h3-responsive text-dark">Aji </h3>
+                                    <p class="text-dark">as a Project Owner</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <!--Mask color-->
+                                <div class="view w-75">
+                                    <img class="d-block w-75 text-center" src="../../assets/profil/profilEkky.jpg" alt="Second slide">
+                                    <div class="mask rgba-black-slight"></div>
+                                </div>
+                                <div class="carousel-caption">
+                                    <h3 class="h3-responsive text-dark">Ekky</h3>
+                                    <p class="text-dark">as Frontend Dev</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <!--Mask color-->
+                                <div class="view w-75">
+                                    <img class="d-block w-75 text-center" src="../../assets/profil/profilAan.jpg" alt="Third slide">
+                                    <div class="mask rgba-black-slight"></div>
+                                </div>
+                                <div class="carousel-caption">
+                                    <h3 class="h3-responsive text-dark">Aan</h3>
+                                    <p class="text-dark">as Backend dev</p>
+                                </div>
+                            </div>
+                            <div class="carousel-item">
+                                <!--Mask color-->
+                                <div class="view w-75">
+                                    <img class="d-block w-75 text-center" src="../../assets/profil/profilFaidza.jpg" alt="Fourth slide">
+                                    <div class="mask rgba-black-slight"></div>
+                                </div>
+                                <div class="carousel-caption">
+                                    <h3 class="h3-responsive text-dark">Faidza</h3>
+                                    <p class="text-dark">as UI/UX</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--/.Slides-->
+                        <!--Controls-->
+                        <a class="carousel-control-prev" href="#carousel-example-2" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-example-2" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                        <!--/.Controls-->
+                    </div>
+                    <!--/.Carousel Wrapper-->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
         <div class="body-content">
             <br>
             <br>
@@ -165,126 +262,90 @@ if(!isset($_SESSION['userCategory'])){
 <br>
 <br>
 <div class="col-md-12" style="width: 1100px;display: flex;flex-direction: column;justify-content: center;text-align: center;">
-    <h1 align="center" style="color:#67696b;">OUR TEAM</h1>
+    <h1 align="center" style="color:#67696b;">User Review</h1>
     <br>
 </div> 
 
 <div class="col-md-12 text-center" style="padding-left:90px;">
-<div class="card" style="width: 60rem; padding-left:20px;">
-  <div class="card-body">
-  <section class="carousel slide testimonials-slider cid-qyvf5AQs7c" id="testimonials-slider1-3" data-rv-view="767">
-    <div class="container text-center">
-        <div class="carousel slide" data-ride="carousel" role="listbox">
-            <div class="carousel-inner">
-                
-                
-            <div class="carousel-item active">
-                    <div class="user col-md-12">
-                    <br>
-                        <img src="../../assets/profil/profilAji.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
-                        
-                        <div class="user_text pb-3">
-                        <br>
-                        <br>
-                            <p class="mbr-fonts-style display-7">
-                                Good afternoon. I am very pleased with the quality of the work of your employee representing your wonderful company.
-                            </p>
+    <div class="card" style="width: 60rem; padding-left:20px;">
+      <div class="card-body mb-4 pb-3">
+         <section class="carousel slide testimonials-slider cid-qyvf5AQs7c" id="testimonials-slider1-3" data-rv-view="767">
+            <div class="container text-center">
+                <div class="carousel slide" data-ride="carousel" role="listbox">
+                    <div class="carousel-inner">
+                        <?php
+                        $commentQuery = (new Query())
+                            ->select('*')
+                            ->from('comment')
+                            ->all();
+                        $count = 1;
+                        foreach($commentQuery as $comment):
+                        $usersQuery = (new Query())
+                            ->select('*')
+                            ->from('users')
+                            ->where(['userId'=>$comment['userID']])
+                            ->one();
+                        ?>
+                        <?php if ($count==1): ?>
+                        <div class="carousel-item active">
+                        <?php else: ?>
+                        <div class="carousel-item">
+                        <?php endif;?>
+                            <div class="user col-md-12 mb-3">
+                            <br>
+                                <?php if (!isset($usersQuery['userFoto'])):?>
+                                    <img src="../assets/img/profil.png" alt="Avatar" class="rounded-circle" style="width:200px;height:200px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                <?php else:?>
+                                    <img src="../assets/img/user/<?= $usersQuery['userFoto']; ?>" alt="Avatar" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                                <?php endif;?>
+                                <div class="user_text pb-3">
+                                <br>
+                                    <p class="mbr-fonts-style display-7">
+                                        "<?= $comment['review'] ?>"
+                                    </p>
+                                </div>
+                                <div class="user_name text-primary mbr-bold pb-2 mbr-fonts-style display-7">
+                                    <strong>- <?= $usersQuery['userNama'] ?></strong>
+                                </div>
+                                <div class="user_desk mbr-light mbr-fonts-style display-7">
+                                </div>
+                            </div>
                         </div>
-                        <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
-                            Ryo
-                        </div>
-                        <div class="user_desk mbr-light mbr-fonts-style display-7">
-                            Owner
-                        </div>
+                        <?php $count++;
+                        endforeach;?>
                     </div>
-                </div><div class="carousel-item">
-                    <div class="user col-md-12">
-                    <br>
-                    <img src="../../assets/profil/profilEkky.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
-                        <div class="user_text pb-3">
-                        <br>
-                        <br>
-                            <p class="mbr-fonts-style display-7">
-                                All issues are resolved promptly. In communication, the employees are pleasant, helpful. Always offer new ideas, new ways to develop, improve our project.
-                            </p>
-                        </div>
-                        <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
-                            Ekky
-                        </div>
-                        <div class="user_desk mbr-light mbr-fonts-style display-7">
-                            Frontend Developer
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="user col-md-12">
-                    <br>
-                        <img src="../../assets/profil/profilAan.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
-                        <br>
-                        <br>
-                        <div class="user_text pb-3">
-                            <p class="mbr-fonts-style display-7">
-                                Excellent client manager. He is always accurate, all promises are fulfilled, all questions get answers, the company presents very attentive and positive approach.
-                            </p>
-                        </div>
-                        <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
-                            Aan
-                        </div>
-                        <div class="user_desk mbr-light mbr-fonts-style display-7">
-                            Backend Developer
-                        </div>
-                    </div>
-                </div>
-                <div class="carousel-item">
-                    <div class="user col-md-12">
-                    <br>
-                        <img src="../../assets/profil/profilFaidza.jpg" class="rounded-circle" style="width:220px;height:220px;border;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);" alt="Cinque Terre">
-                        <div class="user_text pb-3">
-                        <br>
-                        <br>
-                            <p class="mbr-fonts-style display-7">
-                                Excellent client manager. He is always accurate, all promises are fulfilled, all questions get answers, the company presents very attentive and positive approach.
-                            </p>
-                        </div>
-                        <div class="user_name mbr-bold pb-2 mbr-fonts-style display-7">
-                            Faidza
-                        </div>
-                        <div class="user_desk mbr-light mbr-fonts-style display-7">
-                            UI/UX
-                        </div>
-                    </div>
-                </div>
-                </div>
 
-            <div class="carousel-controls">
-                <a class="carousel-control-prev" role="button" data-slide="prev" href="#testimonials-slider1-3">
-                  <span aria-hidden="true" class="mbri-arrow-prev mbr-iconfont"></span>
-                  <span class="sr-only">Previous</span>
-                </a>
-                
-                <a class="carousel-control-next" role="button" data-slide="next" href="#testimonials-slider1-3">
-                  <span aria-hidden="true" class="mbri-arrow-next mbr-iconfont"></span>
-                  <span class="sr-only">Next</span>
-                </a>
+                    <div class="carousel-controls">
+                        <a class="carousel-control-prev" role="button" data-slide="prev" href="#testimonials-slider1-3">
+                          <span aria-hidden="true" class="mbri-arrow-prev mbr-iconfont"></span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+
+                        <a class="carousel-control-next" role="button" data-slide="next" href="#testimonials-slider1-3">
+                          <span aria-hidden="true" class="mbri-arrow-next mbr-iconfont"></span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
+      </section>
     </div>
-</div>
-</section>
+    <div class="pt-2 mt-3">
+        <?= Html::a('Beri review', ['comment/create'], ['class' => 'btn btn-success btn-outline-primary'])?></h3>
+    </div>
 
 <script src="assets/web/assets/jquery/jquery.min.js"></script>
 <script src="assets/popper/popper.min.js"></script>
 <script src="assets/tether/tether.min.js"></script>
-  <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-  <script src="assets/dropdown/js/script.min.js"></script>
-  <script src="assets/touch-swipe/jquery.touch-swipe.min.js"></script>
-  <script src="assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
-  <script src="assets/smooth-scroll/smooth-scroll.js"></script>
-  <script src="assets/theme/js/script.js"></script>
-  <script src="assets/formoid/formoid.min.js"></script>
+<script src="assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/dropdown/js/script.min.js"></script>
+<script src="assets/touch-swipe/jquery.touch-swipe.min.js"></script>
+<script src="assets/bootstrap-carousel-swipe/bootstrap-carousel-swipe.js"></script>
+<script src="assets/smooth-scroll/smooth-scroll.js"></script>
+<script src="assets/theme/js/script.js"></script>
+<script src="assets/formoid/formoid.min.js"></script>
 </div>
-
-  </div>
 </div>
 
 <br>
