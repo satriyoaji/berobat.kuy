@@ -174,7 +174,7 @@ $pendaftaranQuery=(new Query()) //ambil pendaftaranID
                     'method' => 'post',],]) ?></p>
           <?php }
           else if((in_array($rows['obatID'], $listObatID)) && ($nota['kasirID'] != null)){ //hanya obat yg ada dalam detail resepnya & yg sudah Dikonfirmasi kasir jadi bisa diambil ?>
-              <p> <?= Html::a('Ambil obat', ['obat/take-pill','idObat'=>$rows['obatID'],'resepID'=>$resepID], ['class' => 'btn btn-success', 'data' => [
+              <p> <?= Html::a('Ambil obat', ['obat/take-pill','idObat'=>$rows['obatID']], ['class' => 'btn btn-success', 'data' => [
                       'confirm' => 'Apakah anda yakin mengambil obat sekarang ?']]) ?></p>
           <?php }?>
       </div>

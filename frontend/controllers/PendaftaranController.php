@@ -2,6 +2,7 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Nota;
 use Yii;
 use frontend\models\Pendaftaran;
 use frontend\models\PendaftaranSearch;
@@ -119,11 +120,17 @@ class PendaftaranController extends Controller
     public function actionCreate()
     {
         $model = new Pendaftaran();
-        
 
-        if ($model->load(Yii::$app->request->post()) ) {
-            
-            $model->save();
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+
+            /*Yii::$app->db->createCommand()->insert('nota', [
+                'notaStatus' => 'Belum dibayar',
+                'pemeriksaanID' => ,
+                'notaTotalHarga' => ,
+                'code' => rand(10, 1000),
+            ])->execute();
+            */
+
             return $this->redirect(['view', 'id' => $model->pendaftaranID]);
         }
 

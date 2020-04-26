@@ -114,7 +114,7 @@ class ResepController extends Controller
         $model->resepStatus = 'Sudah Dibuat';
         $model->save();
 
-        return $this->redirect(['/']);
+        return $this->redirect(['/']);  //kembali ke root web/index
     }
 
     public function actionUptodate($id,$dokterID)
@@ -122,7 +122,7 @@ class ResepController extends Controller
         $model = $this->findModel($id);
         $model->dokterID = $dokterID;
         $model->save();
-        return Yii::$app->response->redirect(['/resep/index']);  
+        return Yii::$app->response->redirect(['resep/index']);
     }
     /**
      * Deletes an existing Resep model.

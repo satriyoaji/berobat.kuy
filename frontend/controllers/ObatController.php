@@ -131,6 +131,13 @@ class ObatController extends Controller
         ]);
     }
 
+    public function actionTakePill()
+    {
+        $_SESSION['paid'] = 1;
+
+        return $this->redirect(['obat/index']);
+    }
+
     /**
      * Deletes an existing Obat model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
