@@ -107,6 +107,16 @@ class ResepController extends Controller
         ]);
     }
 
+    public function actionVerificate($id)
+    {
+        $model = $this->findModel($id);
+        $model->apotekerID = Yii::$app->user->id;
+        $model->resepStatus = 'Sudah Dibuat';
+        $model->save();
+
+        return $this->redirect(['/']);
+    }
+
     public function actionUptodate($id,$dokterID)
     {
         $model = $this->findModel($id);
