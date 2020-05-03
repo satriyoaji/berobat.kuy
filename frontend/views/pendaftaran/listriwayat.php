@@ -50,7 +50,7 @@ $id = $_GET['id'];
                             <?php if($pendaftaran['pendaftaranStatus'] == 'Sudah Diperiksa'){ ?> 
                                 <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pemeriksaan/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td>
                             <?php } else { ?>
-                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pendaftaran/index','id'=>$id], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td></td>
+                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pendaftaran/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td></td>
                             <?php } ?>
                             
                         </tr>

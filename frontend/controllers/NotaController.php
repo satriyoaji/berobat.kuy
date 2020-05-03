@@ -8,6 +8,7 @@ use frontend\models\NotaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\db\Query;
 
 /**
  * NotaController implements the CRUD actions for Nota model.
@@ -91,6 +92,31 @@ class NotaController extends Controller
         }
 
         return $this->render('update', [
+            'model' => $model,
+        ]);
+    }
+
+    public function actionCreateBill($id)
+    {
+        //$id adalah resepID
+        $resepQuery=(new Query())
+            ->select('*')
+            ->from('resep')
+            ->where('resepID = :resepID', [':resepID' => $id])
+            ->one();
+
+        $model = new Nota();
+
+        if ($model->load(Yii::$app->request->post())) {
+            //            $model->notaStatus = ;
+            $model->notaTotalHarga = $resepQuery['resepTotalHarga'];
+            $model->code = rand(10, 1000);
+            $model->resepID = $id;
+
+            $model->save();
+        }
+
+        return $this->render('create', [
             'model' => $model,
         ]);
     }

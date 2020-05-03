@@ -122,7 +122,7 @@ class DetailresepController extends Controller
             }
             $model->detailResepSubtotal=$model->detailResepQuantity*$harga;
             $model->save();
-            return $this->redirect(['obat/index']); 
+            return $this->redirect(['obat/index']);
           }
         }
         return $this->render('create',[

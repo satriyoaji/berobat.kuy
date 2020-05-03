@@ -74,11 +74,11 @@ $pendaftaranQuery=(new Query()) //ambil pendaftaranID
 
             <li class="list-group-item d-flex justify-content-between align-items-center">
             <?php if($resepID == null){?>
-              <?= Html::a("Resep Saya", ['detailresep/index','id'=>$resepsID], ['class' =>'list-group-item','data' => [
+              <?= Html::a("Resep Saya", ['detailresep/index','ids'=>$resepsID], ['class' =>'list-group-item','data' => [
               'confirm' => ' maaf anda belum melakukan pemeriksaan?',
               'method' => 'post',],]) ?>
             <?php } else { ?> 
-              <?= Html::a("Resep Saya",['detailresep/index','id'=>$resepsID],['class' =>'list-group-item']) ?>
+              <?= Html::a("Resep Saya",['detailresep/index','ids'=>$resepsID],['class' =>'list-group-item']) ?>
             <?php }  ?>
             </li>
             

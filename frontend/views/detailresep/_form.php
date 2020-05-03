@@ -30,7 +30,10 @@ $listData=ArrayHelper::map($categories,'obatID','obatNama');
 
     <?= $form->field($model, 'detailResepDosis')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'detailResepQuantity')->textInput() ?>
+    <div class="form-group field-detailresep-detailresepquantity bmd-form-group is-filled">
+        <label class="control-label bmd-label-static" for="detailresep-detailresepquantity">Detail Resep Quantity</label>
+        <input type="number" id="detailresep-detailresepquantity" class="form-control" name="Detailresep[detailResepQuantity]">
+    </div>
 
     <table>
     <div class="inline form-inline">

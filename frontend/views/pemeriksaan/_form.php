@@ -110,13 +110,11 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
                 ?>
             </td>
 
-
-        <?php if(isset($_SESSION['resep'])){ ?>
+        <?php if(isset($_SESSION['resep'])){    //untuk update ?>
             <td><?= Html::a('Done', ['pendaftaran/listharian', 'status'=> 1], ['class' => 'btn bg-info', 'style'=>'color:white','data' => [
                             'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',
                             'method' => 'post',],]) ?></td>
-        <?php 
-            
+        <?php
         } else { ?>
                 <td><?= Html::submitButton('Done', ['class' => 'btn bg-info', 'style'=>'color:white','data' => [
                                 'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',

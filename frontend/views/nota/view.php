@@ -86,3 +86,5 @@ $this->title = $model->notaID;
             <?php }
         ?>
 </div>
+<?= Html::a('Kembali ke list obat', ['obat/index'], ['class' => 'btn btn-success','data' => [
+    'method' => 'post',],]) ?>

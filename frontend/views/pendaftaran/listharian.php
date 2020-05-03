@@ -40,10 +40,10 @@ if(isset($_SESSION['resep'])){ //jika menerima resepID
             }
         }
 
-        $code = rand(1,10000);
+        $code = rand(10,1000);
         $hargaAkhir = $hargaPeriksa + $hargaResep;
         Yii::$app->db->createCommand()->insert('nota', [
-            'notaStatus' => 'Belum dibayar',
+            'notaStatus' => 'belum dibayar',
             'pemeriksaanID' => $_SESSION['pemeriksaan'],
             'resepID' => $_SESSION['resep'],
             'notaTotalHarga' => $hargaAkhir,

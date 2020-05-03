@@ -2,8 +2,10 @@
 
 namespace frontend\controllers;
 
+use frontend\models\Jenisperiksa;
 use Yii;
 use frontend\models\Pemeriksaan;
+use frontend\models\Nota;
 use frontend\models\PemeriksaanSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -81,6 +83,18 @@ class PemeriksaanController extends Controller
         }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $jenisPeriksa = Jenisperiksa::find()
+                ->where(['jenisPeriksaID' => $model->jenisPeriksaID])
+                ->one();
+
+            //kok gabisa pake active record bawaan??
+            Yii::$app->db->createCommand()->insert('nota', [
+                'notaStatus' => 'sudah bayar',
+                'pemeriksaanID' => $model->pemeriksaanID,
+                'notaTotalHarga' => $jenisPeriksa['jenisPeriksaHarga'],
+                'code' => rand(10, 1000),
+            ])->execute();
+
             return $this->redirect(['pendaftaran/listharian']);
         }
 

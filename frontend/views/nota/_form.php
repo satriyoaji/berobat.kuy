@@ -35,16 +35,22 @@ $resep = Resep::findOne($idResep);
 
     <div class="col-md-4">
         <?= $form->field($model, 'notaTotalHarga')->textInput(['value' => $resep['resepTotalHarga'] ,'readonly'=>true]) ?>
+
         <?php if(isset($model->code)): //kalau belum dibayar ?>
         <?= $form->field($model, 'code')->textInput(['value' => $model->code, 'readonly'=>true]) ?>
         <?php else: //kalau belum pernah menyelesaikan transksi ?>
         <?= $form->field($model, 'code')->textInput(['value' => strval(rand(10, 1000)), 'readonly'=>true]) ?>
         <?php endif; ?>
-    </div>
 
+        <?php if (isset($_GET['kasirProcess'])):?>
+        <?= $form->field($model, 'notaStatus')->textInput(['value' => $model->notaStatus, 'readonly'=>true]); ?>
+    </div>
+    <?php else:?>
     <?= $form->field($model, 'notaStatus')->dropDownList(
-            ['Belum dibayar' => 'Tunda bayar', 'Sudah Bayar' => 'Langsung dibayar']
+        ['belum dibayar' => 'Tunda bayar', 'sudah bayar' => 'Langsung dibayar']
     ); ?>
+    <?php endif;?>
+
 
     <div class="form-group">
         <?php if (isset($_SESSION['kasirID'])) {

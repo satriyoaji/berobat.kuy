@@ -124,7 +124,7 @@ class PendaftaranController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
 
             /*Yii::$app->db->createCommand()->insert('nota', [
-                'notaStatus' => 'Belum dibayar',
+                'notaStatus' => 'belum dibayar',
                 'pemeriksaanID' => ,
                 'notaTotalHarga' => ,
                 'code' => rand(10, 1000),

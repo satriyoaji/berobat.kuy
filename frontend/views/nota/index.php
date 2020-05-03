@@ -34,37 +34,44 @@ $id = $_GET['id'];
         $i=1;
         $pendaftaranQuery = (new Query())
             ->from('pendaftaran')
-            ->where(['pasienID'=>$id]);
-        foreach($pendaftaranQuery->each() as $pendaftaran){
+            ->where(['pasienID'=>$id])
+            ->all();
+        //var_dump($pendaftaranQuery);
+        foreach($pendaftaranQuery as $pendaftaran){
             $status=0;
             $pemeriksaanQuery = (new Query())       // 1 Pemeriksaan pasti hanya dari 1 pendaftaranID
                 ->from('pemeriksaan')
-                ->where(['pendaftranID'=>$pendaftaran['pendaftaranID']]);
-            foreach($pemeriksaanQuery->each() as $pemeriksaan){
+                ->where(['pendaftranID'=>$pendaftaran['pendaftaranID']])
+                ->all();
+            foreach($pemeriksaanQuery as $pemeriksaan){
+                //untuk nota pembayaran pemeriksaan
                 $cekNotaPemeriksaan = (new Query())
                     ->from('nota')
-                    ->where(['pemeriksaanID'=>$pemeriksaan['pemeriksaanID']]);
-                foreach($cekNotaPemeriksaan->each() as $nota){ ?>
+                    ->where(['pemeriksaanID'=>$pemeriksaan['pemeriksaanID']])
+                    ->all();
+                foreach($cekNotaPemeriksaan as $nota){ ?>
                     <tr>
                         <td><?php echo $i; $i++;?></td>
-                        <td><?php echo $nota['notaStatus'];?></td>
-                        <td><?php echo $nota['notaTotalHarga'];?></td>
-                        <td><?php echo $nota['code'];?></td>
+                        <td><?= $nota['notaStatus'];?></td>
+                        <td>Rp. <?= $nota['notaTotalHarga'];?></td>
+                        <td><?= $nota['code'];?></td>
                         <td><?= Html::a('Detail Pembayaran', ['view','id'=>$nota['notaID']], ['class' => 'btn btn-success']) ?></td>
                     </tr>
                 <?php 
                 $status = 1;
                 }
             }
-            if($status == 0){
+                //untuk nota pembayaran resep
             $resepQuery = (new Query())
                 ->from('resep')
-                ->where(['pendaftaranID'=>$pendaftaran['pendaftaranID']]);
-                foreach($resepQuery->each() as $resep){
+                ->where(['pendaftaranID'=>$pendaftaran['pendaftaranID']])
+                ->all();
+                foreach($resepQuery as $resep){
                     $cekNotaResep = (new Query())
                         ->from('nota')
-                        ->where(['resepID'=>$resep['resepID']]);
-                    foreach($cekNotaResep->each() as $cekNota2){ ?>
+                        ->where(['resepID'=>$resep['resepID']])
+                        ->all();
+                    foreach($cekNotaResep as $cekNota2){ ?>
                         <tr>
                             <td><?php echo $i; $i++;?></td>
                             <td><?php echo $cekNota2['notaStatus'];?></td>
@@ -75,7 +82,6 @@ $id = $_GET['id'];
                     <?php
                     }
                 }
-            }
         }
         ?>
     </tbody>
