@@ -90,9 +90,9 @@ if (isset($_GET['id']))
             $namaApoteker = $apotekerQuery['userNama'];
             ?>
             <?php if($row['resepStatus'] == 'Sudah Dibuat'){?>
-                <td>Sudah Diverifikasi oleh <p class="btn btn-info"><?= $namaApoteker ?></p></td>
+                <td>Sudah Diverifikasi oleh <p class="text-info"><?= $namaApoteker ?></p></td>
             <?php } else { //'Belum DIbuat' ?>
-              <td> <?= Html::a('Verifikasi', ['resep/verificate','id'=>$row['resepID']], ['class' => 'btn bg-danger', 'style' => 'color:white', 'data' => [
+              <td> <?= Html::a('Verifikasi', ['resep/verificate','id'=>$row['resepID']], ['class' => 'btn btn-danger', 'style' => 'color:white', 'data' => [
                       'confirm' => ' Benar Ingin memverifikasi resep ini?  Resep yang telah diverif tidak akan bisa dikembalikan']]) ?></td>
             <?php }  ?>
             </tbody>
@@ -101,7 +101,7 @@ if (isset($_GET['id']))
         </table>
       </div>
       <div class="tab-pane fade" id="list-messages" role="tabpanel" aria-labelledby="list-messages-list">
-      <?= Html::a('create', ['obat/create'], ['class' => 'btn bg-success', 'style' => 'color:white']) ?>
+      <?= Html::a('create', ['obat/create'], ['class' => 'btn btn-success', 'style' => 'color:white']) ?>
       <table class="table text-center">
         <thead class="thead-dark">
         <tr>

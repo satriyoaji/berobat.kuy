@@ -33,7 +33,7 @@ $resep = Resep::findOne($idResep);
     <?php endif; ?>
     </div>
 
-    <div class="col-md-4">
+    <div class="col-md-4 p-2">
         <?= $form->field($model, 'notaTotalHarga')->textInput(['value' => $resep['resepTotalHarga'] ,'readonly'=>true]) ?>
 
         <?php if(isset($model->code)): //kalau belum dibayar ?>
@@ -43,22 +43,25 @@ $resep = Resep::findOne($idResep);
         <?php endif; ?>
 
         <?php if (isset($_GET['kasirProcess'])):?>
-        <?= $form->field($model, 'notaStatus')->textInput(['value' => $model->notaStatus, 'readonly'=>true]); ?>
+        <div class="mb-4">
+            <?= $form->field($model, 'notaStatus')->textInput(['value' => $model->notaStatus, 'readonly'=>true]); ?>
+        </div>
     </div>
     <?php else:?>
-    <?= $form->field($model, 'notaStatus')->dropDownList(
+    <?= $form->field($model, 'notaStatus', ['class'=>'pb-4'])->dropDownList(
         ['belum dibayar' => 'Tunda bayar', 'sudah bayar' => 'Langsung dibayar']
     ); ?>
     <?php endif;?>
 
 
-    <div class="form-group">
+    <div class="form-group mt-lg-4 pt-2">
         <?php if (isset($_SESSION['kasirID'])) {
-                echo Html::submitButton('Process', ['class' => 'btn btn-success btn-outline-primary', 'data' => [
+                echo Html::submitButton('Process', ['class' => 'btn btn-outline-info', 'data' => [
                     'confirm' => 'Yakin mengonfirmasi process transaksi dari pasien ini?',
                     'method' => 'post',]]);
+                unset($_SESSION['kasirID']);
         } else { ?>
-            <?php echo Html::submitButton('Bayar', ['class' => 'btn btn-success btn-outline-primary', 'data' => [
+            <?php echo Html::submitButton('Bayar', ['class' => 'btn btn-outline-info', 'data' => [
                 'confirm' => 'Yakin selesaikan pembayaran resep ini?',
                 'method' => 'post',]]);
         }

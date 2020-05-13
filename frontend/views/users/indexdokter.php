@@ -12,76 +12,121 @@ foreach($userQuery->each() as $user){
   $nama = $user['userNama'];
 }
 ?>
-<br>
-<div class="row">
-    <div class="col-md-8"></div>
-        <div class="col-md-4 text-right">
-            <div class="alert alert-primary" role="alert">
-                Selamat datang dr. <b><?php echo $nama;?></b>
+    <!-- banner part start-->
+    <section class="banner_part">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 col-xl-6">
+                    <div class="banner_text">
+                        <div class="banner_text_iner">
+                            <h1>Bringing the future
+                                of healthcare</h1>
+                            <p>Deep created replenish herb without night fruit day earth evening Called his
+                                green were they're fruitful to over Sea bearing sixth Earth face. Them lesser
+                                great you'll second </p>
+
+                            <!--  modal  -->
+                            <button type="button" class="btn_2" data-toggle="modal" data-target="#projectOwnerTeam">
+                                Project Team
+                            </button>
+                            <div class="modal fade" id="projectOwnerTeam" tabindex="-1" role="dialog" aria-labelledby="projectOwnerTeamTitle" aria-hidden="true">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header text-center">
+                                            <h5 class="modal-title" id="exampleModalLongTitle">Our Project Team</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <!--Carousel Wrapper-->
+                                            <div class="client_review_part owl-carousel">
+                                                <div class="client_review_single text-center">
+                                                    <div align="center" class="product-img mb-md-2">
+                                                        <img class="h-50 w-50 text-center" src="../../assets/profil/profilAji.jpg" alt="First slide">
+                                                    </div>
+                                                    <h4>Ryo Aji</h4>
+                                                    <div class="client_review_text mb-2">
+                                                        <p>- as project owner</p>
+                                                    </div>
+                                                </div>
+                                                <div class="client_review_single text-center">
+                                                    <div align="center" class="product-img mb-md-2">
+                                                        <img class="h-50 w-50 text-center" src="../../assets/profil/profilEkky.jpg" alt="First slide">
+                                                    </div>
+                                                    <h4>Ekky Regita</h4>
+                                                    <div class="client_review_text mb-2">
+                                                        <p>- as frontend dev</p>
+                                                    </div>
+                                                </div>
+                                                <div class="client_review_single text-center">
+                                                    <div align="center" class="product-img mb-md-2">
+                                                        <img class="h-50 w-50 text-center" src="../../assets/profil/profilAan.jpg" alt="First slide">
+                                                    </div>
+                                                    <h4>Fahreza Anshori</h4>
+                                                    <div class="client_review_text mb-2">
+                                                        <p>- as backend dev</p>
+                                                    </div>
+                                                </div>
+                                                <div class="client_review_single text-center">
+                                                    <div align="center" class="product-img mb-md-2">
+                                                        <img class="h-50 w-50 text-center" src="../../assets/profil/profilFaidza.jpg" alt="First slide">
+                                                    </div>
+                                                    <h4>Faidza F.</h4>
+                                                    <div class="client_review_text mb-2">
+                                                        <p>- as UI/UX design</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!--/.Carousel Wrapper-->
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- FEATURES -->
+                            <div class="banner_item d-flex justify-content-around">
+                                <div class="single_item">
+                                    <a <?php if (Yii::$app->user->isGuest) {?>
+                                        href="site/login"
+                                    <?php } else {?>
+                                        href="users/pasien"
+                                    <?php }?> >
+                                        <img class="" src="../../assets/icon/test.png" alt="" width="90">
+                                        <h5>List Pasien</h5>
+                                    </a>
+                                </div>
+                                <div class="single_item">
+                                    <a <?php if (Yii::$app->user->isGuest) {?>
+                                        href="site/login"
+                                    <?php } else {?>
+                                        href="pendaftaran/listharian"
+                                    <?php }?> >
+                                        <img class="" src="../../assets/icon/periksa.png" alt="" width="90">
+                                        <h5>List Periksa</h5>
+                                    </a>
+                                </div>
+                                <div class="single_item">
+                                    <a <?php if (Yii::$app->user->isGuest) {?>
+                                        href="site/login"
+                                    <?php } else {?>
+                                        href="jadwaldokter/listjadwal?idDokter=<?= Yii::$app->user->id ?>"
+                                    <?php }?> >
+                                        <img class="" src="../../assets/icon/questionnaire.png" alt="" width="90">
+                                        <h5>List Jadwal</h5>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-<br>
-<div class="row">
-    <div class="col-md-4">
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">List Pasien</h5>
-        <div class="row">
-            <div class="col-md-4">
-                <img src="../../assets/icon/test.png" alt="" width="80" height="80">
-            </div>
-            <div class="col-md-8">
-            <p class="card-text">Halaman yang menampilkan list pasien yang melakukan pemeriksaan.</p>
-            </div>
-        </div>
-        <br>
-        <?= Html::a('Kunjungi Laman', ['users/pasien'], ['class' => 'card-link'])?>
-    </div>
-    </div>
-    </div>
-
-    <div class="col-md-4">
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">List Periksa</h5>
-        <div class="row">
-            <div class="col-md-4">
-                <img src="../../assets/icon/periksa.png" alt="" width="80" height="80">
-            </div>
-            <div class="col-md-8">
-            <p class="card-text">Halaman yang menampilkan list riwayat pemeriksaan pasien.</p> 
-            </div>
-        </div>
-        <br>
-        <?= Html::a('Kunjungi Laman', ['pendaftaran/listharian'], ['class' => 'card-link'])?>
-    </div>
-    </div>
-    </div>
-
-    <div class="col-md-4">
-    <div class="card" style="width: 18rem;">
-    <div class="card-body">
-        <h5 class="card-title">List Jadwal</h5>
-        <div class="row">
-            <div class="col-md-4">
-            <img src="../../assets/icon/questionnaire.png" alt="" width="80" height="80">
-            </div>
-            <div class="col-md-8">
-            <p class="card-text">Halaman yang menampilkan list jadwal dokter.</p>
-            </div>
-        </div>
-        <br>
-        <?= Html::a('Kunjungi Laman', ['jadwaldokter/listjadwal','idDokter'=>Yii::$app->user->id], ['class' => 'card-link'])?>
-    </div>
-    </div>
-    </div>
-
-</div>
-<br>
-<br>
-
+    </section>
+<div class="container">
 <div class="row">
 <div class="col-md-8">
 <script src="https://code.highcharts.com/highcharts.js"></script>
@@ -175,6 +220,7 @@ Highcharts.chart('container', {
 
 <div class="col-md-4">
 
+</div>
 </div>
 </div>
 

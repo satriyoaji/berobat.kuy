@@ -29,7 +29,7 @@ else
         <br>
     </div>
     <div class="detailresep-index">
-    <?php if (isset($resepID)){
+    <?php if (isset($resepID)){     //untuk content apoteker
         $resepQuery=(new Query())
             ->select('*')
             ->from('resep')
@@ -114,14 +114,14 @@ else
                                     <tr align="center">
                                         <th colspan="4" scope="col"><?= Html::a('Belum dibayar oleh pasien',
                                                 null,
-                                                ['class' => 'btn btn-danger btn-outline-danger']) ?></th>
+                                                ['class' => 'btn btn-light btn-outline-danger']) ?></th>
                                     </tr>
                                     <?php
                                 } else if(($nota['notaStatus']) == 'sudah bayar'){
                                     ?>
                                     <tr align="center">
                                         <th colspan="4" scope="col"><?= Html::a('Telah Dibayar', null ,
-                                                ['class' => 'btn btn-success btn-outline-primary']) ?></th>
+                                                ['class' => 'btn btn-light btn-outline-primary']) ?></th>
                                     </tr>
                                     <?php
                                 }
@@ -132,7 +132,7 @@ else
                                 <tr align="center">
                                     <th colspan="4" scope="col"><?= Html::a('Belum dilakukan pembayaran oleh pasien',
                                             null,
-                                            ['class' => 'btn btn-danger btn-outline-danger']) ?></th>
+                                            ['class' => 'btn btn-light btn-outline-danger']) ?></th>
                                 </tr>
                                 <?php
                             } ?>
@@ -143,7 +143,7 @@ else
             </div>
         </div>
 
-  <?php } elseif (isset($resepsID)){
+  <?php } elseif (isset($resepsID)){    //untuk content pasien
   foreach ($resepsID as $resepID){
       $resepQuery=(new Query())
       ->select('*')
@@ -164,7 +164,7 @@ else
       $i =1;
   ?>
 
-        <div class="accordion" id="accordionExample">
+        <div class="accordion mb-3 pb-2" id="accordionExample">
             <div class="card">
                 <div class="card-header text-center" id="heading<?= $resepID;?>">
                     <div class="mb-0">
@@ -237,7 +237,7 @@ else
                                     ?>
                                     <tr align="center">
                                         <th colspan="4" scope="col"><?= Html::a('Telah Dibayar', null ,
-                                                ['class' => 'btn btn-success btn-outline-primary']) ?></th>
+                                                ['class' => 'btn btn-light btn-outline-primary']) ?></th>
                                     </tr>
                                     <?php
                                 }

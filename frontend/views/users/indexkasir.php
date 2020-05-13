@@ -10,14 +10,15 @@ $this->title = 'Si Klinik';
         echo $this->render('cari', ['model' => $model]);
     }
     ?>
+<!--  HALAMAN INI TERHUBUNG DGN views/users/cari  -->
 </div>
 
         <?php 
         if(isset($_SESSION['cari'])){
         ?>
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
-                <table class="table text-center">
+                <table class="table text-center table-hover">
                     <thead class="thead-dark">
                     <tr>
                         <th scope="col">No</th>
@@ -27,21 +28,22 @@ $this->title = 'Si Klinik';
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <?php
-                        $i = 1;
-                        $nota = (new Query())
-                            ->select('*')
-                            ->from('nota')
-                            ->where(['code'=>$_SESSION['cari']])
-                            ->one();
+                    <?php
+                    $i = 1;
+                    $nota = (new Query())
+                        ->select('*')
+                        ->from('nota')
+                        ->where(['code'=>$_SESSION['cari']])
+                        ->one();
 
-                        $resep = (new Query())
-                            ->select('*')
-                            ->from('resep')
-                            ->where(['resepID'=>$nota['resepID']])
-                            ->one();
-                        ?>
+                    $resep = (new Query())
+                        ->select('*')
+                        ->from('resep')
+                        ->where(['resepID'=>$nota['resepID']])
+                        ->one();
+                    ?>
+                    <?php if ($nota!=false): ?>
+                    <tr>
                         <td><?php echo $i; $i++;?></td>
                         <td><?php echo $nota['code'];?></td>
                         <td>Rp. <?php echo $nota['notaTotalHarga'];?></td>
@@ -49,38 +51,45 @@ $this->title = 'Si Klinik';
                         $_SESSION['kasirID'] = Yii::$app->user->id;
                             if (isset($nota['resepID'])):
                                 if (isset($resep['apotekerID'])): //untuk nota pembayaran resep/obat jika sudah dibuat apoteker?>
-                                    <td><?= Html::a('Proses transaksi', ['nota/update','id'=>$nota['notaID'], 'kasirProcess'=>1], ['class' => 'btn btn-success']) ?></td>
+                                    <td><?= Html::a('Proses transaksi', ['nota/update','id'=>$nota['notaID'], 'kasirProcess'=>1], ['class' => 'btn btn-outine-success']) ?></td>
                                 <?php else:?>
-                                    <td><?= Html::a('Resep/obat dari transaksi ini belum dibuat', null, ['class' => 'btn btn-info bg-light']) ?></td>
+                                    <td><?= Html::a('Resep/obat dari transaksi ini belum dibuat', null, ['class' => 'btn btn-outline-danger']) ?></td>
                                 <?php endif;
                             else:
                             //dibawah ini untuk nota pembayaran pemeriksaan ?>
-                                <td><?= Html::a('Proses transaksi', ['nota/update','id'=>$nota['notaID'], 'kasirProcess'=>1], ['class' => 'btn btn-success']) ?></td>
+                                <td><?= Html::a('Proses transaksi', ['nota/update','id'=>$nota['notaID'], 'kasirProcess'=>1], ['class' => 'btn btn-outline-success']) ?></td>
                             <?php endif; ?>
                         <?php elseif($nota['notaStatus'] != 'sudah bayar'): ?>
-                            <td><?= Html::a('Transaksi ini belum dibayarkan', null, ['class' => 'btn btn-info bg-light']) ?></td>
+                            <td><?= Html::a('Transaksi ini belum dibayarkan', null, ['class' => 'btn btn-outline-danger']) ?></td>
                         <?php elseif(isset($nota['kasirID'])) : ?>
-                            <td><?= Html::a('Transaksi ini telah diselesaikan', null, ['class' => 'btn btn-primary', 'style' => 'color: green']) ?></td>
+                            <td><?= Html::a('Transaksi ini telah diselesaikan', null, ['class' => 'btn btn-outline-primary', 'style' => 'color: green']) ?></td>
                         <?php endif; ?>
                     </tr>
+                    <?php else: ?>
+                        <tr>
+                            <td>#</td>
+                            <td colspan="3" class="text-danger">Code Nota tidak ditemukan</td>
+                        </tr>
+                    <?php endif; ?>
                     </tbody>
                 </table>
+
             </div>
         </div>
-        
         <?php 
         unset($_SESSION['cari']);
         } ?>
+
         <div class="row">
-                <div class="col-md-6 deskripsi">
-                    <div class="judul">
-                    
-                    </div>
-                    <div class="isi">
-                    
-                    </div>
+            <div class="col-md-6 deskripsi">
+                <div class="judul">
+
                 </div>
-                <div class="col-md-6 gambar" align="right">
-                    <!-- <img src="../../assets/check.png" alt=""> -->
+                <div class="isi">
+
                 </div>
             </div>
+            <div class="col-md-6 gambar" align="right">
+                <!-- <img src="../../assets/check.png" alt=""> -->
+            </div>
+        </div>
