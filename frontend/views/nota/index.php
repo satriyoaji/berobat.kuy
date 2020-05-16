@@ -55,7 +55,7 @@ $id = $_GET['id'];
                         <td><?= $nota['notaStatus'];?></td>
                         <td>Rp. <?= $nota['notaTotalHarga'];?></td>
                         <td><?= $nota['code'];?></td>
-                        <td><?= Html::a('Detail Pembayaran', ['view','id'=>$nota['notaID']], ['class' => 'btn btn-success']) ?></td>
+                        <td><?= Html::a('Detail Pembayaran', ['view','id'=>$nota['notaID']], ['class' => 'btn btn-info']) ?></td>
                     </tr>
                 <?php 
                 $status = 1;
@@ -77,7 +77,7 @@ $id = $_GET['id'];
                             <td><?php echo $cekNota2['notaStatus'];?></td>
                             <td>Rp. <?php echo $cekNota2['notaTotalHarga'];?></td>
                             <td><?php echo $cekNota2['code'];?></td>
-                            <td><?= Html::a('Detail Pembayaran', ['view','id'=>$cekNota2['notaID']], ['class' => 'btn btn-success']) ?></td>
+                            <td><?= Html::a('Detail Pembayaran', ['view','id'=>$cekNota2['notaID']], ['class' => 'btn btn-info']) ?></td>
                         </tr>
                     <?php
                     }

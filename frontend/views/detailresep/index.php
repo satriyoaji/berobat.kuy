@@ -109,7 +109,7 @@ else
                                 ->where(['resepID' => $resepID])
                                 ->one();
                             if (isset($nota)){
-                                if(($nota['notaStatus']) == 'belum dibayar') {
+                                if(($nota['notaStatus']) == 'belum bayar') {
                                     ?>
                                     <tr align="center">
                                         <th colspan="4" scope="col"><?= Html::a('Belum dibayar oleh pasien',
@@ -144,25 +144,25 @@ else
         </div>
 
   <?php } elseif (isset($resepsID)){    //untuk content pasien
-  foreach ($resepsID as $resepID){
-      $resepQuery=(new Query())
-      ->select('*')
-      ->from('resep')
-      ->where('resepID = :resepID', [':resepID' => $resepID])
-      ->one();
-      $resepID=$resepQuery['resepID'];
-      $dokterID=$resepQuery['dokterID'];
-      $resepTanggal =$resepQuery['resepTanggal'];
+      foreach ($resepsID as $resepID){
+          $resepQuery=(new Query())
+          ->select('*')
+          ->from('resep')
+          ->where('resepID = :resepID', [':resepID' => $resepID])
+          ->one();
+          $resepID=$resepQuery['resepID'];
+          $dokterID=$resepQuery['dokterID'];
+          $resepTanggal =$resepQuery['resepTanggal'];
 
-      $dokterQuery=(new Query())
-      ->from('users')
-      ->where('userId = :userId', [':userId' => $dokterID])
-      ->one();
-      $namaDokter = $dokterQuery['userNama'];
+          $dokterQuery=(new Query())
+          ->from('users')
+          ->where('userId = :userId', [':userId' => $dokterID])
+          ->one();
+          $namaDokter = $dokterQuery['userNama'];
 
-      $total=0;
-      $i =1;
-  ?>
+          $total=0;
+          $i =1;
+      ?>
 
         <div class="accordion mb-3 pb-2" id="accordionExample">
             <div class="card">
@@ -225,7 +225,7 @@ else
                                 ->where(['resepID' => $resepID])
                                 ->one();
                             if (isset($nota)){
-                                if(($nota['notaStatus']) == 'belum dibayar') {
+                                if(($nota['notaStatus']) == 'belum bayar') {
                                     ?>
                                     <tr align="center">
                                         <th colspan="4" scope="col"><?= Html::a('Selesaikan Pembayaran',

@@ -44,70 +44,79 @@ $this->title = 'Jadwal Dokter';
 
     <div class="jadwal" style="padding-left:12px;">
     <table class="table table-striped">
-    <thead>
-        <tr>
-        <th scope="col">No</th>
-        <th scope="col">Tanggal</th>
-        <th scope="col">Ruangan</th>
-        <th scope="col">Waktu</th>
-        <th scope="col">Kuota</th>
-        <?php if ($pekerjaan < 4){ ?>
-        <th scope="col">Booking</th>
-        <?php } ?>
-        </tr>
-    </thead>
-    <tbody>
-    <?php
-        $i=1;     
-        $dataJadwal = (new Query())
-            ->select('*')
-            ->from('jadwaldokter')
-            ->where(['dokterid'=>$id]);
-        foreach($dataJadwal->each() as $jadwal){
-            $dataPendaftaran = (new Query())
-                ->select('count(*)')
-                ->from('pendaftaran')
-                ->where(['jadwalID'=>$jadwal['jadwalID']]);
-            foreach($dataPendaftaran->each() as $pendaftaran){
-                $sisa = $jadwal['jadwalKuota']-$pendaftaran['count(*)'];
-                if($sisa == 0){ ?>
-<!--                    <script>-->
-<!--                        alert('Kuota pemeriksaan untuk jadwal dokter ini sudah penuh')-->
-<!--                    </script>-->
-                <?php
-                } else if($jadwal['jadwalTanggal'] >= $now_date){ //jika sisa lbh dari 0 maka tampilkan?>
-                    <tr>
-                    <th scope="row"><?php echo $i; $i++; ?></th>
-                    <td><?php echo tgl_indo($jadwal['jadwalTanggal']);?></td>
-                    <td><?php echo $jadwal['jadwalRuangan'];?></td>
-                    <td><?php echo $jadwal['jadwalWaktu'];?></td>
-                    <td><?php echo $sisa;?></td>
-                    <?php $dataPendaftaran = (new Query()) //ambil data pendaftaran untuk yg orang sedang login dan sesuai jadwal
-                        ->select('count(*)')
-                        ->from('pendaftaran')
-                        ->where(['jadwalID'=>$jadwal['jadwalID'],
-                                 'pasienID'=>Yii::$app->user->id]);
-                    foreach($dataPendaftaran->each() as $data){
-                        $verifikasi = $data['count(*)']; 
-                    }?>
-                        
+        <thead>
+            <tr>
+            <th scope="col">No</th>
+            <th scope="col">Tanggal</th>
+            <th scope="col">Ruangan</th>
+            <th scope="col">Waktu</th>
+            <th scope="col">Kuota</th>
+            <?php if ($pekerjaan < 4){ ?>
+            <th scope="col">Booking</th>
+            <?php } ?>
+            </tr>
+        </thead>
+        <tbody>
+        <?php
+            $i=1;
+            $dataJadwal = (new Query())
+                ->select('*')
+                ->from('jadwaldokter')
+                ->where(['dokterid'=>$id]);
+            foreach($dataJadwal->each() as $jadwal){
+                $dataPendaftaran = (new Query())
+                    ->select('count(*)')
+                    ->from('pendaftaran')
+                    ->where(['jadwalID'=>$jadwal['jadwalID']]);
+                foreach($dataPendaftaran->each() as $pendaftaran){
+                    $sisa = $jadwal['jadwalKuota']-$pendaftaran['count(*)'];
+                    if($sisa == 0){ ?>
+                        <tr>
+                            <th scope="row" colspan="4">maaf kuota sudah habis</th>
+                        </tr>
                     <?php
-                    if($verifikasi>0){ ?>
-                        <td><?= Html::a('Booking', ['jadwaldokter/index','idDokter'=>$id], ['class' => 'btn btn-success','data' => [
-                            'confirm' => ' maaf anda sudah terdaftar pada jadwal yang sama',
-                            'method' => 'post',],]) ?></td>
-                    <?php } else if (Yii::$app->user->isGuest){ ?>
-                        <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
-                    <?php } else if ($pekerjaan > 4){ //jika selain customer, kasir, apoteker?>
-                         <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
-                    <?php } else { ?>
-                        <div class="col-md-4 text-center">belum ada jadwal hingga saat ini</div>
-                    <?php } ?>
-                    </tr>
-                    <?php } ?>
-            <?php } 
-        }  ?>    
-    </tbody>
+                    } else if($jadwal['jadwalTanggal'] >= $now_date){ //jika sisa lbh dari 0 dan hari jdwal >= hari ini maka tampilkan?>
+                        <tr>
+                            <th scope="row"><?php echo $i; $i++; ?></th>
+                            <td><?php echo tgl_indo($jadwal['jadwalTanggal']);?></td>
+                            <td><?php echo $jadwal['jadwalRuangan'];?></td>
+                            <td><?php echo $jadwal['jadwalWaktu'];?></td>
+                            <td><?php echo $sisa;?></td>
+                            <?php $dataPendaftaran = (new Query()) //ambil data pendaftaran untuk yg orang sedang login dan sesuai jadwal
+                                ->select('count(*)')
+                                ->from('pendaftaran')
+                                ->where(['jadwalID'=>$jadwal['jadwalID'],
+                                         'pasienID'=>Yii::$app->user->id]);
+                            foreach($dataPendaftaran->each() as $data){
+                                $verifikasi = $data['count(*)'];
+                            }?>
+
+                            <?php
+                            if($verifikasi>0){ ?>
+                                <td><?= Html::a('Booking', ['jadwaldokter/index','idDokter'=>$id], ['class' => 'btn btn-success','data' => [
+                                    'confirm' => ' maaf anda sudah terdaftar pada jadwal yang sama',
+                                    'method' => 'post',],]) ?></td>
+                            <?php } else if (Yii::$app->user->isGuest){ ?>
+                                <td><?= Html::a('Booking', ['site/login'], ['class' => 'btn btn-success']) ?></td>
+                            <?php } else if ($pekerjaan > 4){ //jika selain customer, kasir, apoteker?>
+                                 <td><?= Html::a('Booking', ['pendaftaran/create','id'=>$jadwal['jadwalID']], ['class' => 'btn btn-success']) ?></td>
+                            <?php } else { ?>
+                                <div class="col-md-4 text-center">
+                                    belum ada jadwal hingga saat ini
+                                </div>
+                            <?php } ?>
+                        </tr>
+                    <?php } else{?>
+                    <?php }?>
+                <?php }
+            }  ?>
+            <?php if ($jadwal['jadwalTanggal'] < $now_date){ ?>
+                <tr>
+                    <th class="text-center" scope="row" colspan="5">Tidak ada jadwal hari ini</th>
+                </tr>
+            <?php } ?>
+        </tbody>
+
     </table>
     </div>
 

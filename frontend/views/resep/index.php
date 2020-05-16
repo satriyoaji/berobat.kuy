@@ -52,7 +52,7 @@ if (isset($_GET['id']))
       <div class="tab-pane fade show active" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
       <div class="modal-body">
         <center>
-         <img src="../../assets/icon/nurse.png" name="aboutme" width="140" height="140" border="0" class="img-circle"></a>
+         <img src="../../assets/icon/apoteker.jpg" name="aboutme" width="400" border="0" class="img-circle"></a>
         <h3 class="media-heading"><?php echo Yii::$app->user->identity->username; ?></h3>
         </center>
         <hr>

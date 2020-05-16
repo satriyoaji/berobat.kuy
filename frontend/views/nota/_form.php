@@ -42,14 +42,14 @@ $resep = Resep::findOne($idResep);
         <?= $form->field($model, 'code')->textInput(['value' => strval(rand(10, 1000)), 'readonly'=>true]) ?>
         <?php endif; ?>
 
-        <?php if (isset($_GET['kasirProcess'])):?>
+        <?php if (isset($_GET['kasirProcess'])): //proses update pembayaran?>
         <div class="mb-4">
             <?= $form->field($model, 'notaStatus')->textInput(['value' => $model->notaStatus, 'readonly'=>true]); ?>
         </div>
     </div>
     <?php else:?>
-    <?= $form->field($model, 'notaStatus', ['class'=>'pb-4'])->dropDownList(
-        ['belum dibayar' => 'Tunda bayar', 'sudah bayar' => 'Langsung dibayar']
+    <?= $form->field($model, 'notaStatus')->dropDownList(
+        ['belum bayar' => 'Tunda bayar', 'sudah bayar' => 'Langsung dibayar']
     ); ?>
     <?php endif;?>
 

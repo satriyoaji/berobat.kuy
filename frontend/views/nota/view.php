@@ -9,13 +9,13 @@ use yii\db\Query;
 /* @var $model frontend\models\Nota */
 
 $this->title = $model->notaID;
-\yii\web\YiiAsset::register($this);
+
 ?>
 <div class="nota-view">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+    <h1>Nota id <?= Html::encode($this->title) ?></h1>
 
-    <table class="table table-condensed">
+    <table class="table table-hover">
         <tbody>
             <tr>
                 <td> No </td>
@@ -28,7 +28,8 @@ $this->title = $model->notaID;
             $notaQuery = (new Query())
                 ->from('nota')
                 ->where(['notaID'=>$_GET['id']]);
-            foreach($notaQuery->each() as $nota){ 
+            foreach($notaQuery->each() as $nota){
+
                 $verikasiPemeriksaan = (new Query())
                     ->select('count(*)')
                     ->from('pemeriksaan')
@@ -39,22 +40,21 @@ $this->title = $model->notaID;
                         ->from('pemeriksaan')
                         ->where(['pemeriksaanID'=>$nota['pemeriksaanID']]);
                     foreach($pemeriksaanQuery->each() as $pemeriksaan){
-                        
-                            $jenisPeriksaQuery = (new Query())
-                                ->from('jenisperiksa')
-                                ->where(['jenisPeriksaID'=>$pemeriksaan['jenisPeriksaID']]);
-                            foreach($jenisPeriksaQuery->each() as $jenisPeriksa){ ?>
-
+                        $jenisPeriksaQuery = (new Query())
+                            ->from('jenisperiksa')
+                            ->where(['jenisPeriksaID'=>$pemeriksaan['jenisPeriksaID']]);
+                        foreach($jenisPeriksaQuery->each() as $jenisPeriksa){ ?>
                             <tr>
                                 <td><?php echo $i; $i++;?></td>
                                 <td> Pembayaran Pemeriksaan </td>
                                 <td>  </td>
-                                <td><?php echo $jenisPeriksa['jenisPeriksaHarga'];?></td>
+                                <td>Rp. <?php echo $jenisPeriksa['jenisPeriksaHarga'];?></td>
                             </tr>
-                            <?php }
-                            }
+                        <?php }
+                        }
                     }
                 }
+
                 $verifikasiResep = (new Query())
                     ->select('count(*)')
                     ->from('detailresep')
@@ -64,27 +64,44 @@ $this->title = $model->notaID;
                         $resepQuery = (new Query())
                         ->from('detailresep')
                         ->where(['resepID'=>$nota['resepID']]);
-                    foreach($resepQuery->each() as $resep){
-                        $detailResepQuery = (new Query())
-                            ->from('obat')
-                            ->where(['obatID'=>$resep['obatID']]);
-                        foreach($detailResepQuery->each() as $obat){?>
-                        <tr>
-                            <td><?php echo $i; $i++;?></td>
-                            <td><?php echo $obat['obatNama'];?></td>
-                            <td><?php echo $resep['detailResepQuantity'];?></td>
-                            <td><?php echo $resep['detailResepSubtotal'];?></td>
-                        </tr>
-                        <?php } 
-                    }
+                        foreach($resepQuery->each() as $resep){
+                            $detailResepQuery = (new Query())
+                                ->from('obat')
+                                ->where(['obatID'=>$resep['obatID']]);
+                            foreach($detailResepQuery->each() as $obat){?>
+                            <tr>
+                                <td><?php echo $i; $i++;?></td>
+                                <td><?php echo $obat['obatNama'];?></td>
+                                <td><?php echo $resep['detailResepQuantity'];?></td>
+                                <td>Rp. <?php echo $resep['detailResepSubtotal'];?></td>
+                            </tr>
+                            <?php }
+                        }
                     }
                 } ?>
                 <tr>
-                    <td colspan = '3'> Total </td>
-                    <td><?php echo $nota['notaTotalHarga'];?></td>
+                    <th > Total </th>
+                    <td>Rp. <?= $nota['notaTotalHarga'];?></td>
+                    <td></td>
+                    <td></td>
                 </tr>
-            <?php }
-        ?>
-</div>
+                <tr>
+                    <th>Keterangan: </th>
+                    <th class="<?php if ($nota['notaStatus'] == 'dibelum bayar'){ echo 'text-danger';}
+                                else {echo 'text-success';}?>
+                                ">
+                       <?= $nota['notaStatus'];?>
+                    </th>
+                </tr>
+            <?php } ?>
+        </tbody>
+        <tfoot>
+            <tr>
+                <th></th>
+            </tr>
+        </tfoot>
+    </table>
+
 <?= Html::a('Kembali ke list obat', ['obat/index'], ['class' => 'btn btn-success','data' => [
     'method' => 'post',],]) ?>
+</div>

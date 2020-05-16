@@ -148,6 +148,14 @@ class SiteController extends Controller
         return $this->render('index');
     }
 
+    public function actionCoronaglobal(){
+        return $this->render('coronaglobal');
+    }
+
+    public function actionCoronalokal(){
+        return $this->render('coronalokal');
+    }
+
     /**
      * Logs in a user.
      *

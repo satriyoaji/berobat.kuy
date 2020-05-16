@@ -18,15 +18,15 @@ if(Yii::$app->request->pathInfo == 'pemeriksaan/update'){
 }
 
 /*if (isset($_SESSION['resepID']))
-    unset($_SESSION['resepID']);*/
-
+    unset($_SESSION['resepID']);
+*/
 $categories=Jenisperiksa::find()->all();
 
 $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
 
 ?>
 
-<div class="pemeriksaan-form col-lg-10">
+<div class="pemeriksaan-form col-lg-10 mt-5">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -38,6 +38,7 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
 		 $listData,
         ['jenisPeriksaID'=>'jenisPeriksaNama']) ?>
 
+    <div class="mt-3"></div>
     <?= $form->field($model, 'pemeriksaanHasil')->textInput(['maxlength' => true]) ?>
 
     <table class="table table-striped">
@@ -73,6 +74,7 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
                 $idResep = $resep['resepID'];
                 $_SESSION['resepID'] = $resep['resepID'];
             }
+
             $detailResepQuery = (new Query())
                 ->from('detailresep')
                 ->where(['resepID'=>$idResep])
@@ -98,25 +100,25 @@ $listData=ArrayHelper::map($categories,'jenisPeriksaID','jenisPeriksaNama');
     </table>
 
     <div class="form-group">
-            <td><?php if($banyak==0){ //jika belum ada resep
-                    echo Html::a('Berikan Resep', ['resep/create', 'id' => $_GET['id']], ['class' => 'btn bg-primary', 'style'=>'color:white','data' => [
-
-                    'method' => 'post',],]);
-                } else{ //jika sudah ada resep
-                    echo Html::a('Tambahkan Obat', ['detailresep/tambah', 'id' => $_GET['id']], ['class' => 'btn bg-primary', 'style'=>'color:white','data' => [
-
-                        'method' => 'post',],]);
-                }
-                ?>
-            </td>
+        <td><?php if($banyak==0){ //jika belum ada resep
+                echo Html::a('Berikan Resep', ['resep/create', 'id' => $_GET['id']], ['class' => 'btn bg-primary', 'style'=>'color:white','data' => [
+                    'method' => 'post',],
+                ]);
+            } else{ //jika sudah ada resep
+                echo Html::a('Tambahkan Obat', ['detailresep/tambah', 'id' => $_GET['id']], ['class' => 'btn bg-primary', 'style'=>'color:white','data' => [
+                        'method' => 'post',],
+                    ]);
+            }
+            ?>
+        </td>
 
         <?php if(isset($_SESSION['resep'])){    //untuk update ?>
-            <td><?= Html::a('Done', ['pendaftaran/listharian', 'status'=> 1], ['class' => 'btn bg-info', 'style'=>'color:white','data' => [
+            <td><?= Html::a('Done', ['pendaftaran/listharian', 'status'=> 1], ['class' => 'btn btn-info', 'style'=>'color:white','data' => [
                             'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',
                             'method' => 'post',],]) ?></td>
         <?php
         } else { ?>
-                <td><?= Html::submitButton('Done', ['class' => 'btn bg-info', 'style'=>'color:white','data' => [
+                <td><?= Html::submitButton('Done', ['class' => 'btn btn-info', 'style'=>'color:white','data' => [
                                 'confirm' => ' Benar Ingin Menyelesaikan Pemeriksaan ini?',
                                 'method' => 'post',],]) ?></td>
         <?php } ?>

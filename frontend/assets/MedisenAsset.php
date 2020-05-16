@@ -14,6 +14,8 @@ class MedisenAsset extends AssetBundle
     public $css = [
         'css2/bootstrap.min.css',
         'css2/animate.css',
+        //'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css',
+        'https://cdn.datatables.net/1.10.21/css/dataTables.bootstrap4.min.css',
         'css2/owl.carousel.min.css',
         'css2/themify-icons.css',
         'css2/flaticon.css',
@@ -23,7 +25,11 @@ class MedisenAsset extends AssetBundle
         'css2/style.css',
     ];
     public $js = [
-        'js2/jquery-1.12.1.min.js',
+        //'js2/jquery-1.12.1.min.js',
+        'https://code.jquery.com/jquery-3.5.1.js',
+        'https://cdn.datatables.net/1.10.21/js/jquery.dataTables.min.js',
+        'https://cdn.datatables.net/1.10.21/js/dataTables.bootstrap4.min.js',
+        'https://coronavirus-19-api.herokuapp.com/all',
         'js2/popper.min.js',
         'js2/bootstrap.min.js',
         'js2/jquery.magnific-popup.js',

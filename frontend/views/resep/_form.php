@@ -23,14 +23,14 @@ use yii\widgets\ActiveForm;
 
         <?php if (isset($_SESSION['resepID']))
             {
-                var_dump($_SESSION['resepID']);
+                //var_dump($_SESSION['resepID']);
             }  //hanya untuk cek apakah telah memberikan detail resep?>
 
         <div class="alert alert-warning col-md-8" role="alert">
             <i>Anda harus mengisikan detail resep dengan mempertimbangkan obat yang ada pada sistem secara saksama!</i>
         </div>
 
-        <div class="form-group">
+        <div class="form-group col-md-8">
             <?= Html::submitButton('Next', ['class' => 'btn-block btn btn-success', 'data' => [
                 'confirm' => ' Benar Ingin Memberi resep untuk pasien ini?  Setelah ini Anda harus memberikan informasi detail resep']]) ?>
         </div>

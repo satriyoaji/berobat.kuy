@@ -20,7 +20,7 @@ $this->title = 'Jadwal Dokter';
             <hr>
             <ul class="list-group">
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <?= Html::a('Semua', ['users/dokter'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
+                <?= Html::a('Semua', ['users/dokter'], ['class' => 'btn btn-light btn-outline-success', 'style' => 'color:#006d55']) ?>
                 <?php
                 $jumlahUser = (new Query())
                     ->select('count(*)')
@@ -31,7 +31,7 @@ $this->title = 'Jadwal Dokter';
                 <span class="badge badge-primary badge-pill"><?php echo $user['count(*)']; ?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-                <?= Html::a('Dokter Mata', ['users/dokter','category'=>'5'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
+                <?= Html::a('Dokter Mata', ['users/dokter','category'=>'5'], ['class' => 'btn btn-light btn-outline-success', 'style' => 'color:#006d55']) ?>
                 <?php
                 $jumlahUser = (new Query())
                     ->select('count(*)')
@@ -42,7 +42,7 @@ $this->title = 'Jadwal Dokter';
                 <span class="badge badge-primary badge-pill"><?php echo $user['count(*)']; ?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <?= Html::a('Dokter Jantung', ['users/dokter','category'=>'6'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
+            <?= Html::a('Dokter Kulit', ['users/dokter','category'=>'6'], ['class' => 'btn btn-light btn-outline-success', 'style' => 'color:#006d55']) ?>
             <?php
                 $jumlahUser = (new Query())
                     ->select('count(*)')
@@ -53,7 +53,7 @@ $this->title = 'Jadwal Dokter';
                 <span class="badge badge-primary badge-pill"><?php echo $user['count(*)']; ?></span>
             </li>
             <li class="list-group-item d-flex justify-content-between align-items-center">
-            <?= Html::a('Dokter Kulit', ['users/dokter','category'=>'7'], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?>
+            <?= Html::a('Dokter Kulit', ['users/dokter','category'=>'7'], ['class' => 'btn btn-light btn-outline-success', 'style' => 'color:#006d55']) ?>
             <?php
                 $jumlahUser = (new Query())
                     ->select('count(*)')

@@ -78,14 +78,15 @@ class PemeriksaanController extends Controller
     public function actionCreate()
     {
         $model = new Pemeriksaan();
-        if(isset($_SESSION['pendaftaranID'])){
-            Yii::$app->db->createCommand()->update('pendaftaran', ['pendaftaranStatus' => 'Sudah Diperiksa'], ['pendaftaranID' => $_SESSION['pendaftaranID']])->execute();
-        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             $jenisPeriksa = Jenisperiksa::find()
                 ->where(['jenisPeriksaID' => $model->jenisPeriksaID])
                 ->one();
+
+            if(isset($_SESSION['pendaftaranID'])){
+                Yii::$app->db->createCommand()->update('pendaftaran', ['pendaftaranStatus' => 'Sudah Diperiksa'], ['pendaftaranID' => $_SESSION['pendaftaranID']])->execute();
+            }
 
             //kok gabisa pake active record bawaan??
             Yii::$app->db->createCommand()->insert('nota', [

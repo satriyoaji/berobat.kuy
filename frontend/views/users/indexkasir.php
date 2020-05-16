@@ -51,7 +51,7 @@ $this->title = 'Si Klinik';
                         $_SESSION['kasirID'] = Yii::$app->user->id;
                             if (isset($nota['resepID'])):
                                 if (isset($resep['apotekerID'])): //untuk nota pembayaran resep/obat jika sudah dibuat apoteker?>
-                                    <td><?= Html::a('Proses transaksi', ['nota/update','id'=>$nota['notaID'], 'kasirProcess'=>1], ['class' => 'btn btn-outine-success']) ?></td>
+                                    <td><?= Html::a('Proses transaksi', ['nota/update','id'=>$nota['notaID'], 'kasirProcess'=>1], ['class' => 'btn btn-outline-success']) ?></td>
                                 <?php else:?>
                                     <td><?= Html::a('Resep/obat dari transaksi ini belum dibuat', null, ['class' => 'btn btn-outline-danger']) ?></td>
                                 <?php endif;
@@ -62,7 +62,7 @@ $this->title = 'Si Klinik';
                         <?php elseif($nota['notaStatus'] != 'sudah bayar'): ?>
                             <td><?= Html::a('Transaksi ini belum dibayarkan', null, ['class' => 'btn btn-outline-danger']) ?></td>
                         <?php elseif(isset($nota['kasirID'])) : ?>
-                            <td><?= Html::a('Transaksi ini telah diselesaikan', null, ['class' => 'btn btn-outline-primary', 'style' => 'color: green']) ?></td>
+                            <td><?= Html::a('Transaksi ini telah diselesaikan', null, ['class' => 'btn btn-outline-info']) ?></td>
                         <?php endif; ?>
                     </tr>
                     <?php else: ?>

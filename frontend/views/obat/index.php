@@ -176,31 +176,30 @@ for ($i = 0; $i<$countQuery; $i++){
                                     <img  src="<?= '../../assets/img/'.$rows['obatFoto'];?>" class="card-img-top">
                                     <div class="card-body">
                                         <h4 class="card-title">
-                                            <center><h6><b><?= strtoupper($rows['obatNama']);?></b></h6>
-                                                <br>
-                                                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?php echo $rows['obatID']; ?>">detail obat</button>
-                                                <?php if ($pendaftaranQuery == null){ ?>
-                                                    <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
-                                                            'confirm' => ' maaf anda belum melakukan pendaftaran?',
-                                                            'method' => 'post',],]) ?></p>
-                                                <?php } else if($resepID == null){?>
-                                                    <p><?= Html::a('Buat order', ['obat/index'], ['class' => 'btn btn-success','data' => [
-                                                            'confirm' => ' maaf anda belum melakukan pemeriksaan?',
-                                                            'method' => 'post',],]) ?></p>
-                                                <?php } else if(!(in_array($rows['obatID'], $listObatID))){?>
-                                                    <p><?= Html::a('Buat order', ['obat/index'], ['class' => 'btn btn-success','data' => [
-                                                            'confirm' => ' maaf obat ini tidak ada dalam list resep terbaru Anda',
-                                                            'method' => 'post',],]) ?></p>
-                                                <?php }
-                                                else if((in_array($rows['obatID'], $listObatID)) && ($nota['kasirID'] == null)){ // hanya obat yg ada dalam detail resepnya & yg belum Dikonfirmasi kasir jadi gabisa ambil?>
-                                                    <p> <?= Html::a('Ambil obat', ['obat/index','idObat'=>$rows['obatID'],'resepID'=>$resepID], ['class' => 'btn btn-success','data' => [
-                                                            'confirm' => 'maaf pembayaran anda sedang diproses oleh kasir, silahkan datangi untuk melakukan konfirmasi',
-                                                            'method' => 'post',],]) ?></p>
-                                                <?php }
-                                                else if((in_array($rows['obatID'], $listObatID)) && ($nota['kasirID'] != null)){ //hanya obat yg ada dalam detail resepnya & yg sudah Dikonfirmasi kasir jadi bisa diambil ?>
-                                                    <p> <?= Html::a('Ambil obat', ['obat/take-pill','idObat'=>$rows['obatID']], ['class' => 'btn btn-success', 'data' => [
-                                                            'confirm' => 'Apakah anda yakin mengambil obat sekarang ?']]) ?></p>
-                                                <?php }?>
+                                        <h6><b><?= strtoupper($rows['obatNama']);?></b></h6>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?php echo $rows['obatID']; ?>">detail obat</button>
+                                        <?php if ($pendaftaranQuery == null){ ?>
+                                            <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
+                                                    'confirm' => ' maaf anda belum melakukan pendaftaran?',
+                                                    'method' => 'post',],]) ?></p>
+                                        <?php } else if($resepID == null){?>
+                                            <p><?= Html::a('Buat order', ['obat/index'], ['class' => 'btn btn-success','data' => [
+                                                    'confirm' => ' maaf anda belum melakukan pemeriksaan?',
+                                                    'method' => 'post',],]) ?></p>
+                                        <?php } else if(!(in_array($rows['obatID'], $listObatID))){?>
+                                            <p><?= Html::a('Buat order', ['obat/index'], ['class' => 'btn btn-success','data' => [
+                                                    'confirm' => ' maaf obat ini tidak ada dalam list resep terbaru Anda',
+                                                    'method' => 'post',],]) ?></p>
+                                        <?php }
+                                        else if((in_array($rows['obatID'], $listObatID)) && ($nota['kasirID'] == null)){ // hanya obat yg ada dalam detail resepnya & yg belum Dikonfirmasi kasir jadi gabisa ambil?>
+                                            <p> <?= Html::a('Ambil obat', ['obat/index','idObat'=>$rows['obatID'],'resepID'=>$resepID], ['class' => 'btn btn-success','data' => [
+                                                    'confirm' => 'maaf pembayaran anda sedang diproses oleh kasir, silahkan datangi untuk melakukan konfirmasi',
+                                                    'method' => 'post',],]) ?></p>
+                                        <?php }
+                                        else if((in_array($rows['obatID'], $listObatID)) && ($nota['kasirID'] != null)){ //hanya obat yg ada dalam detail resepnya & yg sudah Dikonfirmasi kasir jadi bisa diambil ?>
+                                            <p> <?= Html::a('Ambil obat', ['obat/take-pill','idObat'=>$rows['obatID']], ['class' => 'btn btn-success', 'data' => [
+                                                    'confirm' => 'Apakah anda yakin mengambil obat sekarang ?']]) ?></p>
+                                        <?php }?>
                                     </div>
                                 </div>
                             </div>

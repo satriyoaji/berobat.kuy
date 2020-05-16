@@ -8,7 +8,7 @@ use yii\widgets\ActiveForm;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="jadwaldokter-form">
+<div class="jadwaldokter-form mt-4">
 
     <?php $form = ActiveForm::begin(); ?>
 
@@ -36,17 +36,25 @@ use yii\widgets\ActiveForm;
         </div>
 
         <div class="col-md-4 form-group">
-            <label class="control-label bmd-label-static" for="jadwaldokter-jadwaldurasi">Jadwal Durasi</label>
+            <label class="control-label bmd-label-static" for="jadwaldokter-jadwaldurasi">Jadwal Durasi (jam)</label>
             <input type="number" id="jadwaldokter-jadwaldurasi" class="form-control" name="Jadwaldokter[jadwalDurasi]" maxlength="2" max="24">
         </div>
         <div class="help-block"></div>
     </div>
 
-    <?= $form->field($model, 'jadwalKuota')->textInput() ?>
+    <div class="col-md-8 form-group field-jadwaldokter-venue form-inline">
+        <div class="form-group col-md-4 field-jadwaldokter-jadwalkuota">
+            <label class="control-label" for="jadwaldokter-jadwalkuota">Jadwal Kuota</label>
+            <input type="number" id="jadwaldokter-jadwalkuota" class="form-control" name="Jadwaldokter[jadwalKuota]">
 
-    <?= $form->field($model, 'jadwalRuangan')->textInput(['maxlength' => true]) ?>
+            <div class="help-block"></div>
+        </div>
 
-    <div class="form-group">
+        <?= $form->field($model, 'jadwalRuangan')->textInput(['maxlength' => true]) ?>
+
+    </div>
+
+    <div class="form-group mt-4">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>
 

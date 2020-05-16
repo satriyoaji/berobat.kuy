@@ -146,23 +146,16 @@ if(!isset($_SESSION['userCategory'])){
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-6 col-lg-6">
                     <div class="our_ability_img">
-                        <img src="img/ability_img.png" alt="">
+                        <img src="<?=Yii::$app->request->baseUrl?>/img/animationcorona.jpg" alt="">
                     </div>
                 </div>
                 <div class="col-md-6 col-lg-5">
                     <div class="our_ability_member_text">
-                        <h2>Our Patients
-                            Are at the Centre of
-                            Everything We Do</h2>
-                        <p>Kind lesser bring said midst they're created signs made the beginni years
-                            created Beast upon whales herb seas evening she'd day green dominion
-                            evening in moved have fifth in won't in darkness fruitful god behold
-                            whos without bring created creature.</p>
+                        <h2>Covid-19 real-time data</h2>
+                        <p>SARS nCoV-2 is a global known as a seriously pandemic all around the world</p>
                         <ul>
-                            <li><span class="ti-mouse"></span>Modern Technology</li>
-                            <li><span class="ti-heart-broken"></span>Worldclass Facilities</li>
-                            <li><span class="ti-package"></span>Experienced Nurse</li>
-                            <li><span class="ti-headphone-alt"></span>24 Hours Support</li>
+                            <li><a href="site/coronaglobal"><span class="ti-flag"></span>Global</a></li>
+                            <li><a href="site/coronalokal"><span class="ti-face-sad"></span>Indonesia</a></li>
                         </ul>
                     </div>
                 </div>

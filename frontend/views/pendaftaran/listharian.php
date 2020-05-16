@@ -12,6 +12,13 @@ use yii\db\Query;
 $this->title = 'List Pemeriksaan';
 $id = Yii::$app->user->id;
 
+if (isset($_SESSION['pendaftaranID']))
+    unset($_SESSION['pendaftaranID']);
+if (isset($_SESSION['pemeriksaanID']))
+    unset($_SESSION['pemeriksaanID']);
+if (isset($_SESSION['resepID']))
+    unset($_SESSION['resepID']);
+
 if(isset($_SESSION['resep'])){ //jika menerima resepID
     if(isset($_GET['status'])){
         $resepQuery = (new Query())
@@ -43,7 +50,7 @@ if(isset($_SESSION['resep'])){ //jika menerima resepID
         $code = rand(10,1000);
         $hargaAkhir = $hargaPeriksa + $hargaResep;
         Yii::$app->db->createCommand()->insert('nota', [
-            'notaStatus' => 'belum dibayar',
+            'notaStatus' => 'belum bayar',
             'pemeriksaanID' => $_SESSION['pemeriksaan'],
             'resepID' => $_SESSION['resep'],
             'notaTotalHarga' => $hargaAkhir,
@@ -133,12 +140,12 @@ if(isset($_GET['tomorrow'])){
                             }
                             if(($banyak == 0) && (!isset($_SESSION['tomorrow']))){
                             ?>
-                                <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn bg-danger', 'style'=>'color:white']) ?></td>
+                                <td><?= Html::a('Periksa', ['pemeriksaan/create','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-danger', 'style'=>'color:white']) ?></td>
                                 <?php unset($_SESSION['tomorrow']);
                             } else if(($banyak != 0) && (!isset($_SESSION['tomorrow']))){ ?>
-                                <td><?= Html::a('Update Periksa', ['pemeriksaan/update','pendaftaranID'=>$pendaftaran['pendaftaranID'], 'id'=>$idPemeriksaan], ['class' => 'btn bg-warning', 'style'=>'color:white']) ?></td>
+                                <td><?= Html::a('Update Periksa', ['pemeriksaan/update','pendaftaranID'=>$pendaftaran['pendaftaranID'], 'id'=>$idPemeriksaan], ['class' => 'btn btn-warning', 'style'=>'color:white']) ?></td>
                             <?php } else {?>
-                                <td><p class="text-info">Lakukan pemeriksaan pada waktunya</p></td>
+                                <td><p class="text-dark text-bold">Lakukan pemeriksaan pada waktunya</p></td>
                             <?php }?>
                         </tr>
                 <?php }

@@ -159,7 +159,10 @@ class DetailresepController extends Controller
             //$resep->save();
             Yii::$app->db->createCommand()->update('resep', ['resepTotalHarga' => $hargaAkhir], ['resepID'=>$_SESSION['resepID']])->execute();
 
-            return $this->redirect(['pemeriksaan/update', 'pendaftaranID'=>$_SESSION['pendaftaranID'], 'id'=>$_SESSION['pemeriksaanID']]);
+            if (isset($_SESSION['pemeriksaanID'])){
+                return $this->redirect(['pemeriksaan/update', 'pendaftaranID'=>$_SESSION['pendaftaranID'], 'id'=>$_SESSION['pemeriksaanID']]);
+            }
+            return $this->redirect(['pemeriksaan/create', 'id'=>$_SESSION['pendaftaranID']]);
         }
 
         return $this->render('create', [

@@ -131,17 +131,25 @@ foreach($userQuery->each() as $user){
     <!-- Header part end-->
 
     <div class="pb-5 mb-5"></div>
-    <?php if ( (isset($kategory) && ( ($kategory != 1 && Yii::$app->request->url != '/berobatkuy/frontend/web/') ||
-                ($kategory != 5 && Yii::$app->request->url != '/berobatkuy/frontend/web/')) ) ||
-        (Yii::$app->request->pathInfo == 'site/login') || (Yii::$app->request->pathInfo == 'users/create') || (Yii::$app->request->pathInfo == 'comment/create') ):
-        // (jika sudah login dan bukan dokter & pasien) atau (jika mengunjungi halaman login/register/createComment)?>
+
+    <?php if( (isset($kategory) && (
+                    $kategory == '3' ||
+                    $kategory == '4' ||
+                    ($kategory == '1' && Yii::$app->request->url != '/berobatkuy/frontend/web/') ||
+                    ($kategory >= '5' && Yii::$app->request->url != '/berobatkuy/frontend/web/'))
+                ) ||
+                (Yii::$app->request->pathInfo == 'users/create') ||
+                (Yii::$app->request->pathInfo == 'site/login') ):?>
         <div class="container">
             <?= Breadcrumbs::widget([
                 'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
             ]) ?>
+            <div class="mb-4"></div>
             <?= Alert::widget() ?>
+            <div class="mb-3"></div>
             <?= $content ?>
         </div>
+
     <?php else:?>
         <?= Breadcrumbs::widget([
             'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

@@ -48,9 +48,9 @@ $id = $_GET['id'];
                             <td><?php echo $jadwal['jadwalTanggal'];?></td>
                             <td><?php echo $jadwal['jadwalWaktu'];?></td>
                             <?php if($pendaftaran['pendaftaranStatus'] == 'Sudah Diperiksa'){ ?> 
-                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pemeriksaan/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td>
+                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pemeriksaan/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success']) ?></td>
                             <?php } else { ?>
-                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pendaftaran/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-success', 'style' => 'color:#006d55']) ?></td></td>
+                                <td><?= Html::a($pendaftaran['pendaftaranStatus'], ['pendaftaran/view','id'=>$pendaftaran['pendaftaranID']], ['class' => 'btn btn-outline-success']) ?></td></td>
                             <?php } ?>
                             
                         </tr>
