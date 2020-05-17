@@ -3,7 +3,7 @@
 use yii\helpers\Html; 
 use yii\helpers\Url;
 use yii\db\Query;
-$this->title = 'Si Klinik';
+$this->title = 'Berobat.kuy';
 
 $userQuery = (new Query())
   ->from('users')
@@ -12,6 +12,7 @@ foreach($userQuery->each() as $user){
   $nama = $user['userNama'];
 }
 ?>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
     <!-- banner part start-->
     <section class="banner_part">
         <div class="container">
@@ -126,103 +127,209 @@ foreach($userQuery->each() as $user){
             </div>
         </div>
     </section>
-<div class="container">
-<div class="row">
-<div class="col-md-8">
-<script src="https://code.highcharts.com/highcharts.js"></script>
-<script src="https://code.highcharts.com/modules/exporting.js"></script>
-<script src="https://code.highcharts.com/modules/export-data.js"></script>
 
-<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-<?php 
-$jadwalQuery = (new Query())
-->from('jadwaldokter');
+    <!-- our_ability part start-->
+    <section class="our_ability section_padding">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-md-6 col-lg-6">
+                    <div class="our_ability_img">
+                        <img src="<?=Yii::$app->request->baseUrl?>/img/animationcorona.jpg" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-5">
+                    <div class="our_ability_member_text">
+                        <h2>Covid-19 real-time data</h2>
+                        <p>SARS nCoV-2 is a global known as a seriously pandemic all around the world</p>
+                        <ul>
+                            <li><a href="site/coronaglobal"><span class="ti-flag"></span>Global</a></li>
+                            <li><a href="site/coronalokal"><span class="ti-face-sad"></span>Indonesia</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- our_ability part end-->
 
-foreach($jadwalQuery->each() as $jadwal){
-    $pendaftaranQuery = (new Query())
-    ->select('count(*)')
-    ->from('pendaftaran')
-    ->where(['jadwalID'=>$jadwal['jadwalID'],
-    'pendaftaranStatus'=>'Sudah Periksa']);
+    <!-- top_service part start-->
+    <section class="top_service our_ability padding_bottom">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-md-5 col-lg-5">
+                    <div class="our_ability_member_text">
+                        <canvas id="linechart" width="100" height="100"></canvas>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    <div class="our_ability_img">
+                        <img src="<?=Yii::$app->request->baseUrl?>/img/chart2.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- top_service part end-->
+    <?php
+    $pasiens = (new Query())
+        ->from('users')
+        ->where(['userPekerjaan'=>1])
+        ->all();
 
-
-    foreach($pendaftaranQuery->each() as $pendaftaran){
-    $jumlah = $pendaftaran['count(*)'];
+    $count = [];
+    $i = 0;
+    foreach ($pasiens as $patien){
+        $pendaftarans = (new Query())
+            ->select('count(*)')
+            //->addSelect('pasienID')
+            ->from('pendaftaran')
+            ->where(['pasienID'=>$patien['userId']])
+            ->all();
+        $count[$i] = $pendaftarans[0]['count(*)'];
+        $i++;
     }
+    ?>
+    <script src="<?=Yii::$app->request->baseUrl?>/js/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        var ctx = document.getElementById("linechart").getContext("2d");
+        var data = {
+            labels:
+                [<?php foreach ($pasiens as $pasien)
+                        {
+                            echo '"'.$pasien['userNama'].'",';
+                        }
+                ?>],
+            datasets: [{
+                label: "Pendaftaran",
+                backgroundColor: "#a2fff2",
+                data: [<?php foreach ($pasiens as $pasien)
+                        {
+                            $pendaftarans = (new Query())
+                                ->from('pendaftaran')
+                                ->where(['pasienID'=>$pasien['userId']])
+                                ->count();
+                            echo '"'.$pendaftarans.'",';
+                        }
+                    ?>]
+                //data: ["20", "30"]
+            },],
+        };
+        var mychart = new Chart(ctx, {
+           type: 'bar',
+           data: data,
+           options: {
+               display: true
+           },
+            barValueSpacing: 10,
+            scales: {
+               yAxes: [{
+                  ticks: {
+                      max: 10,
+                      min: 0,
+                      stepSize: 1
+                  }
+               }],
+                xAxes: [{
+                   gridLines: {
+                       color: "rgba(163, 0, 8, 0.5)",
+                   }
+                }]
+            },
+        });
+    </script>
 
-}
+    `<div class="container mb-3">
+        <div class="row">
+            <div class="col-md-8">
+
+            <script src="https://code.highcharts.com/highcharts.js"></script>
+            <script src="https://code.highcharts.com/modules/exporting.js"></script>
+            <script src="https://code.highcharts.com/modules/export-data.js"></script>
+
+            <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <?php
+            $jadwalQuery = (new Query())
+            ->from('jadwaldokter');
+
+            foreach($jadwalQuery->each() as $jadwal){
+                $pendaftaranQuery = (new Query())
+                ->select('count(*)')
+                ->from('pendaftaran')
+                ->where(['jadwalID'=>$jadwal['jadwalID'],
+                'pendaftaranStatus'=>'Sudah Periksa']);
 
 
-
-
-?>
-<script>
-
-Highcharts.chart('container', {
-    chart: {
-        type: 'area'
-    },
-    title: {
-        text: 'Grafik Pasien Pendaftar dan Pasien Hadir'
-    },
-    subtitle: {
-        text: 'Sources: Si Klinik'
-    },
-    xAxis: {
-        allowDecimals: false,
-        labels: {
-            formatter: function () {
-                return this.value; // clean, unformatted number for year
-            }
-        }
-    },
-    yAxis: {
-        title: {
-            text: 'Jumlah Pasien'
-        },
-        labels: {
-            formatter: function () {
-                return this.value;
-            }
-        }
-    },
-    tooltip: {
-        pointFormat: '{series.name} tercatat sebanyak <b>{point.y:,.0f}</b><br/> pada ID Jadwal Dokter : {point.x}'
-    },
-    plotOptions: {
-        area: {
-            pointStart: 60,
-            marker: {
-                enabled: false,
-                symbol: 'circle',
-                radius: 2,
-                states: {
-                    hover: {
-                        enabled: true
-                    }
+                foreach($pendaftaranQuery->each() as $pendaftaran){
+                    $jumlah = $pendaftaran['count(*)'];
                 }
+
             }
-        }
-    },
-    series: [{
-        name: 'Pasien Hadir',
-        data: [
-            14,15,16,13,14,15,17,3,0,0,0,5,5,13
-        ]
-    }, {
-        name: 'Pasien Pendaftar',
-        data: [20,21,23,23,19,20,27,30,40,10,9,8,12,19
-        ]
-    }]
-});
-</script>
-</div>
+            ?>
 
-<div class="col-md-4">
+            <script>
+            Highcharts.chart('container', {
+                chart: {
+                    type: 'area'
+                },
+                title: {
+                    text: 'Grafik Pasien Pendaftar dan Pasien Hadir'
+                },
+                subtitle: {
+                    text: 'Sources: Si Klinik'
+                },
+                xAxis: {
+                    allowDecimals: false,
+                    labels: {
+                        formatter: function () {
+                            return this.value; // clean, unformatted number for year
+                        }
+                    }
+                },
+                yAxis: {
+                    title: {
+                        text: 'Jumlah Pasien'
+                    },
+                    labels: {
+                        formatter: function () {
+                            return this.value;
+                        }
+                    }
+                },
+                tooltip: {
+                    pointFormat: '{series.name} tercatat sebanyak <b>{point.y:,.0f}</b><br/> pada ID Jadwal Dokter : {point.x}'
+                },
+                plotOptions: {
+                    area: {
+                        pointStart: 0,
+                        marker: {
+                            enabled: false,
+                            symbol: 'circle',
+                            radius: 2,
+                            states: {
+                                hover: {
+                                    enabled: true
+                                }
+                            }
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Pasien Hadir',
+                    data: [
+                        14,15,16,13,14,15,17,3,0,0,0,5,5,13
+                    ]
+                }, {
+                    name: 'Pasien Pendaftar',
+                    data: [20,21,23,23,19,20,27,30,40,10,9,8,12,19
+                    ]
+                }]
+            });
+            </script>
+            </div>
 
-</div>
-</div>
-</div>
+            <div class="col-md-4"></div>
 
-<br>
-<br>
+        </div>
+    </div>`
+

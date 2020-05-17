@@ -155,7 +155,7 @@ class UsersController extends Controller
         $model2 = new GantiPassword();
 
         if ($model2->load(Yii::$app->request->post())) {
-            echo "halo";
+
             $model2->username= sha1($model2->username);
             $cekPassword = (new Query())
                 ->select('count(*)')

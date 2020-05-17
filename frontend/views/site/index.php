@@ -154,7 +154,7 @@ if(!isset($_SESSION['userCategory'])){
                         <h2>Covid-19 real-time data</h2>
                         <p>SARS nCoV-2 is a global known as a seriously pandemic all around the world</p>
                         <ul>
-                            <li><a href="site/coronaglobal"><span class="ti-flag"></span>Global</a></li>
+                            <li><a href="<?=Url::to('site/coronaglobal')?>"><span class="ti-flag"></span>Global</a></li>
                             <li><a href="site/coronalokal"><span class="ti-face-sad"></span>Indonesia</a></li>
                         </ul>
                     </div>

@@ -51,6 +51,7 @@ $jumlah = count($data);
     }
 </style>
 <body>
+<div class="container">
     <div class="text-center">
         <img src="<?=Yii::$app->request->baseUrl?>/img/prevention2.jpg" alt="">
         <h2 style="color: whitesmoke" class="display-4"></h2>
@@ -164,6 +165,7 @@ $jumlah = count($data);
 
         </div>
     </div>
+</div>
 
 </div>
 

@@ -14,7 +14,7 @@ $this->title = 'Masuk';
             <div class="site-login">
             <h1><?= Html::encode($this->title) ?></h1>
 
-            <p>Selamat datang kembali, nikmati akses SiKlinik tanpa batas</p>
+            <p>Selamat datang kembali, nikmati akses Berobat.Kuy tanpa batas</p>
 
             <div class="row">
                 <div class="col-lg-8">

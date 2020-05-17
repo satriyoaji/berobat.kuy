@@ -47,12 +47,13 @@ $jumlah = count($data);
         overflow-y: auto;
         /*overflow: scroll;*/
     }
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
 </style>
 <body>
 <div class="container">
     <!-- feature_part start-->
     <section class="feature_part single_feature_part">
-        <div class="container">
+<!--        <div class="container">-->
             <div class="row">
                 <div class="col-xl-4 col-md-4 align-self-center">
                     <div class="single_feature_text ">
@@ -116,7 +117,7 @@ $jumlah = count($data);
                     </div>
                 </div>
             </div>
-        </div>
+<!--        </div>-->
     </section>
     <!-- feature_part start-->
 
@@ -157,9 +158,18 @@ $jumlah = count($data);
         </div>
     </div>
 
+    <div class="card mt-3 mb-3">
+        <div class="card-header text-white text-center bg-info">
+            Data Pasien terkonfirmasi positif Covid-19 Indonesia per-hari
+        </div>
+        <div class="card-body">
+            <canvas id="covidchart" height="100"></canvas>
+        </div>
+    </div>
+
 </div>
-
-
+    <script src="<?=Yii::$app->request->baseUrl?>/js/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
 </body>
 </html>

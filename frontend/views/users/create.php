@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model frontend\models\Users */
 
-$this->title = 'Daftar SiKlinik';
+$this->title = 'Daftar Berobat.kuy';
 
 ?>
 <div class="users-create">
@@ -18,7 +18,7 @@ $this->title = 'Daftar SiKlinik';
     </div>
 
     <div class="col-md-6 text-center img-thumbnail">
-        <img src="../../assets/background/home.png" alt="" style="width:500px;">
+        <img src="../../../assets/background/home.png" alt="" style="width:500px;">
     </div>
     </div>
     
