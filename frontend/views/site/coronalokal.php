@@ -1,54 +1,108 @@
 <?php
-function http_request($url){
-    //persiapkan CURL
-    $ch = curl_init();
+function tglIndo($time){ //dipecah ke dalam bentuk
+    $bulan = array (
+        1 =>   'Januari', //cukup index pertama saja yang diberi key itu sudah bisa mengartikan key index selanjutnya
+        'Februari',
+        'Maret',
+        'April',
+        'Mei',
+        'Juni',
+        'Juli',
+        'Agustus',
+        'September',
+        'Oktober',
+        'November',
+        'Desember'
+    );
+    $pecahkan = explode('-', $time); //pemisah explode(pemisah, var.yang dipecah) bersifat case sensitive. DI EXPLODE MENJADI ARRAY OF CHAR
+    // variabel pecahkan[0] = tahun; variabel pecahkan[1] = bulan;  variabel pecahkan[2] = hari
 
-    //set URL
-    curl_setopt($ch, CURLOPT_URL, $url);
+    $hari = explode(' ', $pecahkan[2]);
+    $d = (int)$hari[0];
+    $d -= 1;
+    $month = (int)$pecahkan[1];
+    $year = $pecahkan[0];
+    if ($d<=0){
+        $month-=1;
+        if ($month<=0){
+            $year-=1;
+            $month = 12 + $month;
+        }
+        if (($month%2) != 0) //bulan ganjil
+            $d = 31 + $d;
+        else
+            $d = 30 + $d; //februari akan gagal
+    }
 
-    //aktifkan fungsi trans nilai
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-
-    //matikan SSL agar bisa diakses di localhost
-    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
-    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
-
-    //Akses nilainya dan tampung hasil
-    $output = curl_exec($ch);
-
-    //close
-    curl_close($ch);
-
-    return $output;
+    return $d . ' ' . $bulan[ (int)$month ] ; //disini diberi (argumen tipe data index) karena jika hanya $pecahkan[2] akan menampilkan bulan dalam bentuk angka. dan jika angka tersebut dijadikan index array $bulan yang sudah dibuat maka akan dikonversi ke dalam isi array
 }
-
-//panggil http_req
-$data = http_request("https://api.kawalcorona.com/indonesia/provinsi/");
-
-//ubah format JSON to array assoc
-$data = json_decode($data, TRUE);
-
-$jumlah = count($data);
-
-//for ($i=0; $i<$jumlah; $i++){
-//$hasil = $data[$i]['attributes'];
-
 ?>
 <html>
 <head></head>
-<style>
-    .box{
-        padding: 30px; 40px;
-        border-radius: 5px;
-    }
-    .scrollable{
-        display: block;
-        height: 400px;
-        overflow-y: auto;
-        /*overflow: scroll;*/
-    }
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />
-</style>
+    <style>
+        .box{
+            padding: 30px; 40px;
+            border-radius: 5px;
+        }
+        .scrollable{
+            display: block;
+            height: 400px;
+            overflow-y: auto;
+            /*overflow: scroll;*/
+        }
+    </style>
+<!--    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" integrity="sha256-aa0xaJgmK/X74WM224KMQeNQC2xYKwlAt08oZqjeF0E=" crossorigin="anonymous" />-->
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['line']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        $day = date('d');
+        $month = date('M');
+        $year = date('Y');
+
+        function drawChart() {
+
+            var data = new google.visualization.DataTable();
+            data.addColumn('string', 'Data per-hari');
+            data.addColumn('number', 'Pasien sembuh');
+            data.addColumn('number', 'Pasien meninggal');
+            data.addColumn('number', 'Pasien positif');
+
+            data.addRows([
+                <?php if (isset($aRegion)) {
+                    foreach ($aRegion as $region) {
+                        echo '["' . tglIndo($region["lastUpdate"]) . '", ' . $region["recovered"] . ', ' . $region["deaths"] . ', ' . $region["confirmed"] . '],';
+                    }
+                }
+                //echo '["'.tglIndo($aRegion[2]["lastUpdate"]).'", '.$aRegion[2]["recovered"].', '.$aRegion[2]["deaths"].', '.$aRegion[2]["confirmed"].'],';
+                ?>
+            ]);
+
+            var formatter = new google.visualization.NumberFormat({pattern: '#,###',negativeParens: true});
+            formatter.format(data, 1);
+            formatter.format(data, 2);
+            formatter.format(data, 3);
+
+            var options = {
+                chart: {
+                    title: 'Data ini diambil dalam 20 hari terakhir'
+                },
+                height: 500,
+                axes: {
+                    x: {
+                        0: {side: 'bottom'}
+                    }
+                }
+            };
+
+            var chart = new google.charts.Line(document.getElementById('line_top_x'));
+
+            chart.draw(data, google.charts.Line.convertOptions(options));
+        }
+    </script>
+
 <body>
 <div class="container">
     <!-- feature_part start-->
@@ -159,17 +213,28 @@ $jumlah = count($data);
     </div>
 
     <div class="card mt-3 mb-3">
-        <div class="card-header text-white text-center bg-info">
-            Data Pasien terkonfirmasi positif Covid-19 Indonesia per-hari
-        </div>
         <div class="card-body">
-            <canvas id="covidchart" height="100"></canvas>
+            <!-- Area Chart -->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary text-center">Data Pasien Covid-19 Indonesia hari sebelumnya</h6>
+                </div>
+                <div class="card-body">
+                    <?php if (isset($aRegion)):?>
+                    <div class="chart-area">
+                        <div id="line_top_x"></div>
+                    </div>
+                    <?php endif;?>
+                    <hr>
+                </div>
+            </div>
+
         </div>
     </div>
 
 </div>
     <script src="<?=Yii::$app->request->baseUrl?>/js/Chart.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>
+<!--    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js" integrity="sha256-nZaxPHA2uAaquixjSDX19TmIlbRNCOrf5HO1oHl5p70=" crossorigin="anonymous"></script>-->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" crossorigin="anonymous"></script>
 </body>
 </html>
@@ -213,5 +278,6 @@ $jumlah = count($data);
             });
         }
 
-    })
+    });
+
 </script>

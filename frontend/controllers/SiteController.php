@@ -152,8 +152,68 @@ class SiteController extends Controller
         return $this->render('coronaglobal');
     }
 
-    public function actionCoronalokal(){
-        return $this->render('coronalokal');
+    public function actionCoronalokal($date = null){
+        function http_request($url){
+            //persiapkan CURL
+            $ch = curl_init();
+
+            //set URL
+            curl_setopt($ch, CURLOPT_URL, $url);
+
+            //aktifkan fungsi trans nilai
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+
+            //matikan SSL agar bisa diakses di localhost
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, 0);
+
+            //Akses nilainya dan tampung hasil
+            $output = curl_exec($ch);
+
+            //close
+            curl_close($ch);
+
+            return $output;
+        }
+        //Data di Indo per hari
+        $day = date('d');
+        $month = date('n');
+        $year = date('Y');
+        $index = 1;
+        $datum = [];
+        for ($d=$day-19; $d<=$day; $d++){
+            $hari = $d;
+            $bulan = $month;
+            $tahun = $year;
+            if ($hari<=0){
+                $bulan-=1;
+                if ($bulan<=0){
+                    $tahun-=1;
+                    $bulan = 12 + $bulan;
+                }
+                if (($bulan%2) != 0) //bulan ganjil
+                    $hari = 31 + $hari;
+                else
+                    $hari = 30 + $hari; //februari akan gagal
+            }
+            $region[$index] = http_request('https://covid19.mathdro.id/api/daily/'.$bulan.'-'.$hari.'-'.$tahun.'"');
+            $regions = json_decode($region[$index], TRUE);
+            foreach ($regions as $aRegion){
+                if ($aRegion["countryRegion"] === "Indonesia"){
+                    $datum[$index] = $aRegion;
+                }
+            }
+            $index++;
+        }
+
+        //ambil data provinsi
+                $data = http_request("https://api.kawalcorona.com/indonesia/provinsi/");
+        //ubah format JSON to array assoc
+                $data = json_decode($data, TRUE);
+        return $this->render('coronalokal', [
+            'data' => $data,
+            'aRegion' => $datum,
+        ]);
     }
 
     /**
