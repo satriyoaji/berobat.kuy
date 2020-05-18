@@ -1,0 +1,19 @@
+Dokter buat jadwal
+
+Pasien daftar/booking
+(pasien mencetak kwitansi dan dibawa saat periksa)
+
+dokter periksa
+berikan resep
+nota pemeriksaan tercetak
+
+kasir mengonfirmasi nota pemeriksaan tsb
+
+pasien bayar & lunasi resep
+nota resep tercetak
+
+apoteker membuat resep tsb
+
+pasien menuju kasir agar kasir meverifikasi
+
+pasien bisa mengambil obat
