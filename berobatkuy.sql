@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 18 Bulan Mei 2020 pada 10.37
+-- Waktu pembuatan: 19 Bulan Mei 2020 pada 12.12
 -- Versi server: 10.1.37-MariaDB
 -- Versi PHP: 7.3.0
 
@@ -188,9 +188,10 @@ CREATE TABLE `obat` (
 
 INSERT INTO `obat` (`obatID`, `obatNama`, `obatHarga`, `obatGolongan`, `obatFoto`, `obatDeskripsi`) VALUES
 (4, 'Paracetamol', 14000, 'sedang', 'paracetamol.jpg', 'obat yang dapat meredakan demam dan mengurangi rasa pusing'),
-(5, 'mixagrip', 8500, 'ringan', NULL, 'digunakan untuk meredakan pusing kepala'),
+(5, 'mixagrip', 8500, 'ringan', 'mixagrip.jpg', 'digunakan untuk meredakan pusing kepala'),
 (6, 'OBH Combi', 18000, 'sedang', 'obh.jpg', 'obat yang dapat mengurangi dahak dan batuk - batuk'),
-(7, 'Insto', 16000, 'ringan', '', 'obat untuk mengurangi nyeri mata dan keburaman');
+(7, 'Insto', 16000, 'ringan', 'insto.png', 'obat untuk mengurangi nyeri mata dan keburaman'),
+(8, 'rohto', 12500, 'sedang', 'rohto.png', 'obat untuk sterilisasi mata');
 
 -- --------------------------------------------------------
 
@@ -490,7 +491,7 @@ ALTER TABLE `nota`
 -- AUTO_INCREMENT untuk tabel `obat`
 --
 ALTER TABLE `obat`
-  MODIFY `obatID` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `obatID` int(15) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `pekerjaan`
