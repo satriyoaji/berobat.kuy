@@ -5,14 +5,20 @@ use yii\helpers\Url;
 use yii\db\Query;
 $this->title = 'Si Klinik';
 ?>
-<div class="comments-create">
-    <?php if (isset($model)) {
-        echo $this->render('cari', ['model' => $model]);
-    }
-    ?>
-<!--  HALAMAN INI TERHUBUNG DGN views/users/cari  -->
+<div class="container text-center">
+    <div class="col-xl-12 col-md-12 align-self-center">
+        <div class="single_feature_text ">
+            <h4><span><img src="../../assets/icon/kasir2.jpg" width="60%" alt=""></span></h4>
+        </div>
+    </div>
 </div>
-
+    <div class="comments-create">
+        <?php if (isset($model)) {
+            echo $this->render('cari', ['model' => $model]);
+        }
+        ?>
+    <!--  HALAMAN INI TERHUBUNG DGN views/users/cari  -->
+    </div>
         <?php 
         if(isset($_SESSION['cari'])){
         ?>
