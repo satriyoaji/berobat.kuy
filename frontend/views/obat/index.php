@@ -61,7 +61,6 @@ for ($i = 0; $i<$countQuery; $i++){
                         <?php $countObat = 0;
                         $obatQuery=(new Query())
                             ->from('obat')
-                            ->groupBy(['obatGolongan'])
                             ->where(['obatGolongan' => 'ringan'])
                             ->all();
                         foreach ($obatQuery as $obatQ){
@@ -74,7 +73,6 @@ for ($i = 0; $i<$countQuery; $i++){
                         <?php $countObat = 0;
                         $obatQuery=(new Query())
                             ->from('obat')
-                            ->groupBy(['obatGolongan'])
                             ->where(['obatGolongan' => 'sedang'])
                             ->all();
                         foreach ($obatQuery as $obatQ){
@@ -87,7 +85,6 @@ for ($i = 0; $i<$countQuery; $i++){
                         <?php $countObat = 0;
                         $obatQuery=(new Query())
                             ->from('obat')
-                            ->groupBy(['obatGolongan'])
                             ->where(['obatGolongan' => 'keras'])
                             ->all();
                         foreach ($obatQuery as $obatQ){
@@ -141,8 +138,9 @@ for ($i = 0; $i<$countQuery; $i++){
                     <div class="container">
                         <div class="row">
                             <?php if (isset($_SESSION['paid'])): ?>
-                                <div class="alert alert-success col-md-8" role="alert">
+                                <div class="alert alert-success col-md-12" role="alert">
                                     Pengambilan obat telah berhasil! silahkan di ambil pada loket apotek
+                                    atau bisa hubungi <a href="https://api.whatsapp.com/send?phone=6287754478760&text=halo&source=&data=" target="_blank"> kontak ini</a>
                                 </div>
                                 <?php unset($_SESSION['paid']);
                             endif; ?>
