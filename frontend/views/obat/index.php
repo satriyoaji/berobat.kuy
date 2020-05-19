@@ -173,11 +173,11 @@ for ($i = 0; $i<$countQuery; $i++){
 
                             <div class="col-lg-4 col-md-6 mb-4">
                                 <div class="card h-100">
-                                    <img  src="<?= '../../assets/img/'.$rows['obatFoto'];?>" class="card-img-top">
+                                    <img  src="<?= Yii::$app->request->baseUrl.'/img/obat/'.$rows['obatFoto'];?>" class="card-img-top">
                                     <div class="card-body">
                                         <h4 class="card-title">
                                         <h6><b><?= strtoupper($rows['obatNama']);?></b></h6>
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?php echo $rows['obatID']; ?>">detail obat</button>
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#<?= $rows['obatID']; ?>">detail obat</button>
                                         <?php if ($pendaftaranQuery == null){ ?>
                                             <p><?= Html::a('Buat Order', ['obat/index'], ['class' => 'btn btn-success','data' => [
                                                     'confirm' => ' maaf anda belum melakukan pendaftaran?',
@@ -204,7 +204,7 @@ for ($i = 0; $i<$countQuery; $i++){
                                 </div>
                             </div>
                             <!-- Modal -->
-                            <div class="modal fade" id="<?php echo $rows['obatID']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="<?= $rows['obatID']; ?>" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -216,7 +216,7 @@ for ($i = 0; $i<$countQuery; $i++){
                                         <div class="modal-body">
                                             <br>
                                             <div class="text-center">
-                                                <img  src="<?= '../../assets/img/'.$rows['obatFoto'];?>" class="card-img-top">
+                                                <img  src="<?= Yii::$app->request->baseUrl.'/img/obat/'.$rows['obatFoto'];?>" class="card-img-top">
                                             </div>
                                             <div class="row">
 

@@ -28,10 +28,11 @@ function tglIndo($time){ //dipecah ke dalam bentuk
             $year-=1;
             $month = 12 + $month;
         }
-        if (($month%2) != 0) //bulan ganjil
-            $d = 31 + $d;
-        else
-            $d = 30 + $d; //februari akan gagal
+        if (($month%2) != 0) { //bulan ganjil
+            $d += 31;
+        }else {
+            $d += 30; //februari akan gagal
+        }
     }
 
     return $d . ' ' . $bulan[ (int)$month ] ; //disini diberi (argumen tipe data index) karena jika hanya $pecahkan[2] akan menampilkan bulan dalam bentuk angka. dan jika angka tersebut dijadikan index array $bulan yang sudah dibuat maka akan dikonversi ke dalam isi array

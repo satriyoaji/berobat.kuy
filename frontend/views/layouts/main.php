@@ -67,7 +67,7 @@ foreach($userQuery->each() as $user){
             <div class="row align-items-center">
                 <div class="col-lg-12">
                     <nav class="navbar navbar-expand-lg navbar-light">
-                        <a class="navbar-brand" href="<?= Yii::$app->request->baseUrl?>"> <img src="<?= Yii::$app->getHomeUrl(); ?>../../assets/logo.png" alt="logo" class="img-responsive" width="200" height="55"> </a>
+                        <a class="navbar-brand" href="<?= Yii::$app->request->baseUrl?>"> <img src="<?= Yii::$app->getHomeUrl(); ?>../../assets/logo2.png" alt="logo" class="img-responsive" width="200" height="55"> </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse"
                                 data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                                 aria-expanded="false" aria-label="Toggle navigation">
@@ -95,17 +95,15 @@ foreach($userQuery->each() as $user){
                                         <li class="nav-item">
                                             <?= Html::a('Pembayaran', ['nota/index', 'id'=>Yii::$app->user->id], ['class' => 'dropdown-item']) ?>
                                         </li>
-                                    <?php } ?>
-
+                                    <?php }
+                                    ?>
                                     <li class="nav-item dropdown">
                                         <button class="btn btn-outline-light dropdown-toggle" type="button" id="navbarDropdown_1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                             <!--          <img src= alt="Avatar" style="border-radius: 50%; width: 50px;border-style: ridge;">-->
                                             <?php if (!isset($fotoProfil)):?>
-                                                <img src="<?php if(Yii::$app->request->pathInfo == "") {echo '..';}
-                                                else {echo '../..';}?>/assets/img/profil.png" alt="Avatar" class="img-profile" style="">
+                                                <img src="<?=Yii::$app->request->baseUrl?>/img/user/profil.png" alt="Avatar" class="img-profile" style="">
                                             <?php else:?>
-                                                <img src="<?php if(Yii::$app->request->scriptUrl == "/siklinik/frontend/web/index.php") {echo '..';}
-                                                else {echo '../..';}?>/assets/img/user/<?= $fotoProfil; ?>" alt="Avatar" class="img-profile" style="">
+                                                <img src="<?=Yii::$app->request->baseUrl?>/img/user/<?= $fotoProfil; ?>" alt="Avatar" class="img-profile" style="">
                                             <?php endif;?>
                                         </button>
 <!--                                        <a class="nav-link dropdown-toggle" href="blog.html" id="navbarDropdown_1"-->

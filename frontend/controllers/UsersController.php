@@ -176,9 +176,10 @@ class UsersController extends Controller
         if ($model->load(Yii::$app->request->post())) {
             if(isset($model->userFoto)){
                 $model->userFoto = UploadedFile::getInstance($model, 'userFoto');
-                $model->userFoto->saveAs('gambar/' .$model->userFoto->baseName. '.' .$model->userFoto->extension);
+                $photo = $model->userFoto->baseName. '.' .$model->userFoto->extension;
+                $model->userFoto->saveAs(Yii::getAlias('@frontend/web/img/user/') .$photo);
                 //save to database
-                $model->userFoto = $model->userFoto->baseName. '.' .$model->userFoto->extension;
+                Yii::$app->db->createCommand()->update('users', ['userFoto' => $photo], ['userId' => $model->userId])->execute();
             
             }
             $model->save();

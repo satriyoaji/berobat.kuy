@@ -15,6 +15,7 @@ use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
 use yii\Helpers\ArrayHelper;
 use yii\data\SqlDataProvider;
+use yii\web\UploadedFile;
 
 /**
  * ObatController implements the CRUD actions for Obat model.
@@ -122,7 +123,16 @@ class ObatController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+
+            //upload file
+            $model->obatFoto = UploadedFile::getInstance($model, 'obatFoto');
+            $photo = $model->obatFoto->baseName. '.' .$model->obatFoto->extension;
+            $model->obatFoto->saveAs(Yii::getAlias('@frontend/web/img/obat/') .$photo);
+            //save to database
+            Yii::$app->db->createCommand()->update('obat', ['obatFoto' => $photo], ['obatId' => $model->obatID])->execute();
+            //$model->save();
+
             return $this->redirect(['view', 'id' => $model->obatID]);
         }
 
