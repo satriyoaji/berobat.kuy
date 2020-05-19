@@ -33,11 +33,9 @@ if(!isset($_SESSION['userCategory'])){
                 <div class="col-lg-6 col-xl-6">
                     <div class="banner_text">
                         <div class="banner_text_iner">
-                            <h1>Bringing the future
-                                of healthcare</h1>
-                            <p>Deep created replenish herb without night fruit day earth evening Called his
-                                green were they're fruitful to over Sea bearing sixth Earth face. Them lesser
-                                great you'll second </p>
+                            <h1>Kesehatan Anda, prioritas kami</h1>
+                            <p><strong>Berobat.kuy</strong> memiliki tujuan utama untuk member perhatan dalam dunia kesehatan</p>
+                            <p>Kami memiliki banyak tenaga kesehatan yang proffesional dan farmasi agar menjaga kualitas baik dari jasa kami</p>
 
                             <!--  modal  -->
                             <button type="button" class="btn_2" data-toggle="modal" data-target="#projectOwnerTeam">
@@ -152,7 +150,7 @@ if(!isset($_SESSION['userCategory'])){
                 <div class="col-md-6 col-lg-5">
                     <div class="our_ability_member_text">
                         <h2>Covid-19 real-time data</h2>
-                        <p>SARS nCoV-2 is a global known as a seriously pandemic all around the world</p>
+                        <p>SARS nCoV-2 merupakan pandemi di suruh dunia. Namun segala informasinya bisa Anda dapatkan di sini secara real-time</p>
                         <ul>
                             <li><a href="<?=Url::to('site/coronaglobal')?>"><span class="ti-flag"></span>Global</a></li>
                             <li><a href="site/coronalokal"><span class="ti-face-sad"></span>Indonesia</a></li>
@@ -170,13 +168,8 @@ if(!isset($_SESSION['userCategory'])){
             <div class="row justify-content-between align-items-center">
                 <div class="col-md-5 col-lg-5">
                     <div class="our_ability_member_text">
-                        <h2>We Analyse Your
-                            Health States In Order
-                            To Top Service</h2>
-                        <p>Kind lesser bring said midst they're created signs made the beginni years
-                            created Beast upon whales herb seas evening she'd day green dominion
-                            evening in moved have fifth in won't in darkness fruitful god behold
-                            whos without bring created creature.</p>
+                        <h2>Kami Menganalisa Tingkat Kesehatan Pasien Sebaik-baiknya</h2>
+                        <p>Dalam pelayanan jasa kesehatan yang kami tawarkan, kami menggunakan teknologi di bidang kesehatan yang terbarukan</p>
                         <a href="#" class="btn_2">read more</a>
                     </div>
                 </div>
@@ -238,7 +231,7 @@ if(!isset($_SESSION['userCategory'])){
                 <div class="col-lg-7 col-md-6">
                     <div class="regervation_part_iner">
                         <form>
-                            <h2>Make a review</h2>
+                            <h2>Beri review</h2>
                             <div class="form-row">
                                 <div class="form-group col-md-6">
                                     <input type="email" class="form-control" id="inputEmail4" placeholder="Name">
